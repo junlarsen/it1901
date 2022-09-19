@@ -1,0 +1,10 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: sdk use java 19.ea.36-open
+    command: cd cardsnap; mvn compile
+
+ports:
+  # used by virtual desktop and vnc, supports JavaFX
+  - port: 6080

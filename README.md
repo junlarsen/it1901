@@ -1,14 +1,12 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2217/gr2217)
 
-# CardSnap
+# IT1901 Fall 2022 GR2217
 
-> IT1901 Fall 2022 GR2217
+The Java project is found in the `cardsnap` directory.
 
 ## About The Project
 
-![Temporary image](https://github.com/othneildrew/Best-README-Template/raw/master/images/screenshot.png)
-
-CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️
+CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️ You can read more about the application [here](/cardsnap/README.md).
 
 ### Built With
 

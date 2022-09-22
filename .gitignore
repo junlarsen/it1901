@@ -4,3 +4,4 @@ target/
 .classpath
 org.eclipse.*.prefs
 .idea/
+cardsnap.txt

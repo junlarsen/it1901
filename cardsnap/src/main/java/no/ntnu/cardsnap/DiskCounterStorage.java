@@ -38,7 +38,8 @@ public class DiskCounterStorage implements AbstractCounterStorage {
         File file = getStoragePath().toFile();
         if (!file.exists()) {
             if (!file.createNewFile()) {
-                throw new IOException("failed to create file at path " + file);
+                if (!file.getParentFile().mkdirs() || !file.createNewFile())
+                    throw new IOException("failed to create file at path " + file);
             }
         }
 

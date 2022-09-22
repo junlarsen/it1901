@@ -37,7 +37,7 @@ public class DiskCounterStorage implements AbstractCounterStorage {
     public void store(Counter counter) throws IOException {
         File file = getStoragePath().toFile();
         if (!file.exists()) {
-            if (!file.createNewFile()) {
+            if (!file.getParentFile().mkdirs() || !file.createNewFile()) {
                 throw new IOException("failed to create file at path " + file);
             }
         }

@@ -52,8 +52,11 @@ public class DiskCounterStorage implements AbstractCounterStorage {
     @Override
     public Counter load() throws IOException {
         File file = getStoragePath().toFile();
-        if (!file.exists() || !file.isFile() || !file.canRead()) {
-            throw new IOException("path does not exist, or is not a file, or is not readable");
+        if (!file.exists()) {
+            store(new Counter(0));
+        }
+        if (!file.isFile() || !file.canRead()) {
+            throw new IOException("file is not a file, or is not readable");
         }
 
         String value = Files.readString(getStoragePath(), StandardCharsets.UTF_8);

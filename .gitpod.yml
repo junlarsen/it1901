@@ -2,7 +2,7 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - init: sdk use java 19.ea.36-open
+  - init: sdk use java 18.0.1-open
     command: cd cardsnap; mvn compile
 
 ports:

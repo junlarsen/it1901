@@ -1,6 +1,6 @@
 # CardSnap
 
-CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️ You can read more about the application [here](/cardsnap/README.md).
+CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️
 
 ![Temporary image](https://github.com/othneildrew/Best-README-Template/raw/master/images/screenshot.png)
 

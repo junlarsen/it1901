@@ -7,5 +7,5 @@ RUN sudo apt-get update && sudo apt-get install -y matchbox && sudo apt-get clea
 USER gitpod
 
 RUN bash -c ". /home/gitpod/.sdkman/bin/sdkman-init.sh \
-             && sdk install java 19.ea.36-open \
-             && sdk default java 19.ea.36-open"
+             && sdk install java 18.0.1-open \
+             && sdk default java 18.0.1-open"

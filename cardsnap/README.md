@@ -2,7 +2,9 @@
 
 CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️
 
-![Temporary image](https://github.com/othneildrew/Best-README-Template/raw/master/images/screenshot.png)
+![App Counter](https://i.imgur.com/WouUvv8.png)
+
+> Screenshot from our first release. This release contains a boilerplate for our application.
 
 ## User Story 1
 

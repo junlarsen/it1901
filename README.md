@@ -44,7 +44,7 @@ mvn test
 **Running**
 
 ```
-mvn javafx:run
+mvn javafx:run -f view/pom.xml
 ```
 
 ## Authors

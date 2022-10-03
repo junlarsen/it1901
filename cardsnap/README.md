@@ -1,6 +1,7 @@
 # CardSnap
 
-CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️
+CardSnap lets you accelerate your learning by providing an easy way to create
+and practice using flash cards. ⚡️
 
 ![App Counter](https://i.imgur.com/taUqb0M.png)
 

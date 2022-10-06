@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * Implementation of {@link AbstractCounterStorage} that stores the
  * counter state onto disk.
@@ -18,6 +21,11 @@ public class DiskCounterStorage implements AbstractCounterStorage {
      * File path where the file will be read/written from
      */
     private final String path;
+
+    /**
+     * Gson instance used for serialization/deserialization
+     */
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * Create a DiskCounterStorage with a given path
@@ -60,8 +68,8 @@ public class DiskCounterStorage implements AbstractCounterStorage {
         if (!file.isFile() || !file.canWrite()) {
             throw new IOException("path is not a file, or it is not writable");
         }
-
-        Files.writeString(getStoragePath(), String.valueOf(counter.getValue()), StandardCharsets.UTF_8);
+        
+        writeCounterJson(counter);
     }
 
     @Override
@@ -74,11 +82,34 @@ public class DiskCounterStorage implements AbstractCounterStorage {
             throw new IOException("file is not a file, or is not readable");
         }
 
-        String value = Files.readString(getStoragePath(), StandardCharsets.UTF_8);
-        return new Counter(Integer.parseInt(value));
+        return readCounterJson(); 
     }
 
+    /**
+     * Write the counter state to the configured path on disk
+     * 
+     * @param counter
+     * @throws IOException
+     */
+    private void writeCounterJson(Counter counter) throws IOException { 
+        Files.write(getStoragePath(), gson.toJson(counter).getBytes(StandardCharsets.UTF_8));
+    }  
+    
+    /**
+     * Read the counter state from the configured path on disk
+     * 
+     * @return
+     * @throws IOException
+     */
+    private Counter readCounterJson() throws IOException {
+        String jsonString = Files.readString(getStoragePath(), StandardCharsets.UTF_8);
+
+        Counter counter = gson.fromJson(jsonString, Counter.class);  
+        
+        return counter;
+    } 
+
     private Path getStoragePath() {
-        return Paths.get(path, "cardsnap.txt");
+        return Paths.get(path, "cardsnap.json");
     }
 }

@@ -5,5 +5,5 @@ target/
 org.eclipse.*.prefs
 .idea/
 *.iml
-cardsnap.txt
+cardsnap.json
 .DS_Store

@@ -6,3 +6,4 @@ org.eclipse.*.prefs
 .idea/
 *.iml
 cardsnap.txt
+.DS_Store

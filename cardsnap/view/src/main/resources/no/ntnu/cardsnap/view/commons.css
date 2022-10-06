@@ -1,0 +1,15 @@
+.contentView {
+    -fx-hgap: 20px;
+    -fx-padding: 40px;
+
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 50px;
+
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.274), 0.5, 0, 3, 5);
+}
+
+Text {
+    -fx-font-smoothing-type: lcd;
+    -fx-fill: black;
+    -fx-font-family: "Andale Mono";
+}

@@ -59,6 +59,13 @@
                   <String fx:value="pressButton" />
                </styleClass>
             </Button>
+            <Button fx:id="nextPage" layoutX="410.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleNextPage" prefHeight="26.0" prefWidth="76.0" styleClass="myButton" text="--&gt;">
+               <stylesheets>
+                  <URL value="@commons.css" />
+                  <URL value="@button.css" />
+               </stylesheets>
+            </Button>
+            <Button fx:id="prevPage" layoutX="128.0" layoutY="357.0" mnemonicParsing="false" onAction="#handlePrevPage" prefHeight="26.0" prefWidth="76.0" styleClass="myButton" text="&lt;--" />
          </children>
       </Pane>
    </children>

@@ -18,7 +18,7 @@ public class Controller {
     private GridPane deckList;
 
     @FXML
-    private Button newDeck;
+    private Button newDeck, prevPage, nextPage;
 
     private int cardDeckStartIndex;
 
@@ -27,7 +27,8 @@ public class Controller {
     @FXML
     private void initialize() {
         loadCardDecks();
-        updateList();
+        updateDecklist();
+        stylePageButtons();
     }
 
     /**
@@ -37,6 +38,8 @@ public class Controller {
     private void loadCardDecks() {
         cardDecks = new ArrayList<>();
 
+        // TODO delete all this testdata later
+
         Set<Card> cards = new HashSet<>();
         cards.add(new Card("Question1", "Answer1"));
         cards.add(new Card("Question2", "Answer2"));
@@ -45,11 +48,29 @@ public class Controller {
         cards2.add(new Card("Question1a", "Answer1a"));
         cards2.add(new Card("Question2a", "Answer2a"));
 
+        Set<Card> cards3 = new HashSet<>();
+        cards3.add(new Card("Question1b", "Answer1b"));
+        cards3.add(new Card("Question2b", "Answer2b"));
+
+        Set<Card> cards4 = new HashSet<>();
+        cards4.add(new Card("Question1c", "Answer1c"));
+        cards4.add(new Card("Question2c", "Answer2c"));
+
+        Set<Card> cards5 = new HashSet<>();
+        cards5.add(new Card("Question1d", "Answer1d"));
+        cards5.add(new Card("Question2d", "Answer2d"));
+
         CardDeck tmp = new CardDeck(cards, "TestDeck");
         CardDeck tmp2 = new CardDeck(cards2, "TestDeck2");
+        CardDeck tmp3 = new CardDeck(cards2, "TestDeck3");
+        CardDeck tmp4 = new CardDeck(cards2, "TestDeck4");
+        CardDeck tmp5 = new CardDeck(cards2, "TestDeck5");
 
         cardDecks.add(tmp);
         cardDecks.add(tmp2);
+        cardDecks.add(tmp3);
+        cardDecks.add(tmp4);
+        cardDecks.add(tmp5);
 
     }
 
@@ -59,22 +80,62 @@ public class Controller {
     }
 
     /**
-     * Updates list of carddecks. Display four decks at a time with data about each
-     * deck
+     * Adds 4 to cardDecksStartIndex if there is enough elements in list. Calls on
+     * updateDeckList() to update the content of the list
      */
-    private void updateList() {
+    @FXML
+    private void handleNextPage() {
+        if (cardDeckStartIndex < cardDecks.size()) {
+            cardDeckStartIndex += 4;
+            updateDecklist();
+        }
+        stylePageButtons();
+    }
+
+    /**
+     * Reduces cardDeckStartIndex by 4 if the index is greater than 4. Calls on
+     * updateDeckList() to update the content of the list.
+     */
+    @FXML
+    private void handlePrevPage() {
+        if (cardDeckStartIndex >= 4) {
+            cardDeckStartIndex -= 4;
+            updateDecklist();
+        }
+        stylePageButtons();
+    }
+
+    /**
+     * Calcultes if next/page buttons should be enabled and sets disability on the
+     * buttons.
+     */
+    private void stylePageButtons() {
+        boolean next = cardDeckStartIndex + 4 < cardDecks.size();
+        boolean prev = cardDeckStartIndex >= 4;
+
+        nextPage.setDisable(!next);
+        prevPage.setDisable(!prev);
+
+    }
+
+    /**
+     * Updates list of carddecks. Calculates endIndex. Clears list if it has
+     * content. Displays four decks at a time with data about each deck
+     */
+    private void updateDecklist() {
+
+        deckList.getChildren().clear();
 
         int endIndex = cardDeckStartIndex + 4;
-
         if (endIndex > cardDecks.size()) // Sets index to last element in list if size is less than index
             endIndex = cardDecks.size();
 
         for (int i = cardDeckStartIndex; i < endIndex; i++) {
-            deckList.add(new Text(cardDecks.get(i).getName()), 0, i);
-            deckList.add(new Text(cardDecks.get(i).getCards().size() + " cards"), 1, i);
-            deckList.add(createButton("Play", cardDecks.get(i)), 2, i);
-
-            deckList.add(createButton("+", cardDecks.get(i)), 3, i);
+            int rowI = i % 4;
+            deckList.add(new Text(cardDecks.get(i).getName()), 0, rowI);
+            deckList.add(new Text(cardDecks.get(i).getCards().size() + " cards"), 1, rowI);
+            deckList.add(createButton("Play", cardDecks.get(i)), 2, rowI);
+            deckList.add(createButton("+", cardDecks.get(i)), 3, rowI);
         }
 
     }

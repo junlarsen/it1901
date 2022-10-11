@@ -29,16 +29,18 @@ Start by navigating to the `cardsnap` directory:
 cd cardsnap
 ```
 
-**Compiling**
+**Compiling & installing modules**
 
 ```bash
 mvn compile
+mvn install
 ```
 
-**Running tests**
+**Running tests & generating reports**
 
 ```bash
 mvn test
+mvn site
 ```
 
 **Running**

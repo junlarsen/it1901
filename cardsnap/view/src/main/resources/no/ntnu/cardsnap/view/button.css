@@ -22,8 +22,20 @@
     -fx-text-size: 30px;
 }
 
+.createCardButtons {
+    -fx-background-color: #051094;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Andale Mono";
+    -fx-min-width: 120;
+}
+
 .pressButton:hover {
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 0, 0, 10, 10);
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.15), 100, 100, 0, 0);
+}
+
+.inputTextField {
+    -fx-min-width: 120px;
+    -fx-pref-width: 120px;
 }

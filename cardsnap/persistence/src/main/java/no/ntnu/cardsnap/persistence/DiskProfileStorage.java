@@ -34,6 +34,7 @@ public class DiskProfileStorage implements AbstractProfileStorage {
      */
     public DiskProfileStorage(String path) {
         this.path = path;
+        System.out.println("info: initialized DiskProfileStorage in directory " + path);
     }
 
     /**
@@ -42,7 +43,7 @@ public class DiskProfileStorage implements AbstractProfileStorage {
      * @param path The root path to use
      */
     public DiskProfileStorage(Path path) {
-        this(path.toString());
+        this(path.toAbsolutePath().toString());
     }
 
     /**

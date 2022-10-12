@@ -1,6 +1,7 @@
 package no.ntnu.cardsnap.domain;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -28,10 +29,15 @@ public class CardDeck {
      * @param name  A textual name for the deck
      */
     public CardDeck(Set<Card> cards, String name) {
-        this.cards = cards;
+        this.cards = new HashSet<>(cards);
         this.name = name;
     }
 
+    /**
+     * Create a new Card Deck
+     *
+     * @param name A textual name for the deck
+     */
     public CardDeck(String name) {
         this(new HashSet<>(), name);
     }
@@ -52,7 +58,7 @@ public class CardDeck {
     }
 
     public Set<Card> getCards() {
-        return cards;
+        return new HashSet<>(cards);
     }
 
     public String getName() {
@@ -61,5 +67,23 @@ public class CardDeck {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof CardDeck deck)) {
+            return false;
+        }
+        return name.equals(deck.name) &&
+            getCards().containsAll(deck.getCards()) &&
+            deck.getCards().containsAll(getCards());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cards, name);
     }
 }

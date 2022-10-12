@@ -8,10 +8,9 @@ import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import no.ntnu.cardsnap.domain.Card;
@@ -27,14 +26,16 @@ public class Controller {
 
     @FXML
     private Text subtitle, cardDeckName;
-    
+
     private int cardDeckStartIndex;
 
     private List<CardDeck> cardDecks;
 
-    private TextField inputCardDeckName;
+    private TextField inputCardDeckName, question, answer;
 
     private Button addCardDeckButton;
+
+    private int deckListRowCount = 4;
 
     @FXML
     private void initialize() {
@@ -87,19 +88,20 @@ public class Controller {
     }
 
     /**
-     * Method for "Create new deck" button. Creates new view with input field and button
-     * for new card deck, validation, and adds card deck to all carddecks. 
+     * Method for "Create new deck" button. Creates new view with input field and
+     * button
+     * for new card deck, validation, and adds card deck to all carddecks.
      */
     @FXML
     private void createDeck() {
-        deckList.getChildren().remove(0,deckList.getChildren().size());
-        subtitle.setText("Create new deck:");
+        clearDeckList();
         addNewCardDeckfields();
         addCardDeckAddButton();
+        subtitle.setText("Create new deck:");
     }
 
     /**
-     * Creates input field for new card deck name 
+     * Creates input field for new card deck name
      */
     private void addNewCardDeckfields() {
         deckList.add(new Text("Name"), 0, 0);
@@ -124,33 +126,27 @@ public class Controller {
      * updates the view including the new card deck
      */
     private void handleAddDeck() {
+        // TODO this validation should be moved into domain
         List<String> cardDeckNames = cardDecks.stream().map(deck -> deck.getName()).collect(Collectors.toList());
         if (cardDeckNames.contains(inputCardDeckName.getText())) {
-            Alert a = new Alert(AlertType.NONE);
-            a.setContentText("Card deck already exists");
-            a.setAlertType(AlertType.WARNING);
-            a.show();
-        }
-        else if (inputCardDeckName.getText().isBlank()){
-            Alert a = new Alert(AlertType.NONE);
-            a.setContentText("Card deck name is empty");
-            a.setAlertType(AlertType.WARNING);
-            a.show();
-        }
-        else {
+            displayAlert("Card deck already exists");
+        } else if (inputCardDeckName.getText().isBlank()) {
+            displayAlert("Card deck name is empty");
+        } else {
             cardDecks.add(new CardDeck(inputCardDeckName.getText()));
             updateDecklist();
         }
     }
 
     /**
-     * Adds 4 to cardDecksStartIndex if there is enough elements in list. Calls on
+     * Adds cards to cardDecksStartIndex if there is enough elements in list. Calls
+     * on
      * updateDeckList() to update the content of the list
      */
     @FXML
     private void handleNextPage() {
         if (cardDeckStartIndex < cardDecks.size()) {
-            cardDeckStartIndex += 4;
+            cardDeckStartIndex += deckListRowCount;
             updateDecklist();
         }
         stylePageButtons();
@@ -162,8 +158,8 @@ public class Controller {
      */
     @FXML
     private void handlePrevPage() {
-        if (cardDeckStartIndex >= 4) {
-            cardDeckStartIndex -= 4;
+        if (cardDeckStartIndex >= deckListRowCount) {
+            cardDeckStartIndex -= deckListRowCount;
             updateDecklist();
         }
         stylePageButtons();
@@ -174,8 +170,8 @@ public class Controller {
      * buttons.
      */
     private void stylePageButtons() {
-        boolean next = cardDeckStartIndex + 4 < cardDecks.size();
-        boolean prev = cardDeckStartIndex >= 4;
+        boolean next = cardDeckStartIndex + deckListRowCount < cardDecks.size();
+        boolean prev = cardDeckStartIndex >= deckListRowCount;
 
         nextPage.setDisable(!next);
         prevPage.setDisable(!prev);
@@ -187,14 +183,15 @@ public class Controller {
      */
     private void updateDecklist() {
 
-        deckList.getChildren().clear();
+        clearDeckList();
+        subtitle.setText("Your decks:");
 
-        int endIndex = cardDeckStartIndex + 4;
+        int endIndex = cardDeckStartIndex + deckListRowCount;
         if (endIndex > cardDecks.size()) // Sets index to last element in list if size is less than index
             endIndex = cardDecks.size();
 
         for (int i = cardDeckStartIndex; i < endIndex; i++) {
-            int rowI = i % 4;
+            int rowI = i % deckListRowCount;
             deckList.add(new Text(cardDecks.get(i).getName()), 0, rowI);
             deckList.add(new Text(cardDecks.get(i).getCards().size() + " cards"), 1, rowI);
             deckList.add(createButton("Play", cardDecks.get(i)), 2, rowI);
@@ -213,7 +210,6 @@ public class Controller {
         if (text.equals("Play")) {
             res.getStyleClass().add("playButton");
             res.setOnAction((event) -> handlePlayDeck(cardDeck));
-
         } else if (text.equals("+")) {
             res.getStyleClass().add("addCardButton");
             res.setOnAction((event) -> handleAddCard(cardDeck));
@@ -226,14 +222,119 @@ public class Controller {
      * Method to display view to add a new card to deck
      */
     private void handleAddCard(CardDeck cardDeck) {
-        // TODO change view to display add card
+        clearDeckList();
+        createAddCardLabels();
+        createAddCardFields();
+        createAddCardButton(cardDeck);
+        createFinishedButton();
+        setButtonVisibility(false);
+        subtitle.setText("Add card to deck:");
+    }
+
+    /**
+     * Clears all nodes in deckList
+     */
+    private void clearDeckList() {
+        deckList.getChildren().remove(0, deckList.getChildren().size());
+    }
+
+    /**
+     * Creates two text-labels to belong to inputfields
+     */
+    private void createAddCardLabels() {
+        deckList.add(new Text("Question:"), 0, 0);
+        deckList.add(new Text("Answer:"), 0, 1);
+    }
+
+    /**
+     * Creates two text-inputs for user input. Adds styleclass for css-usage
+     */
+    private void createAddCardFields() {
+        question = new TextField();
+        question.getStyleClass().add("inputTextField");
+        deckList.add(question, 1, 0);
+
+        answer = new TextField();
+        question.getStyleClass().add("inputTextField");
+        deckList.add(answer, 1, 1);
+    }
+
+    /**
+     * Creates a button that later is used to add a card to the correct carddeck.
+     * 
+     * @param cardDeck CardDeck with 0 or many cards
+     */
+    private void createAddCardButton(CardDeck cardDeck) {
+        Button b = new Button("Add question");
+        b.getStyleClass().add("createCardButtons");
+        b.getStyleClass().add("pressButton");
+        b.setOnAction((e) -> addCard(cardDeck));
+        deckList.add(b, 1, 2);
+    }
+
+    /**
+     * Creates a button that takes user back to landing page
+     */
+    private void createFinishedButton() {
+        Button b = new Button("Finished");
+        b.getStyleClass().add("createCardButtons");
+        b.getStyleClass().add("pressButton");
+        b.setOnAction((e) -> handleAddCardFinished());
+        deckList.add(b, 1, 3);
+    }
+
+    /**
+     * Clears grid and sets visibility on footer-buttons
+     */
+    private void handleAddCardFinished() {
+        updateDecklist();
+        setButtonVisibility(true);
+    }
+
+    /**
+     * Adds a card to the given carddeck, or displays warning popup if vanlues is
+     * invalid
+     * 
+     * @param cardDeck CardDeck to get cards
+     */
+    private void addCard(CardDeck cardDeck) {
+        try {
+            cardDeck.add(new Card(question.getText(), answer.getText()));
+            question.setText(null);
+            answer.setText(null);
+        } catch (IllegalArgumentException e) {
+            displayAlert(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * Creates and sets message for a warning pop-up
+     * 
+     * @param messsage String message
+     */
+    private void displayAlert(String messsage) {
+        Alert a = new Alert(AlertType.NONE);
+        a.setContentText(messsage);
+        a.setAlertType(AlertType.WARNING);
+        a.show();
+    }
+
+    /**
+     * Sets visibility on buttons depending on given boolean
+     * 
+     * @param visible boolean, true = visible buttons
+     */
+    private void setButtonVisibility(boolean visible) {
+        newDeck.setVisible(visible);
+        nextPage.setVisible(visible);
+        prevPage.setVisible(visible);
     }
 
     /**
      * Method to display view to add a new deck of cards
      */
     private void handlePlayDeck(CardDeck cardDeck) {
-        // TODO change view to display create deck
+        displayAlert("This functionality is not been implemented yet");
     }
 
 }

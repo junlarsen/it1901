@@ -1,11 +1,5 @@
 package no.ntnu.cardsnap.view;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -13,10 +7,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import no.ntnu.cardsnap.domain.Card;
+import no.ntnu.cardsnap.core.ProfileService;
 import no.ntnu.cardsnap.domain.CardDeck;
+import no.ntnu.cardsnap.domain.Profile;
+import no.ntnu.cardsnap.persistence.DiskProfileStorage;
+
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
+    /**
+     * {@link ProfileService} implementation for domain logic
+     */
+    private final ProfileService profileService = new ProfileService(
+            new DiskProfileStorage(Path.of("storage")));
+
+    /**
+     * The currently loaded profile
+     */
+    private Profile profile;
 
     @FXML
     private GridPane deckList;
@@ -25,66 +35,18 @@ public class Controller {
     private Button newDeck, prevPage, nextPage;
 
     @FXML
-    private Text subtitle, cardDeckName;
+    private Text subtitle;
 
-    private int cardDeckStartIndex;
-
-    private List<CardDeck> cardDecks;
-
+    @FXML
     private TextField inputCardDeckName, question, answer;
 
-    private Button addCardDeckButton;
-
-    private int deckListRowCount = 4;
+    private final Pagination<CardDeck> pagination = new Pagination<>(new ArrayList<>(), 4);
 
     @FXML
     private void initialize() {
-        loadCardDecks();
+        profile = profileService.load();
         updateDecklist();
         stylePageButtons();
-    }
-
-    /**
-     * Adds card-decks to cardDecks
-     * TODO load carddecks from storage and add all to cardDecks
-     */
-    private void loadCardDecks() {
-        cardDecks = new ArrayList<>();
-
-        // TODO delete all this testdata later
-
-        Set<Card> cards = new HashSet<>();
-        cards.add(new Card("Question1", "Answer1"));
-        cards.add(new Card("Question2", "Answer2"));
-
-        Set<Card> cards2 = new HashSet<>();
-        cards2.add(new Card("Question1a", "Answer1a"));
-        cards2.add(new Card("Question2a", "Answer2a"));
-
-        Set<Card> cards3 = new HashSet<>();
-        cards3.add(new Card("Question1b", "Answer1b"));
-        cards3.add(new Card("Question2b", "Answer2b"));
-
-        Set<Card> cards4 = new HashSet<>();
-        cards4.add(new Card("Question1c", "Answer1c"));
-        cards4.add(new Card("Question2c", "Answer2c"));
-
-        Set<Card> cards5 = new HashSet<>();
-        cards5.add(new Card("Question1d", "Answer1d"));
-        cards5.add(new Card("Question2d", "Answer2d"));
-
-        CardDeck tmp = new CardDeck(cards, "TestDeck");
-        CardDeck tmp2 = new CardDeck(cards2, "TestDeck2");
-        CardDeck tmp3 = new CardDeck(cards2, "TestDeck3");
-        CardDeck tmp4 = new CardDeck(cards2, "TestDeck4");
-        CardDeck tmp5 = new CardDeck(cards2, "TestDeck5");
-
-        cardDecks.add(tmp);
-        cardDecks.add(tmp2);
-        cardDecks.add(tmp3);
-        cardDecks.add(tmp4);
-        cardDecks.add(tmp5);
-
     }
 
     /**
@@ -113,7 +75,7 @@ public class Controller {
      * Creates button for adding the new card deck.
      */
     private void addCardDeckAddButton() {
-        addCardDeckButton = new Button("Add");
+        Button addCardDeckButton = new Button("Add");
         addCardDeckButton.getStyleClass().add("myButton");
         addCardDeckButton.getStyleClass().add("pressButton");
         addCardDeckButton.setOnAction((event) -> handleAddDeck());
@@ -126,15 +88,16 @@ public class Controller {
      * updates the view including the new card deck
      */
     private void handleAddDeck() {
-        // TODO this validation should be moved into domain
-        List<String> cardDeckNames = cardDecks.stream().map(deck -> deck.getName()).collect(Collectors.toList());
-        if (cardDeckNames.contains(inputCardDeckName.getText())) {
-            displayAlert("Card deck already exists");
-        } else if (inputCardDeckName.getText().isBlank()) {
-            displayAlert("Card deck name is empty");
-        } else {
-            cardDecks.add(new CardDeck(inputCardDeckName.getText()));
+        if (inputCardDeckName.getText().isBlank()) {
+            displayAlert("Card deck name cannot be empty");
+            return;
+        }
+        try {
+            profileService.create(profile, inputCardDeckName.getText());
+            inputCardDeckName.clear();
             updateDecklist();
+        } catch (IllegalArgumentException e) {
+            displayAlert(e.getLocalizedMessage());
         }
     }
 
@@ -145,10 +108,8 @@ public class Controller {
      */
     @FXML
     private void handleNextPage() {
-        if (cardDeckStartIndex < cardDecks.size()) {
-            cardDeckStartIndex += deckListRowCount;
-            updateDecklist();
-        }
+        pagination.next();
+        updateDecklist();
         stylePageButtons();
     }
 
@@ -158,10 +119,8 @@ public class Controller {
      */
     @FXML
     private void handlePrevPage() {
-        if (cardDeckStartIndex >= deckListRowCount) {
-            cardDeckStartIndex -= deckListRowCount;
-            updateDecklist();
-        }
+        pagination.previous();
+        updateDecklist();
         stylePageButtons();
     }
 
@@ -170,11 +129,8 @@ public class Controller {
      * buttons.
      */
     private void stylePageButtons() {
-        boolean next = cardDeckStartIndex + deckListRowCount < cardDecks.size();
-        boolean prev = cardDeckStartIndex >= deckListRowCount;
-
-        nextPage.setDisable(!next);
-        prevPage.setDisable(!prev);
+        nextPage.setDisable(!pagination.hasNext());
+        prevPage.setDisable(!pagination.hasPrevious());
     }
 
     /**
@@ -182,27 +138,23 @@ public class Controller {
      * content. Displays four decks at a time with data about each deck
      */
     private void updateDecklist() {
-
+        pagination.setItems(profile.getDecks().stream().toList());
         clearDeckList();
         subtitle.setText("Your decks:");
 
-        int endIndex = cardDeckStartIndex + deckListRowCount;
-        if (endIndex > cardDecks.size()) // Sets index to last element in list if size is less than index
-            endIndex = cardDecks.size();
-
-        for (int i = cardDeckStartIndex; i < endIndex; i++) {
-            int rowI = i % deckListRowCount;
-            deckList.add(new Text(cardDecks.get(i).getName()), 0, rowI);
-            deckList.add(new Text(cardDecks.get(i).getCards().size() + " cards"), 1, rowI);
-            deckList.add(createButton("Play", cardDecks.get(i)), 2, rowI);
-            deckList.add(createButton("+", cardDecks.get(i)), 3, rowI);
+        List<CardDeck> visible = pagination.getVisibleItems();
+        for (int i = 0; i < visible.size(); i++) {
+            CardDeck current = visible.get(i);
+            deckList.add(new Text(current.getName()), 0, i);
+            deckList.add(new Text(current.getCards().size() + " cards"), 1, i);
+            deckList.add(createButton("Play", current), 2, i);
+            deckList.add(createButton("+", current), 3, i);
         }
-
     }
 
     /**
      * Creates a button with styleclasses, text and eventListener on click
-     * 
+     *
      * @return Button with style and text
      */
     private Button createButton(String text, CardDeck cardDeck) {
@@ -261,7 +213,7 @@ public class Controller {
 
     /**
      * Creates a button that later is used to add a card to the correct carddeck.
-     * 
+     *
      * @param cardDeck CardDeck with 0 or many cards
      */
     private void createAddCardButton(CardDeck cardDeck) {
@@ -294,14 +246,18 @@ public class Controller {
     /**
      * Adds a card to the given carddeck, or displays warning popup if vanlues is
      * invalid
-     * 
-     * @param cardDeck CardDeck to get cards
+     *
+     * @param deck CardDeck to get cards
      */
-    private void addCard(CardDeck cardDeck) {
+    private void addCard(CardDeck deck) {
+        if (question.getText().isBlank() || answer.getText().isBlank()) {
+            displayAlert("Card question or answer cannot be empty");
+            return;
+        }
         try {
-            cardDeck.add(new Card(question.getText(), answer.getText()));
-            question.setText(null);
-            answer.setText(null);
+            profileService.create(profile, deck, question.getText(), answer.getText());
+            question.clear();
+            answer.clear();
         } catch (IllegalArgumentException e) {
             displayAlert(e.getLocalizedMessage());
         }
@@ -309,7 +265,7 @@ public class Controller {
 
     /**
      * Creates and sets message for a warning pop-up
-     * 
+     *
      * @param messsage String message
      */
     private void displayAlert(String messsage) {
@@ -321,7 +277,7 @@ public class Controller {
 
     /**
      * Sets visibility on buttons depending on given boolean
-     * 
+     *
      * @param visible boolean, true = visible buttons
      */
     private void setButtonVisibility(boolean visible) {

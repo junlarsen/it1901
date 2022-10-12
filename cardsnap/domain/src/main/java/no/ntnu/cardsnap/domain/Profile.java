@@ -1,5 +1,6 @@
 package no.ntnu.cardsnap.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ public class Profile {
      * @param decks Initial set of card decks to store on the profile
      */
     public Profile(Set<CardDeck> decks) {
-        this.decks = decks;
+        this.decks = new HashSet<>(decks);
     }
 
     /**
@@ -36,6 +37,6 @@ public class Profile {
     }
 
     public Set<CardDeck> getDecks() {
-        return decks;
+        return new HashSet<>(decks);
     }
 }

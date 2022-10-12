@@ -1,5 +1,6 @@
 package no.ntnu.cardsnap.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,6 +30,10 @@ public class CardDeck {
     public CardDeck(Set<Card> cards, String name) {
         this.cards = cards;
         this.name = name;
+    }
+
+    public CardDeck(String name) {
+        this(new HashSet<>(), name);
     }
 
     /**

@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import no.ntnu.cardsnap.domain.Card;
@@ -20,9 +25,16 @@ public class Controller {
     @FXML
     private Button newDeck, prevPage, nextPage;
 
+    @FXML
+    private Text subtitle, cardDeckName;
+    
     private int cardDeckStartIndex;
 
     private List<CardDeck> cardDecks;
+
+    private TextField inputCardDeckName;
+
+    private Button addCardDeckButton;
 
     @FXML
     private void initialize() {
@@ -74,9 +86,61 @@ public class Controller {
 
     }
 
+    /**
+     * Method for "Create new deck" button. Creates new view with input field and button
+     * for new card deck, validation, and adds card deck to all carddecks. 
+     */
     @FXML
     private void createDeck() {
-        // TODO change view to add deck
+        deckList.getChildren().remove(0,deckList.getChildren().size());
+        subtitle.setText("Create new deck:");
+        addNewCardDeckfields();
+        addCardDeckAddButton();
+    }
+
+    /**
+     * Creates input field for new card deck name 
+     */
+    private void addNewCardDeckfields() {
+        deckList.add(new Text("Name"), 0, 0);
+        inputCardDeckName = new TextField("");
+        deckList.add(inputCardDeckName, 1, 0);
+    }
+
+    /**
+     * Creates button for adding the new card deck.
+     */
+    private void addCardDeckAddButton() {
+        addCardDeckButton = new Button("Add");
+        addCardDeckButton.getStyleClass().add("myButton");
+        addCardDeckButton.getStyleClass().add("pressButton");
+        addCardDeckButton.setOnAction((event) -> handleAddDeck());
+        deckList.add(addCardDeckButton, 1, 1);
+    }
+
+    /**
+     * Validation for input in name of the new carddeck.
+     * If valid, adds the new card deck to the other carddecks, and
+     * updates the view including the new card deck
+     */
+    private void handleAddDeck() {
+        List<String> cardDeckNames = cardDecks.stream().map(deck -> deck.getName()).collect(Collectors.toList());
+        if (cardDeckNames.contains(inputCardDeckName.getText())) {
+            Alert a = new Alert(AlertType.NONE);
+            a.setContentText("Card deck already exists");
+            a.setAlertType(AlertType.WARNING);
+            a.show();
+        }
+        else if (inputCardDeckName.getText().isBlank()){
+            Alert a = new Alert(AlertType.NONE);
+            a.setContentText("Card deck name is empty");
+            a.setAlertType(AlertType.WARNING);
+            a.show();
+        }
+        else {
+            cardDecks.add(new CardDeck(inputCardDeckName.getText()));
+            updateDecklist();
+        }
     }
 
     /**
@@ -115,7 +179,6 @@ public class Controller {
 
         nextPage.setDisable(!next);
         prevPage.setDisable(!prev);
-
     }
 
     /**

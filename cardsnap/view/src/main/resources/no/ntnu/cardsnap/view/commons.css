@@ -1,15 +1,40 @@
 .contentView {
-    -fx-hgap: 20px;
-    -fx-padding: 40px;
+  -fx-hgap: 20px;
+  -fx-padding: 40px;
 
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 50px;
+  -fx-background-color: #fcf6e5;
+  -fx-border-color: #6e8182;
+  -fx-border-width: 4px;
+}
 
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.274), 0.5, 0, 3, 5);
+.deckList {
+  -fx-hgap: 20px;
+  -fx-padding: 20px;
+
+  -fx-background-color: #fcf6e5;
+  -fx-border-color: #6e8182;
+  -fx-border-width: 4px;
+}
+
+.cardDeckListItem {
+  -fx-hgap: 16px;
+  -fx-padding: 16px;
+
+  -fx-background-color: #fcf6e5;
+  -fx-border-color: #6e8182;
+  -fx-border-width: 4px;
 }
 
 Text {
-    -fx-font-smoothing-type: lcd;
-    -fx-fill: black;
-    -fx-font-family: "Andale Mono";
+  -fx-font-smoothing-type: lcd;
+  -fx-fill: #495354;
+  -fx-font-family: "Inter";
+}
+
+.buttonList {
+  -fx-background-color: #fcf6e5;
+}
+
+.buttonListItem {
+  -fx-cursor: hand;
 }

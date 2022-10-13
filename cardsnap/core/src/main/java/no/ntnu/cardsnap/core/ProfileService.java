@@ -10,7 +10,7 @@ import no.ntnu.cardsnap.persistence.AbstractProfileStorage;
 
 /**
  * Service that is capable of manipulating {@link CardDeck} instances stored in
- * a {@link Profile}
+ * a {@link Profile}.
  *
  * @author matsjla
  */
@@ -22,16 +22,16 @@ public class ProfileService {
     private final AbstractProfileStorage storage;
 
     /**
-     * Create a new {@link ProfileService}
+     * Create a new {@link ProfileService}.
      *
-     * @param storage The storage implementation to use
+     * @param storageImpl The storage implementation to use
      */
-    public ProfileService(AbstractProfileStorage storage) {
-        this.storage = storage;
+    public ProfileService(final AbstractProfileStorage storageImpl) {
+        storage = storageImpl;
     }
 
     /**
-     * Load the current profile from storage
+     * Load the current profile from storage.
      *
      * @return The profile that was stored on the users computer
      * @throws IllegalArgumentException When I/O error occurs during load
@@ -48,12 +48,12 @@ public class ProfileService {
     }
 
     /**
-     * Store a given profile to storage, overwriting the existing one
+     * Store a given profile to storage, overwriting the existing one.
      *
      * @param profile The profile to store
      * @throws IllegalArgumentException When I/O error occurs during load
      */
-    public void store(Profile profile) {
+    public void store(final Profile profile) {
         try {
             storage.store(profile);
         } catch (IOException e) {
@@ -65,7 +65,7 @@ public class ProfileService {
     }
 
     /**
-     * Create a new card in a given deck with a given question and answer
+     * Create a new card in a given deck with a given question and answer.
      *
      * @param profile  The profile that owns the deck to add to
      * @param deck     The deck to add a card to
@@ -75,10 +75,18 @@ public class ProfileService {
      * @throws IllegalArgumentException If a card with the given question and
      *                                  answer already exists
      */
-    public Card create(Profile profile, CardDeck deck, String question, String answer) {
+    public Card create(
+        final Profile profile,
+        final CardDeck deck,
+        final String question,
+        final String answer
+    ) {
         boolean exists = profile.getDecks().contains(deck) && deck.getCards()
             .stream()
-            .anyMatch(card -> card.getAnswer().equals(answer) && card.getQuestion().equals(question));
+            .anyMatch(
+                card -> card.getAnswer().equals(answer)
+                    && card.getQuestion().equals(question)
+            );
         if (exists) {
             throw new IllegalArgumentException(
                 "Card with given question and answer already exists in the deck"
@@ -91,14 +99,14 @@ public class ProfileService {
     }
 
     /**
-     * Create a new card deck with a given name
+     * Create a new card deck with a given name.
      *
      * @param profile The profile to add a deck to
      * @param name    The name for the deck
      * @return The newly created card deck
      * @throws IllegalArgumentException If a deck with the given name exists
      */
-    public CardDeck create(Profile profile, String name) {
+    public CardDeck create(final Profile profile, final String name) {
         boolean exists = profile.getDecks()
             .stream()
             .anyMatch(deck -> deck.getName().equals(name));

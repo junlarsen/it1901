@@ -18,36 +18,38 @@ import no.ntnu.cardsnap.domain.Profile;
  */
 public class DiskProfileStorage implements AbstractProfileStorage {
     /**
-     * File path where the file will be read/written from
+     * File path where the file will be read/written from.
      */
     private final String path;
 
     /**
-     * Gson instance used for serialization/deserialization
+     * Gson instance used for serialization/deserialization.
      */
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     /**
-     * Create a {@link DiskProfileStorage} with a given path
+     * Create a {@link DiskProfileStorage} with a given path.
      *
-     * @param path The root path to use
+     * @param rootPath The root path to use
      */
-    public DiskProfileStorage(String path) {
-        this.path = path;
-        System.out.println("info: initialized DiskProfileStorage in directory " + path);
+    public DiskProfileStorage(final String rootPath) {
+        path = rootPath;
+        System.out.println(
+            "info: initialized DiskProfileStorage in directory " + rootPath
+        );
     }
 
     /**
-     * Create a {@link DiskProfileStorage} from a {@link Path} as base
+     * Create a {@link DiskProfileStorage} from a {@link Path} as base.
      *
-     * @param path The root path to use
+     * @param rootPath The root path to use
      */
-    public DiskProfileStorage(Path path) {
-        this(path.toAbsolutePath().toString());
+    public DiskProfileStorage(final Path rootPath) {
+        this(rootPath.toAbsolutePath().toString());
     }
 
     /**
-     * Create a DiskCounterStorage with path in user's home directory
+     * Create a DiskCounterStorage with path in user's home directory.
      */
     public DiskProfileStorage() {
         this(System.getProperty("user.home"));
@@ -62,12 +64,14 @@ public class DiskProfileStorage implements AbstractProfileStorage {
      * @throws IOException If file was unable to be created or written to
      */
     @Override
-    public void store(Profile profile) throws IOException {
+    public void store(final Profile profile) throws IOException {
         File file = getStoragePath().toFile();
         File parent = file.getParentFile();
         if (!parent.exists()) {
             if (!parent.mkdirs()) {
-                throw new IOException("failed to create parent directories at path " + parent);
+                throw new IOException(
+                    "failed to create parent directories at path " + parent
+                );
             }
         }
 
@@ -107,7 +111,7 @@ public class DiskProfileStorage implements AbstractProfileStorage {
     }
 
     /**
-     * Determine the full path of the CardSnap profile Json storage file
+     * Determine the full path of the CardSnap profile Json storage file.
      *
      * @return The {@link Path} of the profile file
      */
@@ -116,7 +120,7 @@ public class DiskProfileStorage implements AbstractProfileStorage {
     }
 
     /**
-     * Write the profile state to the configured path on disk
+     * Write the profile state to the configured path on disk.
      *
      * @param profile The profile to serialize
      * @throws IOException If there was an error writing to the file, though
@@ -125,12 +129,12 @@ public class DiskProfileStorage implements AbstractProfileStorage {
      *                     will perform IO checks and return more detailed
      *                     errors.
      */
-    private void writeProfileJson(Profile profile) throws IOException {
+    private void writeProfileJson(final Profile profile) throws IOException {
         Files.writeString(getStoragePath(), gson.toJson(profile));
     }
 
     /**
-     * Read the profile state from the configured path on disk
+     * Read the profile state from the configured path on disk.
      *
      * @return The deserialized profile
      * @throws IOException If there was an error reading to the file, though
@@ -139,7 +143,10 @@ public class DiskProfileStorage implements AbstractProfileStorage {
      *                     perform IO checks and return more detailed errors.
      */
     private Profile readProfileJson() throws IOException {
-        String jsonString = Files.readString(getStoragePath(), StandardCharsets.UTF_8);
+        String jsonString = Files.readString(
+            getStoragePath(),
+            StandardCharsets.UTF_8
+        );
 
         return gson.fromJson(jsonString, Profile.class);
     }

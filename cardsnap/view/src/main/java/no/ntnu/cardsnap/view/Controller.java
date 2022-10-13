@@ -127,7 +127,8 @@ public final class Controller {
         clearDeckList();
         addNewCardDeckfields();
         addCardDeckAddButton();
-        subtitle.setText("Create new deck:");
+        addCardDeckCancelButton();
+        subtitle.setText("Create deck");
     }
 
     /**
@@ -148,6 +149,20 @@ public final class Controller {
         addCardDeckButton.getStyleClass().add("pressButton");
         addCardDeckButton.setOnAction((event) -> handleAddDeck());
         deckList.add(addCardDeckButton, GRID_COLUMN_COUNT, 1);
+    }
+
+    /**
+     * Creates button for adding the new card deck.
+     */
+    private void addCardDeckCancelButton() {
+        Button addCardDeckButton = new Button("Cancel");
+        addCardDeckButton.getStyleClass().add("myButton");
+        addCardDeckButton.getStyleClass().add("pressButton");
+        addCardDeckButton.setOnAction((event) -> {
+            inputCardDeckName.clear();
+            updateDecklist();
+        });
+        deckList.add(addCardDeckButton, GRID_COLUMN_COUNT, 2);
     }
 
     /**
@@ -209,7 +224,7 @@ public final class Controller {
     private void updateDecklist() {
         pagination.setItems(profile.getDecks().stream().toList());
         clearDeckList();
-        subtitle.setText("Your decks:");
+        subtitle.setText("Home");
 
         List<CardDeck> visible = pagination.getVisibleItems();
         for (int i = 0; i < visible.size(); i++) {
@@ -261,7 +276,7 @@ public final class Controller {
         createAddCardButton(cardDeck);
         createFinishedButton();
         setButtonVisibility(false);
-        subtitle.setText("Add card to deck:");
+        subtitle.setText("Add card to deck");
     }
 
     /**
@@ -299,7 +314,7 @@ public final class Controller {
      * @param cardDeck CardDeck with 0 or many cards
      */
     private void createAddCardButton(final CardDeck cardDeck) {
-        Button b = new Button("Add question");
+        Button b = new Button("Add");
         b.getStyleClass().add("createCardButtons");
         b.getStyleClass().add("pressButton");
         b.setOnAction((e) -> addCard(cardDeck));
@@ -310,7 +325,7 @@ public final class Controller {
      * Creates a button that takes user back to landing page.
      */
     private void createFinishedButton() {
-        Button b = new Button("Finished");
+        Button b = new Button("Done");
         b.getStyleClass().add("createCardButtons");
         b.getStyleClass().add("pressButton");
         b.setOnAction((e) -> handleAddCardFinished());

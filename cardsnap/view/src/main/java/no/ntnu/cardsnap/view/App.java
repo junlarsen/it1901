@@ -15,7 +15,11 @@ public final class App extends Application {
             this.getClass().getResource("LandingPage.fxml")
         );
         Parent parent = fxmlLoader.load();
+
         stage.setScene(new Scene(parent));
+        stage.setResizable(false);
+        stage.setTitle("CardSnap");
+
         stage.show();
     }
 

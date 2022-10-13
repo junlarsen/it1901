@@ -1,5 +1,7 @@
 package no.ntnu.cardsnap.domain;
 
+import java.util.Objects;
+
 /**
  * Card domain type.
  * <p>
@@ -62,5 +64,32 @@ public class Card {
      */
     public void setQuestion(final String newQuestion) {
         question = newQuestion;
+    }
+
+    /**
+     * Check if two Cards are equal.
+     *
+     * @param other Card to compare
+     * @return If the cards are equal
+     */
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Card card)) {
+            return false;
+        }
+        return question.equals(card.question) && answer.equals(card.answer);
+    }
+
+    /**
+     * Get the hash for this object. Used for comparison in HashSet sets.
+     *
+     * @return The hashcode
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, answer);
     }
 }

@@ -1,51 +1,36 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2217/gr2217)
 
-# IT1901 Fall 2022 GR2217
+# IT1901 Fall 2022 GR2217 -- CardSnap
 
-The Java project is found in the `cardsnap` directory.
+This project contains the IT1901 project for group 17. It is a Java application
+built with JavaFX.
 
-## About The Project
+Our application is called CardSnap, and it is an application intended to
+accelerate learning by providing an easy and intuitive way to create and 
+practice using flash cards. Details about the application can be found in the
+[cardsnap documentation](cardsnap/README.md).
 
-CardSnap lets you accelerate your learning by providing an easy way to create and practice using flash cards. ⚡️ You can read more about the application [here](/cardsnap/README.md).
+The main application source is found inside the [cardsnap](cardsnap) directory/
 
-### Built With
+### Building the project
 
-- Java FX
+The project uses [Apache Maven](https://maven.apache.org/) to build and manage
+the code. The project uses Java 19.
 
-## Development
+To build the application, follow these steps:
 
-This is an example of how you can run CardSnap locally.
+```shell
+# Clone the application code
+git clone https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2217/gr2217
+cd gr2217/cardsnap
 
-### Prerequisites
+# Build the application
+mvn clean install
 
-- Java 19
-- Maven
+# Run tests and generate Jacoco, Spotbugs, and Checkstyle reports
+mvn test site
 
-### Running Locally
-
-Start by navigating to the `cardsnap` directory:
-
-```bash
-cd cardsnap
-```
-
-**Compiling & installing modules**
-
-```bash
-mvn compile
-mvn install
-```
-
-**Running tests & generating reports**
-
-```bash
-mvn test
-mvn site
-```
-
-**Running**
-
-```
+# Run the JavaFX application
 mvn javafx:run -f view/pom.xml
 ```
 

@@ -1,45 +1,66 @@
 package no.ntnu.cardsnap.domain;
 
-import java.util.Objects;
-
+/**
+ * Card domain type.
+ * <p>
+ * The Card type is a simple flashcard that has a question on the front, and an
+ * answer to that question on the back.
+ */
 public class Card {
+    /**
+     * The card question.
+     */
     private String question;
-    private String answer; 
 
-    public Card(String question, String answer) {
-        this.question = question;
-        this.answer = answer;
+    /**
+     * The card answer.
+     */
+    private String answer;
+
+    /**
+     * Create a new Card.
+     *
+     * @param cardQuestion The question
+     * @param cardAnswer   The answer
+     */
+    public Card(final String cardQuestion, final String cardAnswer) {
+        question = cardQuestion;
+        answer = cardAnswer;
     }
 
-    public String getQuestion() {
-        return this.question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
+    /**
+     * Get the answer.
+     *
+     * @return The answer
+     */
     public String getAnswer() {
-        return this.answer;
+        return answer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    /**
+     * Set a new answer.
+     *
+     * @param newAnswer Answer to replace old
+     */
+    public void setAnswer(final String newAnswer) {
+        answer = newAnswer;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) {
-            return true;
-        }
-        if (!(other instanceof Card card)) {
-            return false;
-        }
-        return question.equals(card.question) && answer.equals(card.answer);
+    /**
+     * Get the question.
+     *
+     * @return The question
+     */
+    public String getQuestion() {
+        return question;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(question, answer);
+    /**
+     * Set a new question.
+     *
+     * @param newQuestion Question to replace old
+     */
+    public void setQuestion(final String newQuestion) {
+        question = newQuestion;
     }
 }

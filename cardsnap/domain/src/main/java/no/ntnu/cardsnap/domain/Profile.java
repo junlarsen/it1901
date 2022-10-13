@@ -10,32 +10,40 @@ import java.util.Set;
  * {@link CardDeck} objects.
  */
 public class Profile {
+    /** The card decks that are stored on the profile. */
     private final Set<CardDeck> decks;
 
     /**
-     * Create a new profile
+     * Create a new profile.
      *
-     * @param decks Initial set of card decks to store on the profile
+     * @param initialDecks Initial set of card decks to store on the profile
      */
-    public Profile(Set<CardDeck> decks) {
-        this.decks = new HashSet<>(decks);
+    public Profile(final Set<CardDeck> initialDecks) {
+        decks = new HashSet<>(initialDecks);
     }
 
     /**
-     * Add a deck to the profile
+     * Add a deck to the profile.
      *
      * @param deck The deck to add
      * @throws IllegalArgumentException If the given card deck (or another deck
      *                                  with the same cards) already exists on
      *                                  this profile
      */
-    public void add(CardDeck deck) throws IllegalArgumentException {
+    public void add(final CardDeck deck) throws IllegalArgumentException {
         boolean unique = decks.add(deck);
         if (!unique) {
-            throw new IllegalArgumentException("Given card deck already exists on this profile");
+            throw new IllegalArgumentException(
+                "Given card deck already exists on this profile"
+            );
         }
     }
 
+    /**
+     * Get a copy of the decks.
+     *
+     * @return A clone of the decks in the profile
+     */
     public Set<CardDeck> getDecks() {
         return new HashSet<>(decks);
     }

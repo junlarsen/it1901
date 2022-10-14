@@ -21,7 +21,7 @@ public final class Controller {
      * {@link ProfileService} implementation for domain logic.
      */
     private final ProfileService profileService = new ProfileService(
-        new DiskProfileStorage(Path.of("storage")));
+            new DiskProfileStorage(Path.of("storage")));
 
     /**
      * The currently loaded profile.
@@ -80,9 +80,8 @@ public final class Controller {
      * Pagination controller to control pagination of decks.
      */
     private final Pagination<CardDeck> pagination = new Pagination<>(
-        new ArrayList<>(),
-        4
-    );
+            new ArrayList<>(),
+            4);
 
     /**
      * Index in grid where the deck name lies.
@@ -178,7 +177,7 @@ public final class Controller {
         try {
             profileService.create(profile, inputCardDeckName.getText());
             inputCardDeckName.clear();
-            updateDecklist();
+            initialize();
         } catch (IllegalArgumentException e) {
             displayAlert(e.getLocalizedMessage());
         }
@@ -231,15 +230,13 @@ public final class Controller {
             CardDeck current = visible.get(i);
             deckList.add(new Text(current.getName()), GRID_COLUMN_NAME, i);
             deckList.add(
-                new Text(current.getCards().size() + " cards"),
-                GRID_COLUMN_COUNT,
-                i
-            );
+                    new Text(current.getCards().size() + " cards"),
+                    GRID_COLUMN_COUNT,
+                    i);
             deckList.add(
-                createButton("Play", current),
-                GRID_COLUMN_PLAY,
-                i
-            );
+                    createButton("Play", current),
+                    GRID_COLUMN_PLAY,
+                    i);
             deckList.add(createButton("+", current), GRID_COLUMN_EDIT, i);
         }
     }
@@ -353,11 +350,10 @@ public final class Controller {
         }
         try {
             profileService.create(
-                profile,
-                deck,
-                question.getText(),
-                answer.getText()
-            );
+                    profile,
+                    deck,
+                    question.getText(),
+                    answer.getText());
             question.clear();
             answer.clear();
         } catch (IllegalArgumentException e) {

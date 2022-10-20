@@ -123,15 +123,11 @@ public class ProfileServiceTest {
     public void testDeleteCardFromDeckInProfile() {
         Profile p = service.load();
         CardDeck root = service.create(p, "root");
-        Card created = service.create(p, root, "foo", "random");
+        Card c = new Card("Q", "A");
 
-        CardDeck root2 = new CardDeck("root2");
-        Card created2 = new Card("bar", "foo");
-
-        assertTrue(service.deleteCardFromDeckInProfile(p, root, created));
-
-        assertThrows(IllegalArgumentException.class, () -> service.deleteCardFromDeckInProfile(p, root2, created));
-        assertThrows(IllegalArgumentException.class, () -> service.deleteCardFromDeckInProfile(p, root, created2));
-
+        root.add(c);
+        p.add(root);
+        assertTrue(service.deleteCardFromDeckInProfile(p, root, c));
+        assertThrows(IllegalArgumentException.class, () -> service.deleteCardFromDeckInProfile(p, root, c));
     }
 }

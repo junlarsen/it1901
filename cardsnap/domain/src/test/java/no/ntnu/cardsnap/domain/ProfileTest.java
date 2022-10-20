@@ -82,10 +82,10 @@ public class ProfileTest {
     public void testDeckDelete() {
         Profile p = new Profile(new HashSet<>());
         CardDeck d = new CardDeck("foo");
-        p.add(null);
-
         Card c = new Card("Q", "A");
         d.add(c);
+
+        p.add(d);
 
         CardDeck d2 = new CardDeck("bar");
         d2.add(c);

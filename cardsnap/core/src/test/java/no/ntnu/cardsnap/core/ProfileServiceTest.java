@@ -64,4 +64,18 @@ public class ProfileServiceTest {
 
         assertThrows(IllegalArgumentException.class, () -> service.create(p, root, "foo", "bar"));
     }
+
+    @Test
+    @DisplayName("it can change name of card in deck")
+    public void testChangeCardName() {
+        Profile p = service.load();
+        CardDeck root = service.create(p, "root");
+
+        service.setCardDeckName(p, root, "new name");
+        assertEquals("new name", root.getName());
+        assertEquals(root, service.setCardDeckName(p, root, "new name"));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> service.setCardDeckName(p, new CardDeck("foo"), "new name2"));
+    }
 }

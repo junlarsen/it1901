@@ -41,9 +41,8 @@ public class ProfileService {
             return storage.load();
         } catch (IOException e) {
             throw new IllegalStateException(
-                "IO error occurred during state load",
-                e
-            );
+                    "IO error occurred during state load",
+                    e);
         }
     }
 
@@ -58,9 +57,8 @@ public class ProfileService {
             storage.store(profile);
         } catch (IOException e) {
             throw new IllegalStateException(
-                "IO error occurred during state load",
-                e
-            );
+                    "IO error occurred during state load",
+                    e);
         }
     }
 
@@ -76,21 +74,18 @@ public class ProfileService {
      *                                  answer already exists
      */
     public Card create(
-        final Profile profile,
-        final CardDeck deck,
-        final String question,
-        final String answer
-    ) {
+            final Profile profile,
+            final CardDeck deck,
+            final String question,
+            final String answer) {
         boolean exists = profile.getDecks().contains(deck) && deck.getCards()
-            .stream()
-            .anyMatch(
-                card -> card.getAnswer().equals(answer)
-                    && card.getQuestion().equals(question)
-            );
+                .stream()
+                .anyMatch(
+                        card -> card.getAnswer().equals(answer)
+                                && card.getQuestion().equals(question));
         if (exists) {
             throw new IllegalArgumentException(
-                "Card with given question and answer already exists in the deck"
-            );
+                    "Card with given question and answer already exists in the deck");
         }
         Card card = new Card(question, answer);
         deck.add(card);
@@ -108,16 +103,31 @@ public class ProfileService {
      */
     public CardDeck create(final Profile profile, final String name) {
         boolean exists = profile.getDecks()
-            .stream()
-            .anyMatch(deck -> deck.getName().equals(name));
+                .stream()
+                .anyMatch(deck -> deck.getName().equals(name));
         if (exists) {
             throw new IllegalArgumentException(
-                "Card deck with given name already exists"
-            );
+                    "Card deck with given name already exists");
         }
         CardDeck deck = new CardDeck(name);
         profile.add(deck);
         store(profile);
         return deck;
+    }
+
+    /**
+     * Method to change name of CardDeck in Profile if CardDeck exists in profile.
+     * 
+     * @return CardDeck that got new name
+     * @throws IllegalArgumentException If CardDeck does not exist in profile
+     */
+    public CardDeck setCardDeckName(final Profile profile, final CardDeck deck, final String name) {
+        try {
+            profile.setCardDeckName(deck, name);
+            store(profile);
+            return deck;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("CardDeck does not exist in profile");
+        }
     }
 }

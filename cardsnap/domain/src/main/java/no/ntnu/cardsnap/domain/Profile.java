@@ -34,8 +34,33 @@ public class Profile {
         boolean unique = decks.add(deck);
         if (!unique) {
             throw new IllegalArgumentException(
-                "Given card deck already exists on this profile"
-            );
+                    "Given card deck already exists on this profile");
+        }
+    }
+
+    /**
+     * Removes deck from Set of decks.
+     * 
+     * @param deck CardDeck to be deleted
+     * @throws IllegalArgumentException If deck isn't an element in list
+     * @return true if deck was deleted
+     */
+    public CardDeck setCardDeckName(CardDeck deck, String name) throws IllegalArgumentException {
+
+        if (deck.getName().equals(name)) {
+            return deck;
+        }
+
+        CardDeck optDeck = decks.stream()
+                .filter(cardDeck -> cardDeck.getName().equals(deck.getName()))
+                .findAny()
+                .orElse(null);
+
+        if (optDeck != null) {
+            optDeck.setName(name);
+            return optDeck;
+        } else {
+            throw new IllegalArgumentException("Card deck does not exist in profile");
         }
     }
 

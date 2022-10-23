@@ -65,6 +65,18 @@ public class Profile {
     }
 
     /**
+     * Removes deck from Set of decks.
+     * 
+     * @param deck CardDeck to be deleted
+     * @throws IllegalArgumentException If deck isn't an element in list
+     */
+    public boolean removeDeck(final CardDeck deck) throws IllegalArgumentException {
+        if (!decks.contains(deck))
+            throw new IllegalArgumentException("Given deck doesn't exist in decks");
+        return decks.remove(deck);
+    }
+
+    /**
      * Get a copy of the decks.
      *
      * @return A clone of the decks in the profile

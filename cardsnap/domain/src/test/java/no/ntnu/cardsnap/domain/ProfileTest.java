@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProfileTest {
@@ -36,5 +37,21 @@ public class ProfileTest {
         assertThrows(IllegalArgumentException.class, () -> {
             p.setCardDeckName(new CardDeck("test"), "foo");
         });
+
+    }
+
+    @DisplayName("it will reject deletion of non-existing decks")
+    public void testDeckRemoval() {
+        Profile p = new Profile(new HashSet<>());
+        CardDeck cd = new CardDeck("foo");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            p.removeDeck(cd);
+        }, "Deletion of a card that doesn't exist should throw exception");
+
+        p.add(cd);
+        p.removeDeck(cd);
+
+        assertFalse(p.getDecks().contains(cd), "CardDeck shouldn't contain the removed deck");
     }
 }

@@ -8,7 +8,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -59,8 +61,13 @@ public class ProfileServiceTest {
         Profile p = service.load();
         CardDeck root = service.create(p, "root");
         Card created = service.create(p, root, "foo", "bar");
+
         assertEquals("foo", created.getQuestion());
         assertEquals("bar", created.getAnswer());
+
+        assertDoesNotThrow(() -> service.create(p, root, "foo2", "bar2"));
+        assertDoesNotThrow(() -> service.create(p, root, "foo", "bar2"));
+        assertDoesNotThrow(() -> service.create(p, root, "foo2", "bar"));
 
         assertThrows(IllegalArgumentException.class, () -> service.create(p, root, "foo", "bar"));
     }
@@ -77,5 +84,18 @@ public class ProfileServiceTest {
 
         assertThrows(IllegalArgumentException.class,
                 () -> service.setCardDeckName(p, new CardDeck("foo"), "new name2"));
+
+    }
+
+    @DisplayName("it can delete a CardDeck from Profile")
+    public void testRemoveDeckFromProfile() {
+        Profile p = service.load();
+        CardDeck created = service.create(p, "New Deck");
+
+        service.removeDeck(p, created);
+        assertFalse(p.getDecks().contains(created), "Profile shouldn't contain deck after deck is removed");
+
+        assertThrows(IllegalArgumentException.class, () -> service.removeDeck(p, created),
+                "Removal of deck that doesn't exists should throw exception");
     }
 }

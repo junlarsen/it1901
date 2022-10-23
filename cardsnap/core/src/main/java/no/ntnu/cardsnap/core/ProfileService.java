@@ -130,4 +130,24 @@ public class ProfileService {
             throw new IllegalArgumentException("CardDeck does not exist in profile");
         }
     }
+
+    /*
+     * Method to remove a given deck from a given Profiles Set of decks.
+     * 
+     * @param profile Profile with decks
+     * 
+     * @param deck CardDeck to be removed
+     * 
+     * @throws IllegalArgumentException If CardDeck doesn't exists in Set of decks
+     * @return true if CardDeck was removed
+     */
+    public boolean removeDeck(final Profile profile, final CardDeck deck) {
+        try {
+            boolean res = profile.removeDeck(deck);
+            store(profile);
+            return res;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("CardDeck doesn't exists in Set of decks");
+        }
+    }
 }

@@ -1,0 +1,18 @@
+// Vitest Snapshot v1
+
+exports[`root app component > should be able to render 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      href="/home"
+    >
+      Home
+    </a>
+    <a
+      href="/decks/aabbcc"
+    >
+      Deck aabbcc
+    </a>
+  </div>
+</DocumentFragment>
+`;

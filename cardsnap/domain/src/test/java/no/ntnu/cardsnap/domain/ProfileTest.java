@@ -40,6 +40,7 @@ public class ProfileTest {
 
     }
 
+    @Test
     @DisplayName("it will reject deletion of non-existing decks")
     public void testDeckRemoval() {
         Profile p = new Profile(new HashSet<>());

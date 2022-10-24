@@ -39,4 +39,27 @@ public class CardDeckTest {
         CardDeck twoSameCards = new CardDeck(Set.of(new Card("a", "b"), new Card("c", "d")), "foo");
         assertEquals(twoCards, twoSameCards);
     }
+
+    @Test
+    @DisplayName("it can determine if deckname is valid")
+    public void testIllegalNames() {
+        CardDeck foo = new CardDeck("foo");
+        foo.setName("foo");
+        assertThrows(IllegalArgumentException.class, () -> {
+            foo.setName("");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            foo.setName(" ");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            foo.setName(null);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            foo.setName("This is a very long name that should be invalid when new name is sat");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            foo.setName("0");
+        });
+
+    }
 }

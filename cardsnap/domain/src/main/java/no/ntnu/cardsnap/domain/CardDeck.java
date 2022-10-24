@@ -23,6 +23,16 @@ public final class CardDeck {
     private String name;
 
     /**
+     * The maximum of characters allowed in a deck name.
+     */
+    private int maxLengthName = 20;
+
+    /**
+     * The minimum of characters allowed in a deck name.
+     */
+    private int minLengthName = 3;
+
+    /**
      * Create a new Card Deck.
      *
      * @param initialCards Initial set of cards to use in the deck
@@ -30,7 +40,7 @@ public final class CardDeck {
      */
     public CardDeck(final Set<Card> initialCards, final String deckName) {
         this.cards = new HashSet<>(initialCards);
-        this.name = deckName;
+        setName(deckName);
     }
 
     /**
@@ -54,8 +64,7 @@ public final class CardDeck {
         boolean unique = cards.add(card);
         if (!unique) {
             throw new IllegalArgumentException(
-                "Given card already exists in this deck"
-            );
+                    "Given card already exists in this deck");
         }
     }
 
@@ -81,8 +90,26 @@ public final class CardDeck {
      * Give the deck a new name.
      *
      * @param newName The new name
+     * @throws IllegalArgumentException If the given name is illegal
      */
-    public void setName(final String newName) {
+    public void setName(final String newName) throws IllegalArgumentException {
+        if (newName == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        if (newName.equals(name)) {
+            return;
+        }
+        if (newName.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        if (newName.length() > maxLengthName) {
+            throw new IllegalArgumentException(
+                    "Name cannot be longer than 20 characters");
+        }
+        if (newName.length() < minLengthName) {
+            throw new IllegalArgumentException(
+                    "Name must be longer than 2 characters");
+        }
         this.name = newName;
     }
 
@@ -95,8 +122,8 @@ public final class CardDeck {
             return false;
         }
         return name.equals(deck.name)
-            && getCards().containsAll(deck.getCards())
-            && deck.getCards().containsAll(getCards());
+                && getCards().containsAll(deck.getCards())
+                && deck.getCards().containsAll(getCards());
     }
 
     @Override

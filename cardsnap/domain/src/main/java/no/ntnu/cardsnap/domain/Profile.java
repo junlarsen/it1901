@@ -42,14 +42,14 @@ public class Profile {
      * Removes deck from Set of decks.
      * 
      * @param deck CardDeck to be deleted
+     * @param name String name of the new name
      * @throws IllegalArgumentException If deck isn't an element in list
      * @return true if deck was deleted
      */
-    public CardDeck setCardDeckName(CardDeck deck, String name) throws IllegalArgumentException {
-
-        if (deck.getName().equals(name)) {
-            return deck;
-        }
+    public CardDeck setCardDeckName(
+            final CardDeck deck,
+            final String name)
+            throws IllegalArgumentException {
 
         CardDeck optDeck = decks.stream()
                 .filter(cardDeck -> cardDeck.getName().equals(deck.getName()))
@@ -60,7 +60,8 @@ public class Profile {
             optDeck.setName(name);
             return optDeck;
         } else {
-            throw new IllegalArgumentException("Card deck does not exist in profile");
+            throw new IllegalArgumentException(
+                    "Card deck does not exist in profile");
         }
     }
 

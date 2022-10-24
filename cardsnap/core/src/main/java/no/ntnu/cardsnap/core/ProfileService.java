@@ -116,18 +116,24 @@ public class ProfileService {
     }
 
     /**
-     * Method to change name of CardDeck in Profile if CardDeck exists in profile.
+     * Method to change name of CardDeck in Profile if CardDeck exists
+     * in profile.
      * 
+     * @param profile The profile to change the name of a deck in
+     * @param deck    The deck to change the name of
+     * @param name    The new name for the deck
      * @return CardDeck that got new name
      * @throws IllegalArgumentException If CardDeck does not exist in profile
      */
-    public CardDeck setCardDeckName(final Profile profile, final CardDeck deck, final String name) {
+    public CardDeck setCardDeckName(final Profile profile,
+            final CardDeck deck,
+            final String name) {
         try {
             profile.setCardDeckName(deck, name);
             store(profile);
             return deck;
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("CardDeck does not exist in profile");
+            throw new IllegalArgumentException(e.getLocalizedMessage());
         }
     }
 
@@ -139,6 +145,7 @@ public class ProfileService {
      * @param deck CardDeck to be removed
      * 
      * @throws IllegalArgumentException If CardDeck doesn't exists in Set of decks
+     * 
      * @return true if CardDeck was removed
      */
     public boolean removeDeck(final Profile profile, final CardDeck deck) {

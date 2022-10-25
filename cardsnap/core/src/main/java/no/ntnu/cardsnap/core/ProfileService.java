@@ -181,4 +181,23 @@ public class ProfileService {
             throw new IllegalArgumentException(e.getLocalizedMessage());
         }
     }
+
+    /*
+     * Method to remove a given card from a given CardDeck in profile.
+     * 
+     * @param deck CardDeck with cards
+     * 
+     * @param card Card to be removed
+     * 
+     * @throws IllegalArgumentException If Card doesn't exists in CardDeck
+     * 
+     * @return true if Card was removed
+     */
+    public boolean deleteCardFromDeckInProfile(Profile profile, CardDeck deck, Card card) {
+        try {
+            return profile.deleteCardFromDeck(deck, card);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getLocalizedMessage());
+        }
+    }
 }

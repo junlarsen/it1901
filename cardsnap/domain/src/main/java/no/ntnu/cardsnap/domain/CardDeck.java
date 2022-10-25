@@ -130,4 +130,20 @@ public final class CardDeck {
     public int hashCode() {
         return Objects.hash(cards, name);
     }
+
+    /**
+     * Method to edit card if card exists in carddeck
+     * 
+     * @param card
+     * @param question
+     * @param answer
+     */
+    public void editCard(Card card, String question, String answer) {
+        if (cards.contains(card)) {
+            card.setQuestion(question);
+            card.setAnswer(answer);
+        } else {
+            throw new IllegalArgumentException("Card does not exist in deck");
+        }
+    }
 }

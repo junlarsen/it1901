@@ -157,4 +157,28 @@ public class ProfileService {
             throw new IllegalArgumentException("CardDeck doesn't exists in Set of decks");
         }
     }
+
+    /**
+     * Method to edit a given Card in a given CardDeck.
+     * 
+     * @param profile  Profile with decks
+     * @param deck     CardDeck with cards
+     * @param card     Card to be edited
+     * @param question String new question
+     * @param answer   String new answer
+     * @return Card that was edited
+     */
+    public Card editCard(final Profile profile,
+            final CardDeck deck,
+            final Card card,
+            final String question,
+            final String answer) {
+        try {
+            profile.editCard(deck, card, question, answer);
+            store(profile);
+            return card;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getLocalizedMessage());
+        }
+    }
 }

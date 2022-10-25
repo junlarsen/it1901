@@ -62,4 +62,22 @@ public class CardDeckTest {
         });
 
     }
+
+    @Test
+    @DisplayName("it will test editting cards")
+    public void testEditCard() {
+        CardDeck deck = new CardDeck("foo");
+        Card card = new Card("Hello", "world");
+        deck.add(card);
+
+        deck.editCard(card, "greatQuestion", "greatAnswer");
+        assertEquals("greatQuestion", card.getQuestion());
+        assertEquals("greatAnswer", card.getAnswer());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            deck.editCard(new Card("greatQuestion2", "greatAnswer2"), "fooQuestion", "fooAnswer");
+        });
+
+    }
+
 }

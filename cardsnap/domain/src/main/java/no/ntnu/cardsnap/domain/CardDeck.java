@@ -152,6 +152,7 @@ public final class CardDeck {
      * 
      * @param card Card to be removed
      * @return true if card was removed
+     * @throws IllegalArgumentException if cards doesn't contains card
      */
     public boolean deleteCard(Card card) {
         if (!cards.contains(card)) {

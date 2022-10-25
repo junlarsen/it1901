@@ -183,15 +183,18 @@ public class ProfileService {
     }
 
     /*
-     * Method to remove a given card from a given CardDeck in profile.
+     * Deletes card from profiles deck if profile contains card deck and card deck
+     * contains card
      * 
-     * @param deck CardDeck with cards
+     * @param profile Profile that has deck
      * 
-     * @param card Card to be removed
+     * @param deck CardDeck that contains card
      * 
-     * @throws IllegalArgumentException If Card doesn't exists in CardDeck
+     * @param card Card to be deleted
      * 
-     * @return true if Card was removed
+     * @return boolean true if card is deleted
+     * 
+     * @throws IllegalArgumentException If card couldn't be deleted
      */
     public boolean deleteCardFromDeckInProfile(Profile profile, CardDeck deck, Card card) {
         try {

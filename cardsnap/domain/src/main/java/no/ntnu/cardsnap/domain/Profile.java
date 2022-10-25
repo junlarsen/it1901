@@ -85,4 +85,25 @@ public class Profile {
     public Set<CardDeck> getDecks() {
         return new HashSet<>(decks);
     }
+
+    /**
+     * Method to edit a card if carddeck exists in profile.
+     * 
+     * @param deck     CardDeck to edit card in
+     * @param card     Card to edit
+     * @param question New question
+     * @param answer   New answer
+     */
+    public void editCard(CardDeck deck, Card card, String question, String answer) {
+        CardDeck optDeck = decks.stream()
+                .filter(cardDeck -> cardDeck.getName().equals(deck.getName()))
+                .findAny()
+                .orElse(null);
+
+        if (optDeck != null) {
+            optDeck.editCard(card, question, answer);
+        } else {
+            throw new IllegalArgumentException("Card deck does not exist in profile");
+        }
+    }
 }

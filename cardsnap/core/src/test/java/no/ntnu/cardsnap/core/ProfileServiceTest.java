@@ -87,6 +87,7 @@ public class ProfileServiceTest {
 
     }
 
+    @Test
     @DisplayName("it can delete a CardDeck from Profile")
     public void testRemoveDeckFromProfile() {
         Profile p = service.load();
@@ -97,5 +98,23 @@ public class ProfileServiceTest {
 
         assertThrows(IllegalArgumentException.class, () -> service.removeDeck(p, created),
                 "Removal of deck that doesn't exists should throw exception");
+    }
+
+    @Test
+    @DisplayName("it can change a card in a deck")
+    public void testEditCard() {
+        Profile p = service.load();
+        CardDeck root = service.create(p, "root");
+        Card created = service.create(p, root, "foo", "bar");
+
+        service.editCard(p, root, created, "newFoo", "newBar");
+
+        assertEquals("newFoo", created.getQuestion());
+        assertEquals("newBar", created.getAnswer());
+
+        assertThrows(IllegalArgumentException.class,
+                () -> service.editCard(p, root, new Card("foo", "bar"), "newFoo", "newBar"),
+                "Editing a card that doesn't exist should throw exception");
+
     }
 }

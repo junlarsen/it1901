@@ -55,4 +55,25 @@ public class ProfileTest {
 
         assertFalse(p.getDecks().contains(cd), "CardDeck shouldn't contain the removed deck");
     }
+
+    @Test
+    @DisplayName("it will test edditing existing cards")
+    public void testEditCard() {
+        Profile p = new Profile(new HashSet<>());
+        CardDeck cd = new CardDeck("foo");
+        Card c = new Card("greatQuestion", "greatAnswer");
+
+        p.add(cd);
+        cd.add(c);
+
+        p.editCard(cd, c, "greatQuestion2", "greatAnswer2");
+        assertEquals("greatQuestion2", c.getQuestion());
+        assertEquals("greatAnswer2", c.getAnswer());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            p.editCard(new CardDeck("newDeck"), new Card("foo", "bar"), "greatQuestion", "greatAnswer");
+        }, "Editing a card in a cardDeck profile doesn't have should throw exception");
+
+    }
+
 }

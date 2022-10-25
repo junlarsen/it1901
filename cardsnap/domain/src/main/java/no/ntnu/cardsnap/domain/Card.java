@@ -25,9 +25,9 @@ public class Card {
      * @param cardQuestion The question
      * @param cardAnswer   The answer
      */
-    public Card(final String cardQuestion, final String cardAnswer) {
-        question = cardQuestion;
-        answer = cardAnswer;
+    public Card(String cardQuestion, String cardAnswer) {
+        setQuestion(cardQuestion);
+        setAnswer(cardAnswer);
     }
 
     /**
@@ -45,6 +45,12 @@ public class Card {
      * @param newAnswer Answer to replace old
      */
     public void setAnswer(final String newAnswer) {
+        if (newAnswer == null) {
+            throw new IllegalArgumentException("Answer cannot be null");
+        }
+        if (newAnswer.isEmpty()) {
+            throw new IllegalArgumentException("Answer cannot be empty");
+        }
         answer = newAnswer;
     }
 
@@ -63,7 +69,13 @@ public class Card {
      * @param newQuestion Question to replace old
      */
     public void setQuestion(final String newQuestion) {
-        question = newQuestion;
+        if (newQuestion == null) {
+            throw new IllegalArgumentException("Question cannot be null");
+        }
+        if (newQuestion.isEmpty()) {
+            throw new IllegalArgumentException("Question cannot be empty");
+        }
+        this.question = newQuestion;
     }
 
     /**

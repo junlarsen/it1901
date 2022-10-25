@@ -8,6 +8,7 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProfileTest {
     @Test
@@ -76,4 +77,22 @@ public class ProfileTest {
 
     }
 
+    @Test
+    @DisplayName("deck delete working")
+    public void testDeckDelete() {
+        Profile p = new Profile(new HashSet<>());
+        CardDeck d = new CardDeck("foo");
+        p.add(null);
+
+        Card c = new Card("Q", "A");
+        d.add(c);
+
+        CardDeck d2 = new CardDeck("bar");
+        d2.add(c);
+
+        assertTrue(p.deleteCardFromDeck(d, c));
+        assertThrows(IllegalArgumentException.class, () -> p.deleteCardFromDeck(d, c));
+        assertThrows(IllegalArgumentException.class, () -> p.deleteCardFromDeck(d2, c));
+
+    }
 }

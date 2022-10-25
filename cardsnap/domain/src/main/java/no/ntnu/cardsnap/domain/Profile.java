@@ -116,7 +116,8 @@ public class Profile {
      * @return
      */
     public boolean deleteCardFromDeck(CardDeck deck, Card card) {
-        if (decks.contains(deck)) {
+
+        if (!decks.contains(deck)) {
             throw new IllegalArgumentException("Profile doesn't contains this deck");
         }
         try {

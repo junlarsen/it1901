@@ -9,6 +9,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CardDeckTest {
     @Test
@@ -80,4 +81,17 @@ public class CardDeckTest {
 
     }
 
+    @Test
+    @DisplayName("it can delete card from decks")
+    public void testCardDeleteFromDeck() {
+        CardDeck deck = new CardDeck("foo");
+        Card c = new Card("Q", "A");
+        deck.add(c);
+
+        assertTrue(deck.deleteCard(c));
+        assertTrue(deck.getCards().isEmpty());
+
+        assertThrows(IllegalArgumentException.class, () -> deck.deleteCard(c));
+
+    }
 }

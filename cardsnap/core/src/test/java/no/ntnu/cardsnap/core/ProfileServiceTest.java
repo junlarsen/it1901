@@ -125,9 +125,13 @@ public class ProfileServiceTest {
         CardDeck root = service.create(p, "root");
         Card created = service.create(p, root, "foo", "random");
 
-        assertTrue(root.getCards().contains(created));
+        CardDeck root2 = new CardDeck("root2");
+        Card created2 = new Card("bar", "foo");
 
         assertTrue(service.deleteCardFromDeckInProfile(p, root, created));
+
+        assertThrows(IllegalArgumentException.class, () -> service.deleteCardFromDeckInProfile(p, root2, created));
+        assertThrows(IllegalArgumentException.class, () -> service.deleteCardFromDeckInProfile(p, root, created2));
 
     }
 }

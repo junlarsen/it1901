@@ -145,6 +145,7 @@ public final class CardDeck {
         } else {
             throw new IllegalArgumentException("Card does not exist in deck");
         }
+    }
 
     /**
      * Method to remove card if card exists in carddeck.

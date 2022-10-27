@@ -1,44 +1,26 @@
 @startuml
-allowmixing
 
-component Core {
-    package no.ntnu.cardsnap.core {
-        class ProfileService
+component Server {
+    component Core {
+        package no.ntnu.cardsnap.core
+    }
+    component Domain {
+        package no.ntnu.cardsnap.domain
+    }
+    component Persistence {
+        package no.ntnu.cardsnap.persistence
     }
 }
 
-component Domain {
-    package no.ntnu.cardsnap.domain {
-        class Card
-        class CardDeck
-        class Profile
-    }
+component Client {
+    component WebApp
 }
 
-component Persistence {
-    package no.ntnu.cardsnap.persistence {
-        interface AbstractProfileStorage
-        class DiskProfileStorage
-    }
-}
+component GoogleGson
+component React
 
-component View {
-    package no.ntnu.cardsnap.view {
-        class App
-        class Controller
-        class Pagination
-    }
-}
-
-component GoogleGson {
-}
-
-component JavaFX {
-}
-
-View ..> Domain
-View ..> Core
-View ..> JavaFX
+WebApp ..> Server
+WebApp ..> React
 Persistence ..> Domain
 Persistence ..> GoogleGson
 Core ..> Domain

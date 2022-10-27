@@ -17,7 +17,7 @@ the document.
 The application architecture is documented through the following PlantUML 
 diagram which gives an excellent overview of the components of the application.
 
-![Application architecture diagram](../architecture.png)
+![Application architecture diagram](../architecture_before_react.png)
 
 The architecture in use is heavily influenced by domain-driven design which
 puts the application domain in the centre with a service layer handling the 
@@ -28,7 +28,7 @@ implements a model-view-controller (MVC)-like architecture by having the
 JavaFX user interface only respond to the state, trigger state changes, and 
 consequently reflecting on the changes in the view.
 
-![Application dependency graph](../architecture_overview.png)
+![Application dependency graph](../architecture_overview_before_react.png)
 
 We've split the application into four independently testable modules. The
 modules are as follows:

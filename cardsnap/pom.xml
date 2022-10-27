@@ -13,7 +13,6 @@
         <module>domain</module>
         <module>persistence</module>
         <module>rest</module>
-        <module>view</module>
     </modules>
     <build>
         <plugins>

@@ -132,13 +132,16 @@ public final class CardDeck {
     }
 
     /**
-     * Method to edit card if card exists in carddeck
-     * 
+     * Method to edit card if card exists in carddeck.
+     *
      * @param card
      * @param question
      * @param answer
      */
-    public void editCard(Card card, String question, String answer) {
+    public void editCard(
+        final Card card,
+        final String question,
+        final String answer) {
         if (cards.contains(card)) {
             card.setQuestion(question);
             card.setAnswer(answer);
@@ -149,14 +152,16 @@ public final class CardDeck {
 
     /**
      * Method to remove card if card exists in carddeck.
-     * 
+     *
      * @param card Card to be removed
      * @return true if card was removed
      * @throws IllegalArgumentException if cards doesn't contains card
      */
-    public boolean deleteCard(Card card) {
+    public boolean deleteCard(final Card card) {
         if (!cards.contains(card)) {
-            throw new IllegalArgumentException("This card doesn't belongs in deck");
+            throw new IllegalArgumentException(
+                "This card doesn't belongs in deck"
+                );
         }
         return cards.remove(card);
     }

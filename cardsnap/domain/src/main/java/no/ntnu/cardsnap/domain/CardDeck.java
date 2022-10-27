@@ -146,4 +146,18 @@ public final class CardDeck {
             throw new IllegalArgumentException("Card does not exist in deck");
         }
     }
+
+    /**
+     * Method to remove card if card exists in carddeck.
+     * 
+     * @param card Card to be removed
+     * @return true if card was removed
+     * @throws IllegalArgumentException if cards doesn't contains card
+     */
+    public boolean deleteCard(Card card) {
+        if (!cards.contains(card)) {
+            throw new IllegalArgumentException("This card doesn't belongs in deck");
+        }
+        return cards.remove(card);
+    }
 }

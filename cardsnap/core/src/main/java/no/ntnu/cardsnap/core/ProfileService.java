@@ -181,4 +181,29 @@ public class ProfileService {
             throw new IllegalArgumentException(e.getLocalizedMessage());
         }
     }
+
+    /*
+     * Deletes card from profiles deck if profile contains card deck and card deck
+     * contains card
+     * 
+     * @param profile Profile that has deck
+     * 
+     * @param deck CardDeck that contains card
+     * 
+     * @param card Card to be deleted
+     * 
+     * @return boolean true if card is deleted
+     * 
+     * @throws IllegalArgumentException If card couldn't be deleted
+     */
+    public boolean deleteCardFromDeckInProfile(Profile profile, CardDeck deck, Card card) {
+        boolean res = false;
+        try {
+            res = profile.deleteCardFromDeck(deck, card);
+            store(profile);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getLocalizedMessage());
+        }
+        return res;
+    }
 }

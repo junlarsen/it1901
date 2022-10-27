@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProfileServiceTest {
     private final DiskProfileStorage storage = new DiskProfileStorage("/tmp/cardsnap-test");
@@ -115,6 +116,18 @@ public class ProfileServiceTest {
         assertThrows(IllegalArgumentException.class,
                 () -> service.editCard(p, root, new Card("foo", "bar"), "newFoo", "newBar"),
                 "Editing a card that doesn't exist should throw exception");
+    }
 
+    @Test
+    @DisplayName("it can delete card from card deck")
+    public void testDeleteCardFromDeckInProfile() {
+        Profile p = service.load();
+        CardDeck root = service.create(p, "root");
+        Card c = new Card("Q", "A");
+
+        root.add(c);
+        p.add(root);
+        assertTrue(service.deleteCardFromDeckInProfile(p, root, c));
+        assertThrows(IllegalArgumentException.class, () -> service.deleteCardFromDeckInProfile(p, root, c));
     }
 }

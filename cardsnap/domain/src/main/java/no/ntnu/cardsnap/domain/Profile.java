@@ -40,7 +40,7 @@ public class Profile {
 
     /**
      * Removes deck from Set of decks.
-     * 
+     *
      * @param deck CardDeck to be deleted
      * @param name String name of the new name
      * @throws IllegalArgumentException If deck isn't an element in list
@@ -67,13 +67,18 @@ public class Profile {
 
     /**
      * Removes deck from Set of decks.
-     * 
+     *
      * @param deck CardDeck to be deleted
      * @throws IllegalArgumentException If deck isn't an element in list
+     * @return true if deck was deleted
      */
-    public boolean removeDeck(final CardDeck deck) throws IllegalArgumentException {
-        if (!decks.contains(deck))
-            throw new IllegalArgumentException("Given deck doesn't exist in decks");
+    public boolean removeDeck(final CardDeck deck)
+        throws IllegalArgumentException {
+        if (!decks.contains(deck)) {
+            throw new IllegalArgumentException(
+                "Given deck doesn't exist in decks"
+                );
+        }
         return decks.remove(deck);
     }
 
@@ -88,13 +93,18 @@ public class Profile {
 
     /**
      * Method to edit a card if carddeck exists in profile.
-     * 
+     *
      * @param deck     CardDeck to edit card in
      * @param card     Card to edit
      * @param question New question
      * @param answer   New answer
      */
-    public void editCard(CardDeck deck, Card card, String question, String answer) {
+    public void editCard(
+                    final CardDeck deck,
+                    final Card card,
+                    final String question,
+                    final String answer) {
+
         CardDeck optDeck = decks.stream()
                 .filter(cardDeck -> cardDeck.getName().equals(deck.getName()))
                 .findAny()
@@ -103,22 +113,26 @@ public class Profile {
         if (optDeck != null) {
             optDeck.editCard(card, question, answer);
         } else {
-            throw new IllegalArgumentException("Card deck does not exist in profile");
+            throw new IllegalArgumentException(
+                "Card deck does not exist in profile"
+                );
         }
     }
 
     /**
      * Method to edit a carddeck if carddeck exists in profile.
-     * 
+     *
      * @param deck CardDeck to lose card
      * @param card Card to be deleted
-     * 
-     * @return
+     *
+     * @return true if card was deleted
      */
-    public boolean deleteCardFromDeck(CardDeck deck, Card card) {
+    public boolean deleteCardFromDeck(final CardDeck deck, final Card card) {
 
         if (!decks.contains(deck)) {
-            throw new IllegalArgumentException("Profile doesn't contains this deck");
+            throw new IllegalArgumentException(
+                "Profile doesn't contains this deck"
+                );
         }
         try {
             return deck.deleteCard(card);

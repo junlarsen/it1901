@@ -85,7 +85,10 @@ public class ProfileService {
                                 && card.getQuestion().equals(question));
         if (exists) {
             throw new IllegalArgumentException(
-                    "Card with given question and answer already exists in the deck");
+                    """
+                    Card with given question and answer
+                    already exists in the deck
+                            """);
         }
         Card card = new Card(question, answer);
         deck.add(card);
@@ -118,7 +121,7 @@ public class ProfileService {
     /**
      * Method to change name of CardDeck in Profile if CardDeck exists
      * in profile.
-     * 
+     *
      * @param profile The profile to change the name of a deck in
      * @param deck    The deck to change the name of
      * @param name    The new name for the deck
@@ -137,15 +140,16 @@ public class ProfileService {
         }
     }
 
-    /*
+    /**
      * Method to remove a given deck from a given Profiles Set of decks.
-     * 
+     *
      * @param profile Profile with decks
-     * 
+     *
      * @param deck CardDeck to be removed
-     * 
-     * @throws IllegalArgumentException If CardDeck doesn't exists in Set of decks
-     * 
+     *
+     * @throws IllegalArgumentException If CardDeck doesn't
+     * exists in Set of decks
+     *
      * @return true if CardDeck was removed
      */
     public boolean removeDeck(final Profile profile, final CardDeck deck) {
@@ -154,13 +158,15 @@ public class ProfileService {
             store(profile);
             return res;
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("CardDeck doesn't exists in Set of decks");
+            throw new IllegalArgumentException(
+                "CardDeck doesn't exists in Set of decks"
+                );
         }
     }
 
     /**
      * Method to edit a given Card in a given CardDeck.
-     * 
+     *
      * @param profile  Profile with decks
      * @param deck     CardDeck with cards
      * @param card     Card to be edited
@@ -182,21 +188,24 @@ public class ProfileService {
         }
     }
 
-    /*
-     * Deletes card from profiles deck if profile contains card deck and card deck
-     * contains card
-     * 
+    /**
+     * Deletes card from profiles deck if profile contains card deck and
+     * card deck contains card.
+     *
      * @param profile Profile that has deck
-     * 
+     *
      * @param deck CardDeck that contains card
-     * 
+     *
      * @param card Card to be deleted
-     * 
+     *
      * @return boolean true if card is deleted
-     * 
+     *
      * @throws IllegalArgumentException If card couldn't be deleted
      */
-    public boolean deleteCardFromDeckInProfile(Profile profile, CardDeck deck, Card card) {
+    public boolean deleteCardFromDeckInProfile(
+        final Profile profile,
+        final CardDeck deck,
+        final Card card) {
         boolean res = false;
         try {
             res = profile.deleteCardFromDeck(deck, card);

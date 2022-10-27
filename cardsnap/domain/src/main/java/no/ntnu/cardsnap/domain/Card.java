@@ -25,7 +25,7 @@ public class Card {
      * @param cardQuestion The question
      * @param cardAnswer   The answer
      */
-    public Card(String cardQuestion, String cardAnswer) {
+    public Card(final String cardQuestion, final String cardAnswer) {
         setQuestion(cardQuestion);
         setAnswer(cardAnswer);
     }

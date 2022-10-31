@@ -2,8 +2,8 @@
 
 # IT1901 Fall 2022 GR2217 -- CardSnap
 
-This project contains the IT1901 project for group 17. It is a Java application
-built with JavaFX.
+This project contains the IT1901 project for group 17. It is a Java server
+application with a TypeScript + React frontend application.
 
 Our application is called CardSnap, and it is an application intended to
 accelerate learning by providing an easy and intuitive way to create and 
@@ -29,9 +29,6 @@ mvn clean install
 
 # Run tests and generate Jacoco, Spotbugs, and Checkstyle reports
 mvn test site
-
-# Run the JavaFX application
-mvn javafx:run -f view/pom.xml
 ```
 
 ## Authors

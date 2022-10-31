@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { Navbar } from '../components/navbar';
+import { navLinks } from '../helpers/navbar';
 
-export const PageLayout: FC = () => {
-  return (
-    <div>
-      <Link to="/home">Home</Link>
-      <Link to="/decks/aabbcc">Deck aabbcc</Link>
+export const PageLayout: FC = () => (
+  <main>
+    <Navbar navLinks={navLinks} />
+    <section className="ml-48 mt-8">
       <Outlet />
-    </div>
-  );
-};
+    </section>
+  </main>
+);

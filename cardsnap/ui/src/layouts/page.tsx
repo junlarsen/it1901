@@ -6,7 +6,7 @@ import { navLinks } from '../helpers/navbar';
 export const PageLayout: FC = () => (
   <main>
     <Navbar navLinks={navLinks} />
-    <section className="ml-48 mt-8">
+    <section className="ml-40 p-8">
       <Outlet />
     </section>
   </main>

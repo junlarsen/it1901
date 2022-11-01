@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Params, useParams } from 'react-router-dom';
+import { AddCard } from '../components/editDeck/addCard';
 import { PlayCardCard } from '../components/playCardCard';
 import { Subtitle } from '../components/subtitle';
 
@@ -9,7 +10,7 @@ export const EditDeckView: FC = () => {
   return (
     <>
       <Subtitle title={'Edit ' + params.id!} />
-      <p>Soon to get some content to edit deck</p>
+      <AddCard deckName={params.id!} />
     </>
   );
 };

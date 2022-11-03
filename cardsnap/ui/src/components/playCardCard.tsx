@@ -8,7 +8,7 @@ interface CardProps {
 }
 
 export const PlayCardCard: FC<CardProps> = ({ card, currentCount, totalCount }) => (
-  <div className="bg-white border-4 p-4 shadow-md max-w-2xl mr-8 pt-6 pb-8">
+  <div className="bg-white border-4 p-4 shadow-md w-full mr-8 pt-6 pb-8">
     <p className="font-thin">
       {currentCount}/{totalCount}
     </p>

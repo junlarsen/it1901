@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { CardDeck } from '../helpers/mockData';
 import { DeckButton } from './deckViewButton';
+import { CardDeck } from '../helpers/mockData';
 
 interface CardDeckCardProps {
   cardDeck: CardDeck;

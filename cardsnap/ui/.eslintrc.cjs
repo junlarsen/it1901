@@ -18,7 +18,6 @@ module.exports = {
   rules: {
     '@typescript-eslint/ban-ts-comment': 'error',
     '@typescript-eslint/default-param-last': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/explicit-member-accessibility': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/member-delimiter-style': 'error',

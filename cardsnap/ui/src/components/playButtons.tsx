@@ -1,31 +1,29 @@
 import { FC } from 'react';
+import { Button } from './button';
 
-export const PlayButtons: FC = () => {
-  const flipCard = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+interface PlayButtonsProps {
+  displayAnswer: boolean;
+  setDisplayAnswer: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const PlayButtons: FC<PlayButtonsProps> = ({ displayAnswer, setDisplayAnswer }) => {
+  const toggleDisplayAnswer = () => {
+    setDisplayAnswer(!displayAnswer);
   };
 
-  const nextCard = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const nextCard = () => {
+    setDisplayAnswer(false);
   };
 
-  const prevCard = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const prevCard = () => {
+    setDisplayAnswer(false);
   };
-
-  const style = 'bg-sky-500 text-white py-2 w-1/4 shadow-md';
 
   return (
     <div className="flex w-full mt-8 justify-between">
-      <button onClick={prevCard} className={style} name="prevButton">
-        Previous
-      </button>
-      <button onClick={flipCard} className={style} name="flipButton">
-        Flip card
-      </button>
-      <button onClick={nextCard} className={style} name="nextButton">
-        Next
-      </button>
+      <Button clickHandler={prevCard} label="Previous" />
+      <Button clickHandler={toggleDisplayAnswer} label="Flip" />
+      <Button clickHandler={nextCard} label="Next" />
     </div>
   );
 };

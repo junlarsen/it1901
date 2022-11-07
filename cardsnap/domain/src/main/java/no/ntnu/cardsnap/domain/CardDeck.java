@@ -1,8 +1,7 @@
 package no.ntnu.cardsnap.domain;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+import java.util.UUID;
 
 /**
  * A deck or collection of {@link Card} entities.
@@ -12,157 +11,59 @@ import java.util.Set;
  *
  * @author matsjla
  */
-public final class CardDeck {
-    /**
-     * The collection of cards that reside inside this deck.
-     */
-    private final Set<Card> cards;
-    /**
-     * The textual name the user has given this deck.
-     */
-    private String name;
+public class CardDeck {
+    private final UUID id;
+    private final String name;
 
     /**
-     * The maximum of characters allowed in a deck name.
+     * No-args constructor for Gson
      */
-    private int maxLengthName = 20;
-
-    /**
-     * The minimum of characters allowed in a deck name.
-     */
-    private int minLengthName = 3;
-
-    /**
-     * Create a new Card Deck.
-     *
-     * @param initialCards Initial set of cards to use in the deck
-     * @param deckName     A textual name for the deck
-     */
-    public CardDeck(final Set<Card> initialCards, final String deckName) {
-        this.cards = new HashSet<>(initialCards);
-        setName(deckName);
+    private CardDeck() {
+        this(UUID.randomUUID(), "card_deck");
     }
 
     /**
      * Create a new Card Deck.
      *
-     * @param deckName A textual name for the deck
+     * @param id   Unique UUID for the card deck
+     * @param name A textual name for the deck
+     * @throws IllegalArgumentException If name is not a valid deck name
+     * @throws NullPointerException     If id or name is null
      */
-    public CardDeck(final String deckName) {
-        this(new HashSet<>(), deckName);
-    }
-
-    /**
-     * Add a card to the deck.
-     *
-     * @param card The card to add
-     * @throws IllegalArgumentException If the given card (or another card with
-     *                                  the same question and answer) already
-     *                                  exists inside this deck
-     */
-    public void add(final Card card) throws IllegalArgumentException {
-        boolean unique = cards.add(card);
-        if (!unique) {
+    public CardDeck(final UUID id, final String name) {
+        this.id = id;
+        this.name = name;
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(name);
+        if (name.isBlank() || name.length() > 32 || name.length() < 3) {
             throw new IllegalArgumentException(
-                    "Given card already exists in this deck");
+                "Deck name cannot be blank, shorter than 3, or longer than 32 characters"
+            );
         }
     }
 
-    /**
-     * Get a copy of the cards.
-     *
-     * @return A copy of the cards
-     */
-    public Set<Card> getCards() {
-        return new HashSet<>(cards);
+    public UUID getId() {
+        return id;
     }
 
-    /**
-     * Get the card deck name.
-     *
-     * @return The deck name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Give the deck a new name.
-     *
-     * @param newName The new name
-     * @throws IllegalArgumentException If the given name is illegal
-     */
-    public void setName(final String newName) throws IllegalArgumentException {
-        if (newName == null) {
-            throw new IllegalArgumentException("Name cannot be null");
-        }
-        if (newName.equals(name)) {
-            return;
-        }
-        if (newName.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty");
-        }
-        if (newName.length() > maxLengthName) {
-            throw new IllegalArgumentException(
-                    "Name cannot be longer than 20 characters");
-        }
-        if (newName.length() < minLengthName) {
-            throw new IllegalArgumentException(
-                    "Name must be longer than 2 characters");
-        }
-        this.name = newName;
-    }
-
     @Override
-    public boolean equals(final Object other) {
-        if (this == other) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (!(other instanceof CardDeck deck)) {
-            return false;
+        if (object instanceof CardDeck deck) {
+            return getId().equals(deck.getId())
+                && getName().equals(deck.getName());
         }
-        return name.equals(deck.name)
-                && getCards().containsAll(deck.getCards())
-                && deck.getCards().containsAll(getCards());
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cards, name);
-    }
-
-    /**
-     * Method to edit card if card exists in carddeck.
-     *
-     * @param card
-     * @param question
-     * @param answer
-     */
-    public void editCard(
-        final Card card,
-        final String question,
-        final String answer) {
-        if (cards.contains(card)) {
-            card.setQuestion(question);
-            card.setAnswer(answer);
-        } else {
-            throw new IllegalArgumentException("Card does not exist in deck");
-        }
-    }
-
-    /**
-     * Method to remove card if card exists in carddeck.
-     *
-     * @param card Card to be removed
-     * @return true if card was removed
-     * @throws IllegalArgumentException if cards doesn't contains card
-     */
-    public boolean deleteCard(final Card card) {
-        if (!cards.contains(card)) {
-            throw new IllegalArgumentException(
-                "This card doesn't belongs in deck"
-                );
-        }
-        return cards.remove(card);
+        return Objects.hash(getId(), getName());
     }
 }

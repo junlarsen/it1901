@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { CardDeck } from '../helpers/mockData';
 
 interface DeckButtonProps {
   cardDeckName: string;

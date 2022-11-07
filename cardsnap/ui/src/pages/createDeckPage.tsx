@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Subtitle } from '../components/subtitle';
-import { CreateDeckForm } from '../components/createDeck';
+import { CreateDeckForm } from '../views/createDeckPage/createDeckForm';
 
-export const CreateDeckView: FC = () => (
+export const CreateDeckPage: FC = () => (
   <>
     <Subtitle title="Create deck" />
     <CreateDeckForm />

@@ -1,9 +1,10 @@
 import { FC, FormEventHandler } from 'react';
 
-export const AddCardForm: FC = () => {
+export const CreateCardForm: FC = () => {
   const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
   };
+
   return (
     <form onSubmit={onSubmit}>
       <input

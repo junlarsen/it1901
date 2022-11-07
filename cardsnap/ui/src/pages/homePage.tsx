@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { CardDeckCard } from '../components/cardDeckCard';
+import { CardDeckCard } from '../views/homePage/cardDeckCard';
 import { Subtitle } from '../components/subtitle';
 import { cardDecks } from '../helpers/mockData';
 
-export const HomeView: FC = () => (
+export const HomePage: FC = () => (
   <>
     <Subtitle title="Decks" />
     <div className="flex gap-4 max-w-2xl flex-wrap">

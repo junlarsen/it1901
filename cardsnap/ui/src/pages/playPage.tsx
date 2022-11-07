@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 import { Params, useParams } from 'react-router-dom';
-import { PlayCardCard } from '../components/playCardCard';
-import { PlayButtons } from '../components/playButtons';
+import { PlayCardCard } from '../views/playPage/playCardCard';
+import { PlayButtons } from '../views/playPage/playButtons';
 import { Subtitle } from '../components/subtitle';
 
-export const DeckView: FC = () => {
+export const PlayPage: FC = () => {
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const params = useParams<Params<'id'>>();
 

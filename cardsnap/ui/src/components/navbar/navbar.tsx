@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { NavLink } from './navLink';
-import { NavLinkType } from '../helpers/navbar';
+import { NavLinkType } from '../../helpers/navLinks';
 
 interface NavbarProps {
   navLinks: NavLinkType[];

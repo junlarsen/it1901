@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Card } from '../helpers/mockData';
+import { Card } from '../../helpers/mockData';
 
 interface CardProps {
   card: Card;

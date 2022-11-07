@@ -1,6 +1,7 @@
 package no.ntnu.cardsnap.domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Card domain type.
@@ -9,99 +10,77 @@ import java.util.Objects;
  * answer to that question on the back.
  */
 public class Card {
-    /**
-     * The card question.
-     */
-    private String question;
+    private final UUID id;
+    private final String question;
+    private final String answer;
+    private final UUID owner;
 
     /**
-     * The card answer.
+     * No-args constructor for Gson
      */
-    private String answer;
+    private Card() {
+        this(UUID.randomUUID(), "question", "answer", UUID.randomUUID());
+    }
 
     /**
      * Create a new Card.
      *
-     * @param cardQuestion The question
-     * @param cardAnswer   The answer
+     * @param id       Unique UUID for the card
+     * @param question The question
+     * @param answer   The answer
+     * @throws IllegalArgumentException If front or back are blank, or uuid is null
+     * @throws NullPointerException     If id, question, or answer is null
      */
-    public Card(final String cardQuestion, final String cardAnswer) {
-        setQuestion(cardQuestion);
-        setAnswer(cardAnswer);
-    }
+    public Card(final UUID id, final String question, final String answer, final UUID owner) {
+        this.id = id;
+        this.question = question;
+        this.answer = answer;
+        this.owner = owner;
 
-    /**
-     * Get the answer.
-     *
-     * @return The answer
-     */
-    public String getAnswer() {
-        return answer;
-    }
-
-    /**
-     * Set a new answer.
-     *
-     * @param newAnswer Answer to replace old
-     */
-    public void setAnswer(final String newAnswer) {
-        if (newAnswer == null) {
-            throw new IllegalArgumentException("Answer cannot be null");
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(question);
+        Objects.requireNonNull(answer);
+        Objects.requireNonNull(owner);
+        if (question.isBlank()) {
+            throw new IllegalArgumentException("Front cannot be blank");
         }
-        if (newAnswer.isEmpty()) {
-            throw new IllegalArgumentException("Answer cannot be empty");
+        if (answer.isBlank()) {
+            throw new IllegalArgumentException("Back cannot be blank");
         }
-        answer = newAnswer;
     }
 
-    /**
-     * Get the question.
-     *
-     * @return The question
-     */
+    public UUID getId() {
+        return id;
+    }
+
     public String getQuestion() {
         return question;
     }
 
-    /**
-     * Set a new question.
-     *
-     * @param newQuestion Question to replace old
-     */
-    public void setQuestion(final String newQuestion) {
-        if (newQuestion == null) {
-            throw new IllegalArgumentException("Question cannot be null");
-        }
-        if (newQuestion.isEmpty()) {
-            throw new IllegalArgumentException("Question cannot be empty");
-        }
-        this.question = newQuestion;
+    public String getAnswer() {
+        return answer;
     }
 
-    /**
-     * Check if two Cards are equal.
-     *
-     * @param other Card to compare
-     * @return If the cards are equal
-     */
+    public UUID getOwner() {
+        return owner;
+    }
+
     @Override
-    public boolean equals(final Object other) {
-        if (this == other) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (!(other instanceof Card card)) {
-            return false;
+        if (object instanceof Card card) {
+            return getId().equals(card.getId())
+                && getQuestion().equals(card.getQuestion())
+                && getAnswer().equals(card.getAnswer())
+                && getOwner().equals(card.getOwner());
         }
-        return question.equals(card.question) && answer.equals(card.answer);
+        return false;
     }
 
-    /**
-     * Get the hash for this object. Used for comparison in HashSet sets.
-     *
-     * @return The hashcode
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(question, answer);
+        return Objects.hash(getId(), getQuestion(), getAnswer(), getOwner());
     }
 }

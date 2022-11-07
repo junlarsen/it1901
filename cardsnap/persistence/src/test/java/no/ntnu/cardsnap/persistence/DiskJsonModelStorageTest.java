@@ -2,7 +2,6 @@ package no.ntnu.cardsnap.persistence;
 
 import no.ntnu.cardsnap.domain.Card;
 import no.ntnu.cardsnap.domain.CardDeck;
-import no.ntnu.cardsnap.domain.Profile;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,44 +9,44 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DiskProfileStorageTest {
+public class DiskJsonModelStorageTest {
     private final String TEMPDIR_PATH = System.getProperty("java.io.tmpdir");
     private final Path CARDSNAP_TEST_PATH = Paths.get(TEMPDIR_PATH, "cardsnap-test-directory");
 
     @Test
-    @DisplayName("it will return an empty profile if file does not exist")
+    @DisplayName("it will return an empty model if file does not exist")
     public void testWillFindEmpty() throws IOException {
-        DiskProfileStorage dps = new DiskProfileStorage(CARDSNAP_TEST_PATH);
+        DiskJsonModelStorage dps = new DiskJsonModelStorage(CARDSNAP_TEST_PATH);
         File expected = dps.getStoragePath().toFile();
         if (expected.exists()) {
             expected.delete();
         }
         assertFalse(expected.exists());
-        Profile empty = dps.load();
+        JsonModel empty = dps.load();
         assertTrue(empty.getDecks().isEmpty());
         expected.deleteOnExit();
     }
 
     @Test
-    @DisplayName("it will store then load profiles to disk")
-    public void testWillStoreAndLoadProfile() throws IOException {
-        DiskProfileStorage dps = new DiskProfileStorage(CARDSNAP_TEST_PATH);
+    @DisplayName("it will store then load models to disk")
+    public void testWillStoreAndLoadModel() throws IOException {
+        DiskJsonModelStorage dps = new DiskJsonModelStorage(CARDSNAP_TEST_PATH);
 
-        Profile profile = new Profile(new HashSet<>());
-        CardDeck deck = new CardDeck(new HashSet<>(), "My test set");
-        Card card = new Card("What is love?", "Baby don't hurt me");
-        deck.add(card);
-        profile.add(deck);
+        JsonModel model = new JsonModel(
+            Set.of(new CardDeck(UUID.randomUUID(), "My little pony")),
+            Set.of(new Card(UUID.randomUUID(), "Foo", "Bar", UUID.randomUUID()))
+        );
 
-        dps.store(profile);
-        Profile imported = dps.load();
-        assertEquals(profile.getDecks().size(), imported.getDecks().size());
+        dps.store(model);
+        JsonModel imported = dps.load();
+        assertEquals(model.getDecks().size(), imported.getDecks().size());
+        assertEquals(model.getCards().size(), imported.getCards().size());
     }
 }
-

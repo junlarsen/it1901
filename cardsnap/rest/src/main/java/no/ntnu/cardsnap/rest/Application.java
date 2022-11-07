@@ -1,24 +1,16 @@
 package no.ntnu.cardsnap.rest;
 
-import io.javalin.Javalin;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public final class Application {
+@SpringBootApplication
+public class Application {
     /**
-     * System port the application should start on.
-     */
-    public static final int APP_PORT = 8080;
-
-    private Application() {
-    }
-
-    /**
-     * Start the REST API Server and connect all the route handlers.
+     * Start the Spring Boot application.
      *
-     * @param args Java program arguments, unused
+     * @param args Java application commandline arguments
      */
-    public static void main(final String[] args) {
-        Javalin app = Javalin.create();
-        app.get("/", ctx -> ctx.result("Hello world"));
-        app.start(APP_PORT);
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 }

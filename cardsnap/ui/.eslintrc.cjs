@@ -21,7 +21,6 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/member-delimiter-style': 'error',
-    '@typescript-eslint/no-confusing-void-expression': 'error',
     '@typescript-eslint/no-invalid-this': 'error',
     '@typescript-eslint/no-misused-promises': 'error',
     '@typescript-eslint/no-redundant-type-constituents': 'error',

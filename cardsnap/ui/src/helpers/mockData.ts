@@ -8,6 +8,11 @@ export interface CardDeck {
   cards: Card[];
 }
 
+export interface TmpCardDeck {
+  name: string;
+  id: string;
+}
+
 export const cardDecks: CardDeck[] = [
   {
     name: 'Algdat',

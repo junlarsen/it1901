@@ -3,6 +3,7 @@ package no.ntnu.cardsnap.rest.controllers;
 import no.ntnu.cardsnap.domain.CardDeck;
 import no.ntnu.cardsnap.rest.services.CardDeckService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@CrossOrigin
 @RestController()
 @RequestMapping(path = "/api/decks")
 public class CardDeckController {
@@ -31,8 +33,7 @@ public class CardDeckController {
 
     @GetMapping(value = "/")
     public List<CardDeck> findMany(
-        @RequestParam(defaultValue = "0") Integer page
-    ) throws IOException {
+            @RequestParam(defaultValue = "0") Integer page) throws IOException {
         return cardDeckService.list(page);
     }
 
@@ -53,9 +54,8 @@ public class CardDeckController {
 
     @PatchMapping(value = "/{deck}")
     public CardDeck update(
-        @PathVariable("deck") String id,
-        @RequestBody Map<String, String> body
-    ) throws IOException {
+            @PathVariable("deck") String id,
+            @RequestBody Map<String, String> body) throws IOException {
         UUID uuid = UUID.fromString(id);
         String name = body.get("name");
         if (name == null) {

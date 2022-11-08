@@ -4,12 +4,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Card domain type.
+ * A card, which models a simple flashcard with a question and an answer.
  * <p>
- * The Card type is a simple flashcard that has a question on the front, and an
- * answer to that question on the back.
+ * It also has reference to the card deck it belongs into through
+ * {@link Card#getOwner()}.
  */
-public class Card {
+public final class Card {
     private final UUID id;
     private final String question;
     private final String answer;

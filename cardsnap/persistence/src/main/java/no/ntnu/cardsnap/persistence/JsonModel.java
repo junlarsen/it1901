@@ -18,7 +18,7 @@ public class JsonModel {
     private final Set<Card> cards;
 
     /**
-     * No-args constructor for Gson
+     * No-args constructor for Gson.
      */
     public JsonModel() {
         this(new HashSet<>(), new HashSet<>());

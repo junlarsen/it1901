@@ -5,65 +5,24 @@ export interface Card {
 
 export interface CardDeck {
   name: string;
-  cards: Card[];
-}
-
-export interface TmpCardDeck {
-  name: string;
   id: string;
 }
 
 export const cardDecks: CardDeck[] = [
   {
     name: 'Algdat',
-    cards: [
-      {
-        question: "What's up?",
-        answer: 'Not much',
-      },
-      {
-        question: "What's down?",
-        answer: 'The ground',
-      },
-    ],
+    id: 'algdat',
   },
   {
     name: 'ITP',
-    cards: [
-      {
-        question: "What's up!",
-        answer: 'Not much',
-      },
-      {
-        question: "What's down!",
-        answer: 'The ground',
-      },
-    ],
+    id: 'itp',
   },
   {
     name: 'Endringsagent',
-    cards: [
-      {
-        question: "What's up?",
-        answer: 'Not much',
-      },
-      {
-        question: "What's down?",
-        answer: 'The ground',
-      },
-    ],
+    id: 'endringsagent',
   },
   {
     name: 'DatDig',
-    cards: [
-      {
-        question: "What's up!",
-        answer: 'Not much',
-      },
-      {
-        question: "What's down!",
-        answer: 'The ground',
-      },
-    ],
+    id: 'datadig',
   },
 ];

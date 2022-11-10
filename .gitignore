@@ -7,4 +7,5 @@ org.eclipse.*.prefs
 .idea/
 *.iml
 cardsnap.json
+cardsnap-model.json
 .DS_Store

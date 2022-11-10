@@ -1,6 +1,6 @@
 package no.ntnu.cardsnap.rest.repositories;
 
-import no.ntnu.cardsnap.domain.CardDeck;
+import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.persistence.JsonDatabase;
 import org.springframework.stereotype.Repository;
 

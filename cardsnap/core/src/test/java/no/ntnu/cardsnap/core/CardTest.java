@@ -1,4 +1,4 @@
-package no.ntnu.cardsnap.domain;
+package no.ntnu.cardsnap.core;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

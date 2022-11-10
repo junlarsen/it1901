@@ -10,4 +10,4 @@
  *
  * @author matsjla, magnutou, imsolhei, talene
  */
-package no.ntnu.cardsnap.domain;
+package no.ntnu.cardsnap.core;

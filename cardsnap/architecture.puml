@@ -1,11 +1,14 @@
 @startuml
 
 component Server {
+    component Rest {
+        package no.ntnu.cardsnap.rest
+        package no.ntnu.cardsnap.rest.services
+        package no.ntnu.cardsnap.rest.repositories
+        package no.ntnu.cardsnap.rest.controllers
+    }
     component Core {
         package no.ntnu.cardsnap.core
-    }
-    component Domain {
-        package no.ntnu.cardsnap.domain
     }
     component Persistence {
         package no.ntnu.cardsnap.persistence
@@ -16,14 +19,18 @@ component Client {
     component WebApp
 }
 
+component SpringBoot
 component GoogleGson
 component React
+component ReactQuery
 
 WebApp ..> Server
 WebApp ..> React
-Persistence ..> Domain
+WebApp ..> ReactQuery
 Persistence ..> GoogleGson
-Core ..> Domain
 Core ..> Persistence
+Rest ..> Persistence
+Rest ..> Core
+Rest ..> SpringBoot
 
 @enduml

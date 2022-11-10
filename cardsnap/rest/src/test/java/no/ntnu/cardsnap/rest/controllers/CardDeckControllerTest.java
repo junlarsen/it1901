@@ -3,7 +3,7 @@ package no.ntnu.cardsnap.rest.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
-import no.ntnu.cardsnap.domain.CardDeck;
+import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.rest.AppControllerAdvice;
 import no.ntnu.cardsnap.rest.Application;
 import no.ntnu.cardsnap.rest.TestConfiguration;

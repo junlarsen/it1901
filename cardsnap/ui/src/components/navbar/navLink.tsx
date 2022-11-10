@@ -1,14 +1,22 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { NavLinkType } from '../helpers/navLinks';
+import { NavLink as Link } from 'react-router-dom';
+import { NavLinkType } from '../../helpers/navLinks';
 
 interface NavLinkProps {
   navLink: NavLinkType;
 }
 
 export const NavLink: FC<NavLinkProps> = ({ navLink }: NavLinkProps) => (
-  <li className="mt-4">
-    <Link to={navLink.url} className="hover:font-medium">
+  <li>
+    <Link
+      className={({ isActive }) =>
+        isActive
+          ? 'font-medium transition-all border-blue-600 border-b-4'
+          : 'font-medium transition-all border-blue-600 hover:border-b-4'
+      }
+      to={navLink.url}
+      end
+    >
       {navLink.label}
     </Link>
   </li>

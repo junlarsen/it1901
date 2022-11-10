@@ -1,6 +1,6 @@
+import { FC, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
-import { FC, useState } from 'react';
 import { FeecbackContainer } from './feedbackContainer';
 import { Button } from '../../components/button';
 import { DECKS_ENDPOINTS } from '../../helpers/api';
@@ -18,34 +18,28 @@ export const CreateDeckForm: FC = () => {
 
   const { mutate, isSuccess, data } = useMutation(createDeckCall, {
     onSuccess: (data) => {
-      setFeedbackText(`${data.name} was added!`);
+      setFeedbackText(`Deck with name ${data.name} was added!`);
       setDisplayFeedback(true);
       setNewDeckName('');
     },
     onError: () => {
-      setFeedbackText('Error when creating deck');
+      setFeedbackText('There was a problem when creating this deck.');
       setDisplayFeedback(true);
     },
   });
 
   return (
     <>
-      <div className="bg-white border-4 p-4 w-80 shadow-md">
-        <label htmlFor="deckName" className="block mb-4 font-medium text-gray-900">
-          Name
-        </label>
-        <input
-          type="text"
-          id="deckName"
-          name="deckName"
-          placeholder="New deckname"
-          className="w-full mb-4 bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 p-2"
-          value={newDeckName}
-          onChange={(evt) => setNewDeckName(evt.target.value)}
-          required
-        />
-        <Button label="Create" clickHandler={mutate} />
-      </div>
+      <span className="text-xl font-medium">Name</span>
+      <p className="text-gray-600">Enter the name of the deck you want to create.</p>
+      <input
+        type="text"
+        placeholder="AlgDat"
+        className="my-4 mr-4 bg-white border border-gray-300 max-w-sm focus:ring-blue-500 focus:border-blue-500 p-2 w-full"
+        value={newDeckName}
+        onChange={(evt) => setNewDeckName(evt.target.value)}
+      />
+      <Button label="Create" clickHandler={mutate} />
       {displayFeedBack && (
         <FeecbackContainer
           setDisplayFeedback={setDisplayFeedback}

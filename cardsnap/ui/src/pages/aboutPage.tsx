@@ -3,7 +3,7 @@ import { Subtitle } from '../components/subtitle';
 
 export const AboutPage: FC = () => (
   <>
-    <Subtitle title="About" />
+    <Subtitle title="About🌸" />
     <p>Soon to get some content about cardSnap</p>
   </>
 );

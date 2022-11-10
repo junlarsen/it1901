@@ -15,12 +15,16 @@ export const HomePage: FC = () => {
 
   return (
     <>
-      <Subtitle title="Decks" />
+      <Subtitle title="Home🏡" />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="flex gap-4 max-w-2xl flex-wrap">
-          {data ? data.map((cardDeck) => <CardDeckCard key={cardDeck.name} cardDeck={cardDeck} />) : null}
+        <div className="flex gap-8 flex-wrap">
+          {data && data.length > 0 ? (
+            data.map((cardDeck) => <CardDeckCard key={cardDeck.name} cardDeck={cardDeck} />)
+          ) : (
+            <p>You have not created any decks.</p>
+          )}
         </div>
       )}
     </>

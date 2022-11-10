@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { NavLink } from './navLink';
 import { NavLinkType } from '../../helpers/navLinks';
 
@@ -7,12 +8,16 @@ interface NavbarProps {
 }
 
 export const Navbar: FC<NavbarProps> = ({ navLinks }) => (
-  <nav className="bg-gray-200 fixed top-0 left-0 h-screen p-8">
-    <h1 className="text-2xl">CardSnap</h1>
-    <ul>
-      {navLinks.map((navLink) => (
-        <NavLink key={navLink.url} navLink={navLink} />
-      ))}
-    </ul>
+  <nav className="bg-white p-4 shadow-sm">
+    <div className="max-w-5xl m-auto flex flex-col sm:flex-row">
+      <Link to="/">
+        <h1 className="text-2xl text-blue-600 font-medium">CardSnap💙</h1>
+      </Link>
+      <ul className="flex gap-4 mt-1 sm:ml-8">
+        {navLinks.map((navLink) => (
+          <NavLink key={navLink.url} navLink={navLink} />
+        ))}
+      </ul>
+    </div>
   </nav>
 );

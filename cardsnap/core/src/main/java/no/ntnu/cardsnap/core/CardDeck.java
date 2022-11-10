@@ -1,4 +1,4 @@
-package no.ntnu.cardsnap.domain;
+package no.ntnu.cardsnap.core;
 
 import java.util.Objects;
 import java.util.UUID;

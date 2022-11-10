@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>domain</module>
+        <module>core</module>
         <module>persistence</module>
         <module>rest</module>
     </modules>

@@ -1,6 +1,6 @@
 package no.ntnu.cardsnap.rest.controllers;
 
-import no.ntnu.cardsnap.domain.CardDeck;
+import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.rest.services.CardDeckService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;

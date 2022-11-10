@@ -1,6 +1,6 @@
 package no.ntnu.cardsnap.rest.repositories;
 
-import no.ntnu.cardsnap.domain.CardDeck;
+import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.rest.PersistenceDependentTestCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

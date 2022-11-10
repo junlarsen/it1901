@@ -9,12 +9,8 @@ export const navLinks: NavLinkType[] = [
     url: '/',
   },
   {
-    label: 'Create deck',
-    url: '/create-deck',
-  },
-  {
-    label: 'Import',
-    url: '/import',
+    label: 'Create',
+    url: '/create',
   },
   {
     label: 'About',

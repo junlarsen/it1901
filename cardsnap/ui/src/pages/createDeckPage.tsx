@@ -4,7 +4,7 @@ import { CreateDeckForm } from '../views/createDeckPage/createDeckForm';
 
 export const CreateDeckPage: FC = () => (
   <>
-    <Subtitle title="Create deck" />
+    <Subtitle title="Create✏️" />
     <CreateDeckForm />
   </>
 );

@@ -19,15 +19,17 @@ export const FeecbackContainer: React.FC<FeecbackContainerProps> = ({
   const handleOkButtonPress = () => setDisplayFeedback(false);
 
   return (
-    <div className="bg-white border-4 p-4 w-80 shadow-md mt-4">
+    <div className="bg-white rounded p-4 max-w-sm shadow-md mt-4">
+      <h2 className={`text-xl ${isSucess ? 'text-blue-600' : 'text-red-600'}`}>{isSucess ? 'Success!' : 'Error'}</h2>
       <p className="mb-4">{feedbackText}</p>
-      {isSucess && data ? (
-        <Link to={`edit/${data.id}`}>
-          <Button label="Add cards" />
-        </Link>
-      ) : (
+      <div className="flex gap-2">
+        {isSucess && data && (
+          <Link to={`edit/${data.id}`}>
+            <Button label="Add cards" />
+          </Link>
+        )}
         <Button clickHandler={handleOkButtonPress} label="OK" type="gray" />
-      )}
+      </div>
     </div>
   );
 };

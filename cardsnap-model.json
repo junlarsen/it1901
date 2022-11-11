@@ -1,25 +1,25 @@
 {
-  "decks": [
-    {
-      "id": "cfea59ab-a91d-4d69-9f62-769d85e9cbc4",
-      "name": "AlgDat👑"
-    },
-    {
-      "id": "9e215154-3cc0-42d9-b0fe-216f631172b4",
-      "name": "DatDig💩"
-    },
-    {
-      "id": "671de239-0494-498f-9d95-dccea852060e",
-      "name": "ITP😴"
-    },
-    {
-      "id": "69bc1fd7-eb23-440d-8f25-fa2d092b8aa9",
-      "name": "Ledelse🕶️"
-    },
-    {
-      "id": "621227c7-e114-4a1e-8827-a9458e03425f",
-      "name": "Webtek❤️"
-    }
-  ],
-  "cards": []
+    "decks": [
+        {
+            "id": "cfea59ab-a91d-4d69-9f62-769d85e9cbc4",
+            "name": "AlgDat👑"
+        },
+        {
+            "id": "9e215154-3cc0-42d9-b0fe-216f631172b4",
+            "name": "DatDig💩"
+        },
+        {
+            "id": "671de239-0494-498f-9d95-dccea852060e",
+            "name": "ITP😴"
+        },
+        {
+            "id": "69bc1fd7-eb23-440d-8f25-fa2d092b8aa9",
+            "name": "Ledelse🕶️"
+        },
+        {
+            "id": "621227c7-e114-4a1e-8827-a9458e03425f",
+            "name": "Webtek❤️"
+        }
+    ],
+    "cards": []
 }

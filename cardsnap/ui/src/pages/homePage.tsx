@@ -7,11 +7,18 @@ import { CardDeck } from '../helpers/mockData';
 import { DECKS_ENDPOINTS } from '../helpers/api';
 
 export const HomePage: FC = () => {
-  const { isLoading, error, data } = useQuery([], () =>
+  const { isLoading, isError, data } = useQuery([], () =>
     axios.get(DECKS_ENDPOINTS).then((res: AxiosResponse<CardDeck[]>) => res.data),
   );
 
-  if (error) return <p>An error has occurred.</p>;
+  if (isError) {
+    return (
+      <>
+        <Subtitle title="Home🏡" />
+        <p>An error has occurred.</p>
+      </>
+    );
+  }
 
   return (
     <>

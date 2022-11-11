@@ -5,6 +5,8 @@ import { CardDeckCard } from '../views/homePage/cardDeckCard';
 import { Subtitle } from '../components/subtitle';
 import { CardDeck } from '../helpers/mockData';
 import { DECKS_ENDPOINTS } from '../helpers/api';
+import { Button } from '../components/button';
+import { Link } from 'react-router-dom';
 
 export const HomePage: FC = () => {
   const { isLoading, error, data } = useQuery([], () =>
@@ -23,7 +25,15 @@ export const HomePage: FC = () => {
           {data && data.length > 0 ? (
             data.map((cardDeck) => <CardDeckCard key={cardDeck.name} cardDeck={cardDeck} />)
           ) : (
-            <p>You have not created any decks.</p>
+            <div>
+              <p>You don't have any decks yet.</p>
+              <p className="mt-4">
+                For adding decks, visit{' '}
+                <Link to="/create" className="text-blue-500 hover:pointer">
+                  Create
+                </Link>
+              </p>
+            </div>
           )}
         </div>
       )}

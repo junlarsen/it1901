@@ -10,7 +10,7 @@ import { DeckContainer } from '../views/deckPage/deckContainer';
 export const DeckPage: FC = () => {
   const params = useParams<Params<'id'>>();
 
-  const { isLoading, data, isSuccess, isError } = useQuery([], () =>
+  const { isLoading, data, isSuccess, isError } = useQuery(['deck ' + params?.id], () =>
     axios.get(DECKS_ENDPOINTS + params.id).then((res: AxiosResponse<CardDeck>) => res.data),
   );
 

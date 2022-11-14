@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
 public class TestConfiguration extends PersistenceDependentTestCase {
-    @Bean
-    public JsonDatabase getJsonDatabase() {
-        return jdb;
-    }
+  @Bean
+  public JsonDatabase getJsonDatabase() {
+    return jdb;
+  }
 }

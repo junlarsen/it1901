@@ -1,5 +1,9 @@
 package no.ntnu.cardsnap.rest.controllers;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.rest.services.CardDeckService;
 import org.springframework.http.HttpStatus;
@@ -16,56 +20,89 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+/**
+ * REST API Controller for handling {@link no.ntnu.cardsnap.core.Card} objects.
+ */
 @CrossOrigin
 @RestController()
 @RequestMapping(path = "/api/decks")
 public class CardDeckController {
-    private final CardDeckService cardDeckService;
+  private final CardDeckService cardDeckService;
 
-    private CardDeckController(final CardDeckService cardDeckService) {
-        this.cardDeckService = cardDeckService;
-    }
+  private CardDeckController(CardDeckService cardDeckService) {
+    this.cardDeckService = cardDeckService;
+  }
 
-    @GetMapping(value = "/")
-    public List<CardDeck> findMany(
-        @RequestParam(defaultValue = "0") Integer page) throws IOException {
-        return cardDeckService.list(page);
-    }
+  /**
+   * List decks through pagination.
+   *
+   * @param page The page to view
+   * @return The decks in the view
+   * @throws IOException If underlying I/O error occurs
+   */
+  @GetMapping(value = "/")
+  public List<CardDeck> findMany(
+      @RequestParam(defaultValue = "0") Integer page) throws IOException {
+    return cardDeckService.list(page);
+  }
 
-    @GetMapping(value = "/{deck}")
-    public CardDeck find(@PathVariable("deck") String id) throws IOException {
-        return cardDeckService.find(UUID.fromString(id));
-    }
+  /**
+   * Get a single deck.
+   *
+   * @param id The deck to access
+   * @return The deck
+   * @throws IOException If underlying I/O error occurs
+   */
+  @GetMapping(value = "/{deck}")
+  public CardDeck find(@PathVariable("deck") String id) throws IOException {
+    return cardDeckService.find(UUID.fromString(id));
+  }
 
-    @PostMapping(value = "/")
-    @ResponseStatus(HttpStatus.CREATED)
-    public CardDeck create(@RequestBody Map<String, String> body) throws IOException {
-        String name = body.get("name");
-        if (name == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return cardDeckService.create(name);
+  /**
+   * Create a new deck.
+   *
+   * @param body The Http body
+   * @return The newly created deck
+   * @throws IOException If underlying I/O error occurs
+   */
+  @PostMapping(value = "/")
+  @ResponseStatus(HttpStatus.CREATED)
+  public CardDeck create(@RequestBody Map<String, String> body) throws IOException {
+    String name = body.get("name");
+    if (name == null) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
+    return cardDeckService.create(name);
+  }
 
-    @PatchMapping(value = "/{deck}")
-    public CardDeck update(
-        @PathVariable("deck") String id,
-        @RequestBody Map<String, String> body) throws IOException {
-        UUID uuid = UUID.fromString(id);
-        String name = body.get("name");
-        if (name == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return cardDeckService.update(uuid, name);
+  /**
+   * Update an existing deck.
+   *
+   * @param id The deck to edit
+   * @param body The Http body
+   * @return The updated deck
+   * @throws IOException If underlying I/O error occurs
+   */
+  @PatchMapping(value = "/{deck}")
+  public CardDeck update(
+      @PathVariable("deck") String id,
+      @RequestBody Map<String, String> body) throws IOException {
+    UUID uuid = UUID.fromString(id);
+    String name = body.get("name");
+    if (name == null) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
+    return cardDeckService.update(uuid, name);
+  }
 
-    @DeleteMapping(value = "/{deck}")
-    public void delete(@PathVariable("deck") String id) throws IOException {
-        cardDeckService.delete(UUID.fromString(id));
-    }
+  /**
+   * Delete an existing deck.
+   *
+   * @param id The deck to delete
+   * @throws IOException If underlying I/O error occurs
+   */
+  @DeleteMapping(value = "/{deck}")
+  public void delete(@PathVariable("deck") String id) throws IOException {
+    cardDeckService.delete(UUID.fromString(id));
+  }
 }

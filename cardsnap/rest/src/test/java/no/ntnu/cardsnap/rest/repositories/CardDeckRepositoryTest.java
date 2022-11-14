@@ -48,7 +48,7 @@ public class CardDeckRepositoryTest extends PersistenceDependentTestCase {
         assertEquals(1, repository.all().size());
         Optional<CardDeck> found = repository.find(created.getId());
         assertTrue(found.isPresent());
-        repository.delete(created.getId());
+        repository.delete(created.getId(), true);
         Optional<CardDeck> deleted = repository.find(created.getId());
         assertFalse(deleted.isPresent());
     }

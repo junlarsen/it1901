@@ -31,7 +31,10 @@ public class JsonDatabaseTest {
         assertTrue(baseModel.getDecks().isEmpty());
         Card subject = new Card(UUID.randomUUID(), "Foo", "Bar", UUID.randomUUID());
         // Add a new card through a mutation
-        jdb.mutation(model -> model.getCards().add(subject));
+        jdb.mutation(model -> {
+            model.add(subject);
+            return null;
+        });
         JsonModel mutatedModel = jdb.query(m -> m);
         assertEquals(1, mutatedModel.getCards().size());
         assertTrue(mutatedModel.getCards().stream().anyMatch(s -> s.getId().equals(subject.getId())));

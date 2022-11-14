@@ -33,7 +33,7 @@ public class CardDeckController {
 
     @GetMapping(value = "/")
     public List<CardDeck> findMany(
-            @RequestParam(defaultValue = "0") Integer page) throws IOException {
+        @RequestParam(defaultValue = "0") Integer page) throws IOException {
         return cardDeckService.list(page);
     }
 
@@ -54,8 +54,8 @@ public class CardDeckController {
 
     @PatchMapping(value = "/{deck}")
     public CardDeck update(
-            @PathVariable("deck") String id,
-            @RequestBody Map<String, String> body) throws IOException {
+        @PathVariable("deck") String id,
+        @RequestBody Map<String, String> body) throws IOException {
         UUID uuid = UUID.fromString(id);
         String name = body.get("name");
         if (name == null) {

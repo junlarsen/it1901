@@ -2,17 +2,122 @@
 
 exports[`root app component > should be able to render 1`] = `
 <DocumentFragment>
-  <div>
-    <a
-      href="/home"
+  <main
+    class="flex flex-col h-screen justify-between"
+  >
+    <nav
+      class="bg-white p-4 shadow-sm"
     >
-      Home
-    </a>
-    <a
-      href="/decks/aabbcc"
+      <div
+        class="max-w-5xl m-auto flex flex-col sm:flex-row"
+      >
+        <a
+          href="/"
+        >
+          <h1
+            class="text-2xl text-blue-600 font-medium"
+          >
+            CardSnap💙
+          </h1>
+        </a>
+        <ul
+          class="flex gap-4 mt-1 sm:ml-8"
+        >
+          <li>
+            <a
+              aria-current="page"
+              class="font-medium transition-all border-blue-600 border-b-4"
+              href="/"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              class="font-medium transition-all border-blue-600 hover:border-b-4"
+              href="/create"
+            >
+              Create
+            </a>
+          </li>
+          <li>
+            <a
+              class="font-medium transition-all border-blue-600 hover:border-b-4"
+              href="/about"
+            >
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section
+      class="w-full max-w-5xl m-auto mt-8 mb-auto"
     >
-      Deck aabbcc
-    </a>
-  </div>
+      <div
+        class="mx-4 mb-8 xl:mx-0"
+      >
+        <h2
+          class="text-2xl font-medium mb-8"
+        >
+          Home🏡
+        </h2>
+        <p>
+          Loading...
+        </p>
+      </div>
+    </section>
+    <footer
+      class="bg-white w-full p-8"
+    >
+      <div
+        class="max-w-5xl m-auto px-4 xl:px-0"
+      >
+        <h2
+          class="font-medium text-xl"
+        >
+          Links
+        </h2>
+        <ul
+          class="flex gap-4 mt-2"
+        >
+          <li>
+            <a
+              class="text-gray-700 hover:text-blue-600"
+              href="/"
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              class="text-gray-70 hover:text-blue-600"
+              href="/about"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              class="text-gray-70 hover:text-blue-600"
+              href="https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2217/gr2217"
+            >
+              GitLab
+            </a>
+          </li>
+        </ul>
+        <p
+          class="mt-8"
+        >
+          2022 CardSnap
+        </p>
+        <p
+          class="mt-2"
+        >
+          Made with ❤️ by GR2217
+        </p>
+      </div>
+    </footer>
+  </main>
 </DocumentFragment>
 `;

@@ -28,3 +28,5 @@ export const cardDecks: CardDeck[] = [
     id: 'datadig',
   },
 ];
+
+export const mockCard: Card = { question: 'unit', answer: 'test', id: '1', owner: 'itp' };

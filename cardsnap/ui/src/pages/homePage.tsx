@@ -5,11 +5,10 @@ import { CardDeckCard } from '../views/homePage/cardDeckCard';
 import { Subtitle } from '../components/subtitle';
 import { CardDeck } from '../helpers/mockData';
 import { DECKS_ENDPOINTS } from '../helpers/api';
-import { Button } from '../components/button';
 import { Link } from 'react-router-dom';
 
 export const HomePage: FC = () => {
-  const { isLoading, isError, data } = useQuery([], () =>
+  const { isLoading, isError, data } = useQuery(['decks'], () =>
     axios.get(DECKS_ENDPOINTS).then((res: AxiosResponse<CardDeck[]>) => res.data),
   );
 

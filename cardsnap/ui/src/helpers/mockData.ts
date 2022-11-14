@@ -1,6 +1,8 @@
 export interface Card {
   question: string;
   answer: string;
+  id: string;
+  owner: string;
 }
 
 export interface CardDeck {

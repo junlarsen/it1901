@@ -1,10 +1,6 @@
 {
   "decks": [
     {
-      "id": "cfea59ab-a91d-4d69-9f62-769d85e9cbc4",
-      "name": "AlgDat👑"
-    },
-    {
       "id": "9e215154-3cc0-42d9-b0fe-216f631172b4",
       "name": "DatDig💩"
     },
@@ -19,6 +15,10 @@
     {
       "id": "621227c7-e114-4a1e-8827-a9458e03425f",
       "name": "Webtek❤️"
+    },
+    {
+      "id": "cfea59ab-a91d-4d69-9f62-769d85e9cbc4",
+      "name": "AlgDat🚀"
     }
   ],
   "cards": [

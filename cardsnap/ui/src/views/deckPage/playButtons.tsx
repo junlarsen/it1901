@@ -1,45 +1,38 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Button } from '../../components/button';
 
 interface PlayButtonsProps {
-  displayAnswer: boolean;
-  setDisplayAnswer: React.Dispatch<React.SetStateAction<boolean>>;
-  setDeckIndex: React.Dispatch<React.SetStateAction<number>>;
   deckSize: number;
-  deckIndex: number;
+  displayAnswer: boolean;
+  cardIndex: number;
+  setDisplayAnswer: React.Dispatch<React.SetStateAction<boolean>>;
+  setCardIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const PlayButtons: FC<PlayButtonsProps> = ({
-  displayAnswer,
-  setDisplayAnswer,
-  setDeckIndex,
   deckSize,
-  deckIndex,
+  displayAnswer,
+  cardIndex,
+  setDisplayAnswer,
+  setCardIndex,
 }) => {
-  const toggleDisplayAnswer = () => {
-    setDisplayAnswer(!displayAnswer);
-  };
+  const toggleDisplayAnswer = () => setDisplayAnswer(!displayAnswer);
+  const handlePrevClick = () => handlePagination(-1);
+  const handleNextClick = () => handlePagination(1);
 
-  const nextCard = () => {
-    setDisplayAnswer(false);
-    paginateDeck(1);
-  };
-
-  const prevCard = () => {
-    setDisplayAnswer(false);
-    paginateDeck(-1);
-  };
-
-  const paginateDeck = (num: number) => {
-    let newIndex = deckIndex + num;
-    if (newIndex >= 0 && newIndex < deckSize) setDeckIndex(newIndex);
+  const handlePagination = (num: number) => {
+    const updatedIndex = cardIndex + num;
+    if (updatedIndex >= 0 && updatedIndex < deckSize) {
+      setCardIndex(updatedIndex);
+      setDisplayAnswer(false);
+    }
   };
 
   return (
     <div className="flex w-full mt-8 justify-between">
-      <Button clickHandler={prevCard} label="Previous" />
+      <Button clickHandler={handlePrevClick} label="Previous" />
       <Button clickHandler={toggleDisplayAnswer} label="Flip" />
-      <Button clickHandler={nextCard} label="Next" />
+      <Button clickHandler={handleNextClick} label="Next" />
     </div>
   );
 };

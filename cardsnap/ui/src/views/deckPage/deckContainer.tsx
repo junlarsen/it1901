@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { PlayView } from './playView';
 import { Button } from '../../components/button';
 import { Subtitle } from '../../components/subtitle';
 import { CardDeck } from '../../helpers/mockData';
-import { PlayView } from './playView';
 
 interface DeckContainerProps {
   cardDeck: CardDeck;
@@ -12,10 +12,14 @@ interface DeckContainerProps {
 export const DeckContainer: FC<DeckContainerProps> = ({ cardDeck }) => {
   return (
     <>
-      <Subtitle title={cardDeck.name} />
-      <Link to="edit">
-        <Button label="Edit" />
-      </Link>
+      <div className="flex gap-4">
+        <Subtitle title={cardDeck.name} />
+        <div>
+          <Link to="edit">
+            <Button label="Edit" type="edit" />
+          </Link>
+        </div>
+      </div>
       <PlayView id={cardDeck.id} />
     </>
   );

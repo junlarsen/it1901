@@ -1,9 +1,10 @@
 import { FC } from 'react';
+import { EditIcon } from './icons/edit';
 
 interface ButtonProps {
   clickHandler?: () => void;
   label: string;
-  type?: 'default' | 'gray' | 'red';
+  type?: 'default' | 'edit' | 'gray' | 'red';
 }
 
 export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type = 'default' }) => {
@@ -17,9 +18,17 @@ export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type
     return 'bg-sky-500 hover:bg-sky-600 text-white active:bg-sky-600 border border-sky-500 active:border-sky-600';
   };
 
-  return (
-    <button onClick={clickHandler} className={`py-2 w-32 transition duration-100 ease-in-out ${getColorClass()}`}>
-      {label}
-    </button>
-  );
+  if (type === 'edit') {
+    return (
+      <button className="bg-sky-500 p-2 rounded-full hover:bg-sky-600">
+        <EditIcon />
+      </button>
+    );
+  } else {
+    return (
+      <button onClick={clickHandler} className={`py-2 w-32 transition duration-100 ease-in-out ${getColorClass()}`}>
+        {label}
+      </button>
+    );
+  }
 };

@@ -1,13 +1,18 @@
 import { FC } from 'react';
 import { Button } from '../../components/button';
+import { Card } from '../../helpers/mockData';
 
-export const CardButtonsContainer: FC = () => {
+interface CardButtonsContainerProps {
+  card: Card;
+}
+
+export const CardButtonsContainer: FC<CardButtonsContainerProps> = ({ card }) => {
   const editCardHandler = () => {
-    // Todo
+    // TODO edit card using card.id
   };
 
   const deleteCardHandler = () => {
-    // Todo
+    // TODO delete card using card.id
   };
 
   return (

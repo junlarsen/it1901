@@ -18,12 +18,12 @@ export const EditView: FC<EditViewProps> = ({ deck, setEditToggle, refetch }) =>
   const [updatedName, setUpdatedName] = useState(deck.name);
   const [nameValidity, setNameValidity] = useState(true);
 
-  const createDeckCall = async () => {
+  const renameDeckCall = async () => {
     const res: AxiosResponse<CardDeck> = await axios.patch(DECKS_ENDPOINTS + '/' + deck.id, { name: updatedName });
     return res.data;
   };
 
-  const { mutate } = useMutation(createDeckCall, {
+  const { mutate } = useMutation(renameDeckCall, {
     onSuccess: () => {
       setNameValidity(true);
       void refetch();

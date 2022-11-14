@@ -1,9 +1,13 @@
 import { FC } from 'react';
+import { RefetchOptions, RefetchQueryFilters, QueryObserverResult } from '@tanstack/react-query';
 import { CardButtonsContainer } from './cardButtonsContainer';
 import { Card } from '../../helpers/mockData';
 
 interface CardContainerProps {
   card: Card;
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
+  ) => Promise<QueryObserverResult<Card[]>>;
 }
 
 export const CardContainer: FC<CardContainerProps> = ({ card }) => (

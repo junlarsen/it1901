@@ -2,13 +2,11 @@ import { FC } from 'react';
 import { Params, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
-import { CreateCardContainer } from '../views/editDeckPage/createCardContainer';
 import { EditDeckPageHeader } from '../views/editDeckPage/editDeckPageHeader/editDeckPageHeader';
 import { DECKS_ENDPOINTS } from '../helpers/api';
 import { CardDeck } from '../helpers/mockData';
 import { DeckNotFound } from '../components/deckNotFound';
-import { ListOfCards } from '../views/editDeckPage/listOfCards';
-import { DeleteDeckButton } from '../views/editDeckPage/deleteDeckButton';
+import { CardDeckContent } from '../views/editDeckPage/cardDeckContent';
 
 export const EditDeckPage: FC = () => {
   const params = useParams<Params<'id'>>();
@@ -24,9 +22,7 @@ export const EditDeckPage: FC = () => {
         {isSuccess && (
           <>
             <EditDeckPageHeader deck={data} refetch={refetch} />
-            <CreateCardContainer deckName={data.name} />
-            <ListOfCards id={data.id} />
-            <DeleteDeckButton />
+            <CardDeckContent deck={data} />
           </>
         )}
         {isError && <DeckNotFound id={params.id} />}

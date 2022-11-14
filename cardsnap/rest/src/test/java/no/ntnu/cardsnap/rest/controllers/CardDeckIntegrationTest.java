@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 @Import(CardDeckController.class)
 @ContextConfiguration(classes = {CardDeckRepository.class, CardDeckService.class, TestConfiguration.class, Application.class, AppControllerAdvice.class})
 @WebMvcTest(CardDeckController.class)
-public class CardDeckControllerTest {
+public class CardDeckIntegrationTest {
     @Autowired
     private MockMvc mvc;
 
@@ -57,7 +57,7 @@ public class CardDeckControllerTest {
                 fail(ex.getMessage());
             }
         }
-        // Then we add a card to the deck.
+        // Then we create a new deck.
         CardDeck created = null;
         {
             MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/api/decks/")

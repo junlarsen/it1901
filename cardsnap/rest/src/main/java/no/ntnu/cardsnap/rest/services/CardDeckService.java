@@ -53,7 +53,7 @@ public class CardDeckService {
      * @param page Offset to start the view at, cannot exceed size of list.
      * @return The requested card decks.
      * @throws IOException              If underlying I/O error occurs
-     * @throws IllegalArgumentException If invalid offset or limit value
+     * @throws IllegalArgumentException If invalid offset value
      */
     public List<CardDeck> list(int page) throws IOException, IllegalArgumentException {
         Set<CardDeck> all = repository.all();
@@ -100,7 +100,7 @@ public class CardDeckService {
     }
 
     /**
-     * Delete a dekc with the given id.
+     * Delete a deck with the given id.
      *
      * @param id The id to look up
      * @throws IOException             If underlying I/O error occurs
@@ -109,6 +109,6 @@ public class CardDeckService {
     public void delete(UUID id) throws IOException {
         // Ensure that the entity exists
         find(id);
-        repository.delete(id);
+        repository.delete(id, true);
     }
 }

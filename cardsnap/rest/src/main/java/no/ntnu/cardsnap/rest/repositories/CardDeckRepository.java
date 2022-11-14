@@ -1,5 +1,6 @@
 package no.ntnu.cardsnap.rest.repositories;
 
+import no.ntnu.cardsnap.core.Card;
 import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.persistence.JsonDatabase;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Concrete implementation of something that can handle read/write operations on
@@ -22,7 +24,7 @@ public class CardDeckRepository {
     private final JsonDatabase database;
 
     /**
-     * Create a new CardDeckRepository, backed by the given JsonModelStorage
+     * Create a new CardDeckRepository, backed by the given JsonModelStorage.
      *
      * @param jsonDatabase The database to use
      */
@@ -33,6 +35,7 @@ public class CardDeckRepository {
     /**
      * Create a new card deck with the given name.
      *
+     * @param id   The UUID to assign to the deck
      * @param name The name to give
      * @return The newly created card deck
      * @throws IOException If an I/O error occurred during creation.
@@ -40,7 +43,7 @@ public class CardDeckRepository {
     public CardDeck create(UUID id, String name) throws IOException {
         return database.mutation((jsonModel -> {
             CardDeck deck = new CardDeck(id, name);
-            jsonModel.getDecks().add(deck);
+            jsonModel.add(deck);
             return deck;
         }));
     }
@@ -58,7 +61,7 @@ public class CardDeckRepository {
         if (match.isEmpty()) {
             return Optional.empty();
         }
-        delete(id);
+        delete(id, false);
         return Optional.of(create(id, newName));
     }
 
@@ -93,18 +96,31 @@ public class CardDeckRepository {
      * <p>
      * If the deck does not exist, nothing happens.
      *
-     * @param id The UUID of the card deck to delete
+     * @param id      The UUID of the card deck to delete
+     * @param cascade Whether it should cascade delete cards
      * @throws IOException If an I/O error occurred during creation.
      */
-    public void delete(UUID id) throws IOException {
-        database.mutation((jsonModel -> jsonModel
-            .getDecks()
-            .removeIf((deck) -> deck.getId().equals(id))
-        ));
+    public void delete(UUID id, boolean cascade) throws IOException {
+        Optional<CardDeck> deck = find(id);
+        if (deck.isEmpty()) {
+            return;
+        }
+        database.mutation((jsonModel) -> {
+            jsonModel.remove(deck.get());
+            return null;
+        });
         // Cascade deletion on the cards
-        database.mutation((jsonModel -> jsonModel
-            .getCards()
-            .removeIf((card) -> card.getOwner().equals(id))
-        ));
+        if (!cascade) {
+            return;
+        }
+        Set<Card> related = database.query((jsonModel) -> jsonModel.getCards()
+                .stream().filter((card) -> card.getOwner().equals(id)))
+            .collect(Collectors.toSet());
+        database.mutation((jsonModel) -> {
+            for (Card card : related) {
+                jsonModel.remove(card);
+            }
+            return null;
+        });
     }
 }

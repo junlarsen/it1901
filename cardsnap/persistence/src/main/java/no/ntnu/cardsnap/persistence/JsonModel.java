@@ -29,11 +29,57 @@ public class JsonModel {
         this.cards = cards;
     }
 
-    public Set<CardDeck> getDecks() {
-        return decks;
+    /**
+     * Add a deck to the model.
+     *
+     * @param deck The deck to add
+     */
+    public void add(CardDeck deck) {
+        decks.add(deck);
     }
 
+    /**
+     * Add a card to the model.
+     *
+     * @param card The card to add
+     */
+    public void add(Card card) {
+        cards.add(card);
+    }
+
+    /**
+     * Remove a deck from the model.
+     *
+     * @param deck The deck to remove
+     */
+    public void remove(CardDeck deck) {
+        decks.remove(deck);
+    }
+
+    /**
+     * Remove a card from the model.
+     *
+     * @param card The card to remove
+     */
+    public void remove(Card card) {
+        cards.remove(card);
+    }
+
+    /**
+     * Get a copy of the stored decks.
+     *
+     * @return The set of decks
+     */
+    public Set<CardDeck> getDecks() {
+        return new HashSet<>(decks);
+    }
+
+    /**
+     * Get a copy of the stored cards.
+     *
+     * @return The set of cards
+     */
     public Set<Card> getCards() {
-        return cards;
+        return new HashSet<>(cards);
     }
 }

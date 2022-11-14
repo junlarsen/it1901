@@ -1,6 +1,7 @@
 package no.ntnu.cardsnap.persistence;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -18,15 +19,15 @@ public class JsonDatabase {
      * Perform a "database mutation", a transaction that changes some of the
      * {@link JsonModel}.
      *
-     * @param consumer The transaction consumer
+     * @param function The transaction function
      * @param <T>      Type of transaction result
      * @return The result from the transaction
      * @throws IOException If underlying I/O error occurred when the storage was
      *                     accessed
      */
-    public <T> T mutation(Function<JsonModel, T> consumer) throws IOException {
+    public <T> T mutation(Function<JsonModel, T> function) throws IOException {
         JsonModel model = jsonModelStorage.load();
-        T result = consumer.apply(model);
+        T result = function.apply(model);
         jsonModelStorage.store(model);
         return result;
     }

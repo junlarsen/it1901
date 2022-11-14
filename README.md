@@ -15,7 +15,9 @@ The main application source is found inside the [cardsnap](cardsnap) directory/
 ### Building the project
 
 The project uses [Apache Maven](https://maven.apache.org/) to build and manage
-the code. The project uses Java 19.
+the code. The project uses Java 19. Additionally we require any recent version
+of Node.js and the Yarn package manager to build and run the client-side
+application.
 
 To build the application, follow these steps:
 
@@ -24,11 +26,21 @@ To build the application, follow these steps:
 git clone https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2217/gr2217
 cd gr2217/cardsnap
 
-# Build the application
+# Build the backend application
 mvn clean install
 
-# Run tests and generate Jacoco, Spotbugs, and Checkstyle reports
-mvn test site
+# Install dependencies for the frontend application
+cd ui && yarn install
+
+# Run tests and generate Jacoco, Spotbugs, and Checkstyle reports for the backend
+mvn verify site
+
+# Run tests and linting for the frontend application
+cd ui && yarn test && yarn lint
+
+# Run both applications (use two terminals, one for each process)
+mvn -f rest/pom.xml spring-boot:run
+cd ui && yarn start
 ```
 
 ## Authors

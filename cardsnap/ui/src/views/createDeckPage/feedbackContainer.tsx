@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { Button } from '../../components/button';
 import { CardDeck } from '../../helpers/mockData';
 
-interface FeecbackContainerProps {
+interface FeedbackContainerProps {
   setDisplayFeedback: React.Dispatch<React.SetStateAction<boolean>>;
   feedbackText: string;
   isSucess: boolean;
   data: CardDeck | undefined;
 }
 
-export const FeecbackContainer: React.FC<FeecbackContainerProps> = ({
+export const FeedbackContainer: React.FC<FeedbackContainerProps> = ({
   setDisplayFeedback,
   feedbackText,
   isSucess,

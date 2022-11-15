@@ -24,10 +24,11 @@ export const FeedbackContainer: React.FC<FeedbackContainerProps> = ({
       <p className="mb-4">{feedbackText}</p>
       <div className="flex gap-2">
         {validity && data && (
-          <Link to={`edit/${data.id}`}>
+          <Link to={`/deck/${data.id}/edit`}>
             <Button label="Add cards" />
           </Link>
         )}
+
         <Button clickHandler={handleOkButtonPress} label="OK" type="gray" />
       </div>
     </div>

@@ -91,7 +91,15 @@ exports[`root app component > should be able to render 1`] = `
           </li>
           <li>
             <a
-              class="text-gray-70 hover:text-blue-600"
+              class="text-gray-700 hover:text-blue-600"
+              href="/create"
+            >
+              Create
+            </a>
+          </li>
+          <li>
+            <a
+              class="text-gray-700 hover:text-blue-600"
               href="/about"
             >
               About

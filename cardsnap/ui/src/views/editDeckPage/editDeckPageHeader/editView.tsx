@@ -1,7 +1,7 @@
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useMutation } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { FC, useState } from 'react';
-import { Button } from '../../../components/button';
+import { Button } from '../../../components/button/button';
 import { DECKS_ENDPOINTS } from '../../../helpers/api';
 import { CardDeck } from '../../../helpers/mockData';
 import { validateDeckName } from '../../../helpers/validation';
@@ -47,10 +47,12 @@ export const EditView: FC<EditViewProps> = ({ deck, setEditToggle, refetch }) =>
   };
 
   return (
-    <div className="flex items-start h-8  gap-4">
+    <div className="flex items-start h-10 gap-4">
       <input
         type="text"
-        className={`bg-gray-50 border-2 border-gray-300 text-gray-900 w-64 p-2 ${nameValidity ? '' : 'border-red-500'}`}
+        className={`bg-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 ${
+          nameValidity ? '' : 'border-red-500'
+        }`}
         value={updatedName}
         onChange={(evt) => setUpdatedName(evt.target.value)}
       />

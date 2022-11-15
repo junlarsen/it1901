@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { PenIcon } from './icons/pen';
+import { PenIcon } from '../icons/penIcon';
 
 interface PenToggleProps {
   editToggle: boolean;

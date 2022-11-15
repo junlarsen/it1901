@@ -12,7 +12,7 @@ interface CreateCardContainerProps {
 
 export const CreateCardContainer: FC<CreateCardContainerProps> = ({ deck, refetch }) => (
   <div className="bg-white p-4 shadow-md rounded border-b-4 border-white w-full">
-    <h3 className="text-l font-medium">Add new card to {deck.name}:</h3>
+    <h3 className="text-l font-medium">Add new card to {deck.name}</h3>
     <CreateCardForm deck={deck} refetch={refetch} />
   </div>
 );

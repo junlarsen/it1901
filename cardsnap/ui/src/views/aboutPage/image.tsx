@@ -1,15 +1,10 @@
-import { url } from 'inspector';
 import { FC } from 'react';
 
 interface ImageProps {
+  alt: string;
   source: string;
 }
 
-export const Image: FC<ImageProps> = ({ source }) => (
-  <>
-    <img
-      src={source}
-      className="ml-auto mr-auto w-8/12 lg:w-full transition-shadow ease-in-out duration-300 hover:shadow-xl"
-    />
-  </>
+export const Image: FC<ImageProps> = ({ alt, source }) => (
+  <img src={source} alt={alt} className="w-8/12 lg:w-full max-w-xs" />
 );

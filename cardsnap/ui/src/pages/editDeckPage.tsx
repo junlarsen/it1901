@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 import { EditDeckPageHeader } from '../views/editDeckPage/editDeckPageHeader/editDeckPageHeader';
 import { DECKS_ENDPOINTS } from '../helpers/api';
 import { CardDeck } from '../helpers/mockData';
-import { DeckNotFound } from '../components/deckNotFound';
+import { DeckNotFound } from '../components/deckNotFound/deckNotFound';
 import { CardDeckContent } from '../views/editDeckPage/cardDeckContent';
 import { DeleteDeckButton } from '../views/editDeckPage/deleteDeckButton';
 

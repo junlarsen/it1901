@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Footer } from '../components/footer';
-import { Navbar } from '../components/navbar';
+import { Footer } from '../components/footer/footer';
+import { Navbar } from '../components/navbar/navbar';
 import { navLinks } from '../helpers/navLinks';
 
 export const PageLayout: FC = () => (

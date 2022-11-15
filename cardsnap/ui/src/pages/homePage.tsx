@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
+import { Link } from 'react-router-dom';
 import { CardDeckCard } from '../views/homePage/cardDeckCard';
-import { Subtitle } from '../components/subtitle';
+import { Subtitle } from '../components/subtitle/subtitle';
 import { CardDeck } from '../helpers/mockData';
 import { DECKS_ENDPOINTS } from '../helpers/api';
-import { Link } from 'react-router-dom';
 
 export const HomePage: FC = () => {
   const { isLoading, isError, data } = useQuery(['decks'], () =>

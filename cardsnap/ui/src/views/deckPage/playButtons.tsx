@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button } from '../../components/button';
+import { Button } from '../../components/button/button';
 
 interface PlayButtonsProps {
   deckSize: number;
@@ -30,9 +30,9 @@ export const PlayButtons: FC<PlayButtonsProps> = ({
 
   return (
     <div className="flex w-full mt-8 justify-between">
-      <Button clickHandler={handlePrevClick} label="Previous" />
+      <Button clickHandler={handlePrevClick} label="Previous" type={cardIndex === 0 ? 'disabled' : 'default'} />
       <Button clickHandler={toggleDisplayAnswer} label="Flip" />
-      <Button clickHandler={handleNextClick} label="Next" />
+      <Button clickHandler={handleNextClick} label="Next" type={cardIndex === deckSize - 1 ? 'disabled' : 'default'} />
     </div>
   );
 };

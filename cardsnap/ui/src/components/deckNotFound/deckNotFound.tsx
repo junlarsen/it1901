@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Subtitle } from './subtitle';
+import { Subtitle } from '../subtitle/subtitle';
 
 interface DeckNotFoundProps {
   id: string | undefined;
 }
 
-export const CardsNotFound: FC<DeckNotFoundProps> = ({ id }) => (
+export const DeckNotFound: FC<DeckNotFoundProps> = ({ id }) => (
   <>
     <Subtitle title="Oops! Something went wrong" />
     {id === undefined ? (
       <p>Hmmmm couldn't read ID from URL</p>
     ) : (
       <p>
-        Couldn't get gards from deck with id: <span className="italic">{id}</span>
+        Deck with id: <span className="italic">{id}</span> is not found
       </p>
     )}
     <p>

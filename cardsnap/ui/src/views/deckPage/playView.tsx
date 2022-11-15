@@ -6,7 +6,7 @@ import { IndexIndicator } from './indexIndicator';
 import { PlayButtons } from '../deckPage/playButtons';
 import { DECKS_ENDPOINTS } from '../../helpers/api';
 import { Card } from '../../helpers/mockData';
-import { CardsNotFound } from '../../components/cardsNotFound';
+import { CardsNotFound } from '../../components/cardsNotFound/cardsNotFound';
 
 interface PlayViewProps {
   id: string;

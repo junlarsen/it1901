@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { PlayView } from './playView';
-import { Button } from '../../components/button';
-import { Subtitle } from '../../components/subtitle';
+import { Button } from '../../components/button/button';
+import { Subtitle } from '../../components/subtitle/subtitle';
 import { CardDeck } from '../../helpers/mockData';
 
 interface DeckContainerProps {

@@ -20,7 +20,7 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
   const [answerValidity, setAnswerValidity] = useState(true);
   const [feedback, setFeedback] = useState('');
 
-  const renameDeckCall = async () => {
+  const createCardCall = async () => {
     const res: AxiosResponse<Card> = await axios.post(`${DECKS_ENDPOINTS}${deck.id}/cards/`, {
       question: newQuestion,
       answer: newAnswer,
@@ -28,9 +28,9 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
     return res.data;
   };
 
-  const { mutate } = useMutation(renameDeckCall, {
-    onSuccess: (data) => {
-      void refetch();
+  const { mutate } = useMutation(createCardCall, {
+    onSuccess: async (data) => {
+      await refetch();
       setFeedback(`A new card was added: {Q: ${data.question} | A: ${data.answer}}`);
       setNewQuestion('');
       setNewAnswer('');

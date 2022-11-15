@@ -24,9 +24,9 @@ export const EditView: FC<EditViewProps> = ({ deck, setEditToggle, refetch }) =>
   };
 
   const { mutate } = useMutation(renameDeckCall, {
-    onSuccess: () => {
+    onSuccess: async () => {
       setNameValidity(true);
-      void refetch();
+      await refetch();
     },
     onError: () => {
       setNameValidity(false);

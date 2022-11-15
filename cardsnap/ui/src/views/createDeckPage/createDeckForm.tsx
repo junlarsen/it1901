@@ -1,15 +1,13 @@
 import { FC } from 'react';
-import { UseMutateFunction } from '@tanstack/react-query';
 import { Button } from '../../components/button';
-import { CardDeck } from '../../helpers/mockData';
 
 interface CreateDeckFormProps {
   newDeckName: string;
-  mutate: UseMutateFunction<CardDeck>;
+  handleCreateDeck: () => void;
   setNewDeckName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const CreateDeckForm: FC<CreateDeckFormProps> = ({ mutate, newDeckName, setNewDeckName }) => (
+export const CreateDeckForm: FC<CreateDeckFormProps> = ({ newDeckName, setNewDeckName, handleCreateDeck }) => (
   <>
     <span className="text-xl font-medium">Name</span>
     <p className="text-gray-600">Enter the name of the deck you want to create.</p>
@@ -20,6 +18,6 @@ export const CreateDeckForm: FC<CreateDeckFormProps> = ({ mutate, newDeckName, s
       value={newDeckName}
       onChange={(evt) => setNewDeckName(evt.target.value)}
     />
-    <Button label="Create" clickHandler={mutate} />
+    <Button label="Create" clickHandler={handleCreateDeck} />
   </>
 );

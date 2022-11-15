@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { EditIcon } from './icons/edit';
+import { TrashIcon } from './icons/trash';
 
 interface ButtonProps {
   clickHandler?: () => void;
   label: string;
-  type?: 'default' | 'edit' | 'gray' | 'red';
+  type?: 'default' | 'delete' | 'edit' | 'gray' | 'red';
 }
 
 export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type = 'default' }) => {
@@ -20,13 +21,22 @@ export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type
 
   if (type === 'edit') {
     return (
-      <button className="bg-sky-500 p-2 rounded-full hover:bg-sky-600">
+      <button onClick={clickHandler} className="bg-sky-500 p-2 rounded-full hover:bg-sky-600">
         <EditIcon />
+      </button>
+    );
+  } else if (type === 'delete') {
+    return (
+      <button onClick={clickHandler} className="bg-red-500 p-2 rounded-full hover:bg-red-600">
+        <TrashIcon />
       </button>
     );
   } else {
     return (
-      <button onClick={clickHandler} className={`py-2 w-32 transition duration-100 ease-in-out ${getColorClass()}`}>
+      <button
+        onClick={clickHandler}
+        className={`py-2 w-32 transition duration-100 ease-in-out rounded ${getColorClass()}`}
+      >
         {label}
       </button>
     );

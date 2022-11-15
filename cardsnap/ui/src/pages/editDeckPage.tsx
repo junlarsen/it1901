@@ -7,6 +7,7 @@ import { DECKS_ENDPOINTS } from '../helpers/api';
 import { CardDeck } from '../helpers/mockData';
 import { DeckNotFound } from '../components/deckNotFound';
 import { CardDeckContent } from '../views/editDeckPage/cardDeckContent';
+import { DeleteDeckButton } from '../views/editDeckPage/deleteDeckButton';
 
 export const EditDeckPage: FC = () => {
   const params = useParams<Params<'id'>>();
@@ -23,6 +24,7 @@ export const EditDeckPage: FC = () => {
           <>
             <EditDeckPageHeader deck={data} refetch={refetch} />
             <CardDeckContent deck={data} />
+            <DeleteDeckButton deck={data} />
           </>
         )}
         {isError && <DeckNotFound id={params.id} />}

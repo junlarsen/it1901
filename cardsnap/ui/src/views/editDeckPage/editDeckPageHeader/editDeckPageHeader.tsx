@@ -15,11 +15,11 @@ export const EditDeckPageHeader: FC<EditDeckPageHeaderProps> = ({ deck, refetch 
   const [editToggle, setEditToggle] = useState(false);
 
   return (
-    <div className="mb-8 h-8">
+    <div className="mb-8 bg-white shadow p-4 rounded">
       {editToggle ? (
         <EditView deck={deck} setEditToggle={setEditToggle} refetch={refetch} />
       ) : (
-        <NormalView name={deck.name} setEditToggle={setEditToggle} />
+        <NormalView deck={deck} setEditToggle={setEditToggle} />
       )}
     </div>
   );

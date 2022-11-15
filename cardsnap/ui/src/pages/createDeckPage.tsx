@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { FC, useState } from 'react';
-import { Subtitle } from '../components/subtitle';
+import { Subtitle } from '../components/subtitle/subtitle';
 import { DECKS_ENDPOINTS } from '../helpers/api';
 import { CardDeck } from '../helpers/mockData';
 import { validateDeckName } from '../helpers/validation';

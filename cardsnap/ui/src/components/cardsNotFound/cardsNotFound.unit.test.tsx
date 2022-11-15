@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, cleanup } from '@testing-library/react';
 import { describe, it, afterEach } from 'vitest';
 import { CardsNotFound } from './cardsNotFound';
-import { renderWithRouter } from '../helpers/testHelpers';
+import { renderWithRouter } from '../../helpers/testHelpers';
 
 describe('CardsNotFound unit tests', () => {
   afterEach(() => {

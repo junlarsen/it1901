@@ -18,7 +18,7 @@ describe('FeedbackContainer unit tests', () => {
       <FeedbackContainer
         setDisplayFeedback={setDisplayFeedback}
         feedbackText={feedbackText}
-        isSucess={isSuccess}
+        validity={isSuccess}
         data={data}
       />,
     );
@@ -34,7 +34,7 @@ describe('FeedbackContainer unit tests', () => {
       <FeedbackContainer
         setDisplayFeedback={setDisplayFeedback}
         feedbackText={feedbackText}
-        isSucess={isSuccess}
+        validity={isSuccess}
         data={undefined}
       />,
     );
@@ -48,7 +48,7 @@ describe('FeedbackContainer unit tests', () => {
     const isSuccess = true;
     const data = cardDecks[0];
     renderWithRouter(
-      <FeedbackContainer setDisplayFeedback={mock} feedbackText={feedbackText} isSucess={isSuccess} data={data} />,
+      <FeedbackContainer setDisplayFeedback={mock} feedbackText={feedbackText} validity={isSuccess} data={data} />,
     );
 
     fireEvent.click(screen.getByText('OK'));

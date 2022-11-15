@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { FC } from 'react';
 import { Params, useParams } from 'react-router-dom';
-import { DeckNotFound } from '../components/deckNotFound';
+import { DeckNotFound } from '../components/deckNotFound/deckNotFound';
 import { DECKS_ENDPOINTS } from '../helpers/api';
 import { CardDeck } from '../helpers/mockData';
 import { DeckContainer } from '../views/deckPage/deckContainer';

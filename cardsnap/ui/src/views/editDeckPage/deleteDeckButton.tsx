@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { FC, useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
-import { Button } from '../../components/button';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/button/button';
 import { DECKS_ENDPOINTS } from '../../helpers/api';
 import { CardDeck } from '../../helpers/mockData';
 

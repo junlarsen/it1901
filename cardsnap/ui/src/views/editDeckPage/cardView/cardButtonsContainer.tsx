@@ -7,8 +7,8 @@ import {
 } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { FC, useState } from 'react';
-import { Button } from '../../../components/button';
-import { PenToggle } from '../../../components/penToggle';
+import { Button } from '../../../components/button/button';
+import { PenToggle } from '../../../components/penToggle/penToggle';
 import { DECKS_ENDPOINTS } from '../../../helpers/api';
 import { Card, CardDeck } from '../../../helpers/mockData';
 

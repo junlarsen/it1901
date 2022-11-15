@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { EditIcon } from './icons/edit';
-import { TrashIcon } from './icons/trash';
+import { EditIcon } from '../icons/editIcon';
+import { TrashIcon } from '../icons/trashIcon';
 
 interface ButtonProps {
   clickHandler?: () => void;
   label: string;
-  type?: 'default' | 'delete' | 'edit' | 'gray' | 'red';
+  type?: 'default' | 'delete' | 'disabled' | 'edit' | 'gray' | 'red';
 }
 
 export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type = 'default' }) => {
@@ -14,7 +14,10 @@ export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type
       return 'bg-red-400 hover:bg-red-500 text-white active:bg-red-500 border border-red-400 active:border-red-500';
     }
     if (type === 'gray') {
-      return 'bg-none hover:bg-gray-100 text-gray-500 border-gray-800 border active:bg-gray-50';
+      return 'bg-none hover:bg-gray-100 text-black border border-black  active:bg-gray-50';
+    }
+    if (type === 'disabled') {
+      return 'bg-sky-300 text-white border border-sky-300 cursor-default';
     }
     return 'bg-sky-500 hover:bg-sky-600 text-white active:bg-sky-600 border border-sky-500 active:border-sky-600';
   };

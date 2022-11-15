@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Button } from '../../components/button';
+import { Button } from '../../components/button/button';
 
 interface CreateDeckFormProps {
   newDeckName: string;

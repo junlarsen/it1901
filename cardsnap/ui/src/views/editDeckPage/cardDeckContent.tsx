@@ -5,7 +5,7 @@ import { CreateCardContainer } from './createCardContainer';
 import { CardContainer } from './cardView/cardContainer';
 import { DECKS_ENDPOINTS } from '../../helpers/api';
 import { Card, CardDeck } from '../../helpers/mockData';
-import { CardsNotFound } from '../../components/cardsNotFound';
+import { CardsNotFound } from '../../components/cardsNotFound/cardsNotFound';
 
 interface CardDeckContentProps {
   deck: CardDeck;

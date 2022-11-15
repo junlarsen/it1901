@@ -1,7 +1,7 @@
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useMutation } from '@tanstack/react-query';
 import axios, { AxiosResponse } from 'axios';
 import { FC, useState } from 'react';
-import { Button } from '../../components/button';
+import { Button } from '../../components/button/button';
 import { DECKS_ENDPOINTS } from '../../helpers/api';
 import { Card, CardDeck } from '../../helpers/mockData';
 import { validateAnswer, validateQuestion } from '../../helpers/validation';
@@ -29,9 +29,9 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
   };
 
   const { mutate } = useMutation(createCardCall, {
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await refetch();
-      setFeedback(`A new card was added: {Q: ${data.question} | A: ${data.answer}}`);
+      setFeedback('The new card was added!');
       setNewQuestion('');
       setNewAnswer('');
       setQuestionValidity(true);
@@ -57,7 +57,7 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
       <input
         type="text"
         placeholder="Question"
-        className={`mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm block p-2.5 w-full ${
+        className={`w-full mt-4 mr-4 bg-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 ${
           questionValidity ? '' : 'border-red-500'
         }`}
         value={newQuestion}
@@ -66,7 +66,7 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
       <textarea
         rows={3}
         placeholder="Answer"
-        className={`mt-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm block p-2.5 w-full mb-4 ${
+        className={`w-full my-4 mr-4 bg-white border border-gray-300 focus:ring-blue-500 focus:border-blue-500 p-2 ${
           answerValidity ? '' : 'border-red-500'
         }`}
         value={newAnswer}

@@ -83,7 +83,7 @@ understand which decks that contains different kind of cards.
 ### Add card (user story 8)
 
 > As a user I want to add cards to a deck in web app, because I
-> want to learn exactly that question/answer.
+> want to improve a certain skill.
 
 User should be able to add a new card to a given card deck
 in the web app. The new card should contain a question and an answer.

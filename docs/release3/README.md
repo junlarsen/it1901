@@ -2,7 +2,83 @@
 
 ## About this release
 
+In the previous release of our application, we had a simple JavaFX app running with
+a Java backend. Due to the expected progress of the project this JavaFX app had
+reduced functionality. As planned, we have implemented more functionality in this
+release.
+
+In this release, we decided to change the technology of our frontend from
+a simple JavaFx-application to an application built with React and TypeScript.
+We have also created a REST API with Java, based on our previous backend.
+The backend has got more functionality compared to the backend in
+our previous release.
+
+The expanded functionality corresponds with user-stories from our backlog.
+
 ## Application Architecture
+
+### Frontend
+
+#### Built with
+
+- [Typescript](https://www.typescriptlang.org/)
+  - JavaScript with syntax for types 💪
+- [Vite](https://vitejs.dev/)
+  - Blazing fast build tool 🚀
+- [React](https://reactjs.org/)
+  - Component based JavaScript library for creating user interfaces 🌿
+- [Tailwind](https://tailwindcss.com/)
+  - Utility-first CSS framework 💅
+
+#### Dependencies
+
+- [react-query](https://tanstack.com/query)
+- [axios](https://github.com/axios/axios)
+- [React Router](https://reactrouter.com)
+- [React Testing Library](https://testing-library.com/)
+
+#### Structure
+
+Our frontend is written using React. We have followed an opiniated style of the projects structure to keep it well organized. Here is a somewhat simplified view of our frontend structure:
+
+```
+└── /src
+    ├── /components
+    ├── /helpers
+    ├── /layouts
+    ├── /pages
+    ├── /views
+    ├── /utils
+    ├── app.tsx
+    ├── index.tsx
+    └── routes.tsx
+```
+
+##### `/components`
+
+Contains reusable components. Each components has it's own unit test to ensure it's intended functionality.
+
+##### `/helpers`
+
+Contains various helper functions.
+
+##### `/layouts`
+
+Contains our page layout used for all of our pages.
+
+##### `/pages`
+
+Contains individual pages.
+
+##### `/views`
+
+Contains page-specific components.
+
+##### `routes.tsx`
+
+Our router which defines the routes for each page.
+
+## Backend
 
 ## User stories
 
@@ -22,11 +98,11 @@ to implement this feature in the next sprint.
 It should be possible to delete an existing card deck when the user doesn't want
 to keep it anymore. This can be for a number of reasons:
 
--   They no longer wish to study the cards in the deck, maybe the passed the
-    course and no longer need the cards?
--   They created a deck by accident and want to remove it
--   They are finished with a course at school and no longer want that deck to
-    be a part of the app
+- They no longer wish to study the cards in the deck, maybe the passed the
+  course and no longer need the cards?
+- They created a deck by accident and want to remove it
+- They are finished with a course at school and no longer want that deck to
+  be a part of the app
 
 ### Edit deck name (user story 4)
 
@@ -35,8 +111,8 @@ to keep it anymore. This can be for a number of reasons:
 
 It should be possible to change the name of a deck, possible reasons:
 
--   The user could have made a typo when creating the deck
--   The user could want to change to a more appropriate name
+- The user could have made a typo when creating the deck
+- The user could want to change to a more appropriate name
 
 ### Edit card (user story 5)
 
@@ -46,11 +122,11 @@ It should be possible to change the name of a deck, possible reasons:
 There are many reasons to implement editing of cards. The user
 should babe able to edit cards because...
 
--   ...the card could have typos
--   ...the answer could be wrong or uncomplete
--   ...the card could no longer be relevant
--   ...user may have learned more since the card was
-    created and could want to add content
+- ...the card could have typos
+- ...the answer could be wrong or uncomplete
+- ...the card could no longer be relevant
+- ...user may have learned more since the card was
+  created and could want to add content
 
 ### Play decks (user story 6)
 
@@ -75,7 +151,7 @@ understand which decks that contains different kind of cards.
 ### Add card (user story 8)
 
 > As a user I want to add cards to a deck in web app, because I
-> want to learn exactly that question/answer.
+> want to improve a certain skill.
 
 User should be able to add a new card to a given card deck
 in the web app. The new card should contain a question and an answer.
@@ -87,6 +163,6 @@ in the web app. The new card should contain a question and an answer.
 
 User should be able to delete an existing card from a given card deck.
 
--   User may have learned the content on the card well enough
--   The card could contain wrong content
--   User may want to reduce the amount of cards in that deck
+- User may have learned the content on the card well enough
+- The card could contain wrong content
+- User may want to reduce the amount of cards in that deck

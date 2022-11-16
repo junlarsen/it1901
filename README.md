@@ -36,6 +36,9 @@ mvn verify site
 
 # Run REST API
 mvn -f rest/pom.xml spring-boot:run
+cd ui && yarn start
+# Pro tip: after running backend app, visit
+# http://localhost:8080/swagger-ui/index.html#/ for api docs!
 ```
 
 #### Frontend

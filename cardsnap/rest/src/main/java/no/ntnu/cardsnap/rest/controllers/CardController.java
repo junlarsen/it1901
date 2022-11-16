@@ -1,5 +1,8 @@
 package no.ntnu.cardsnap.rest.controllers;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +10,7 @@ import java.util.UUID;
 import no.ntnu.cardsnap.core.Card;
 import no.ntnu.cardsnap.rest.services.CardService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,11 +46,24 @@ public class CardController {
    * @return The cards in the view
    * @throws IOException If underlying I/O error occurs
    */
-  @GetMapping(value = "/")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Found list of cards"),
+      @ApiResponse(responseCode = "400",
+          description = "Invalid id supplied",
+          content = @Content),
+      @ApiResponse(responseCode = "404",
+          description = "Deck not found",
+          content = @Content),
+      @ApiResponse(responseCode = "500",
+          description = "Internal error",
+          content = @Content),
+  })
+  @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public List<Card> findMany(
-      @PathVariable("deck") String deckId,
+      @PathVariable("deck") UUID deckId,
       @RequestParam(defaultValue = "0") Integer page) throws IOException {
-    return cardService.list(page, UUID.fromString(deckId));
+    return cardService.list(page, deckId);
   }
 
   /**
@@ -57,11 +74,24 @@ public class CardController {
    * @return The card
    * @throws IOException If underlying I/O error occurs
    */
-  @GetMapping(value = "/{card}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "The requested card"),
+      @ApiResponse(responseCode = "400",
+          description = "Invalid id supplied",
+          content = @Content),
+      @ApiResponse(responseCode = "404",
+          description = "Card or deck not found",
+          content = @Content),
+      @ApiResponse(responseCode = "500",
+          description = "Internal error",
+          content = @Content),
+  })
+  @GetMapping(value = "/{card}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Card find(
-      @PathVariable("deck") String deckId,
-      @PathVariable("card") String id) throws IOException {
-    return cardService.find(UUID.fromString(id), UUID.fromString(deckId));
+      @PathVariable("deck") UUID deckId,
+      @PathVariable("card") UUID id) throws IOException {
+    return cardService.find(id, deckId);
   }
 
   /**
@@ -72,17 +102,30 @@ public class CardController {
    * @return The newly created card
    * @throws IOException If underlying I/O error occurs
    */
-  @PostMapping(value = "/")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "201",
+          description = "Successfully created"),
+      @ApiResponse(responseCode = "400",
+          description = "Invalid id supplied",
+          content = @Content),
+      @ApiResponse(responseCode = "404",
+          description = "Deck not found",
+          content = @Content),
+      @ApiResponse(responseCode = "500",
+          description = "Internal error",
+          content = @Content),
+  })
   @ResponseStatus(HttpStatus.CREATED)
+  @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public Card create(
       @RequestBody Map<String, String> body,
-      @PathVariable("deck") String deckId) throws IOException {
+      @PathVariable("deck") UUID deckId) throws IOException {
     String question = body.get("question");
     String answer = body.get("answer");
     if (question == null || answer == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
-    return cardService.create(question, answer, UUID.fromString(deckId));
+    return cardService.create(question, answer, deckId);
   }
 
   /**
@@ -94,18 +137,30 @@ public class CardController {
    * @return The updated card
    * @throws IOException If underlying I/O error occurs
    */
-  @PatchMapping(value = "/{card}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Card was updated"),
+      @ApiResponse(responseCode = "400",
+          description = "Invalid id supplied",
+          content = @Content),
+      @ApiResponse(responseCode = "404",
+          description = "Card or deck not found",
+          content = @Content),
+      @ApiResponse(responseCode = "500",
+          description = "Internal error",
+          content = @Content),
+  })
+  @PatchMapping(value = "/{card}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Card update(
-      @PathVariable("deck") String deckId,
-      @PathVariable("card") String id,
+      @PathVariable("deck") UUID deckId,
+      @PathVariable("card") UUID id,
       @RequestBody Map<String, String> body) throws IOException {
-    UUID uuid = UUID.fromString(id);
     String question = body.get("question");
     String answer = body.get("answer");
     if (question == null || answer == null) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
-    return cardService.update(uuid, question, answer, UUID.fromString(deckId));
+    return cardService.update(id, question, answer, deckId);
   }
 
   /**
@@ -115,10 +170,23 @@ public class CardController {
    * @param id The card to delete
    * @throws IOException If underlying I/O error occurs
    */
-  @DeleteMapping(value = "/{card}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200",
+          description = "Card was deleted"),
+      @ApiResponse(responseCode = "400",
+          description = "Invalid id supplied",
+          content = @Content),
+      @ApiResponse(responseCode = "404",
+          description = "Card or deck not found",
+          content = @Content),
+      @ApiResponse(responseCode = "500",
+          description = "Internal error",
+          content = @Content),
+  })
+  @DeleteMapping(value = "/{card}", produces = MediaType.APPLICATION_JSON_VALUE)
   public void delete(
-      @PathVariable("deck") String deckId,
-      @PathVariable("card") String id) throws IOException {
-    cardService.delete(UUID.fromString(id), UUID.fromString(deckId));
+      @PathVariable("deck") UUID deckId,
+      @PathVariable("card") UUID id) throws IOException {
+    cardService.delete(id, deckId);
   }
 }

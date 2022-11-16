@@ -163,6 +163,16 @@ in the web app. The new card should contain a question and an answer.
 
 User should be able to delete an existing card from a given card deck.
 
-- User may have learned the content on the card well enough
-- The card could contain wrong content
-- User may want to reduce the amount of cards in that deck
+-   User may have learned the content on the card well enough
+-   The card could contain wrong content
+-   User may want to reduce the amount of cards in that deck
+
+## Diagrams
+
+### Sequencediagram
+
+![Sequencediagram](sequence.png)
+
+> Mark: THe JsonDatabase.mutation(new Card("CardID","Q","A","Owner")) from Rest to
+> Persistence is a simplified epxresion of a lamdaexpression originaly used. This
+> simplification is created for bether readability

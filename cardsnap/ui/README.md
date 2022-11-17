@@ -24,7 +24,6 @@ Under development 🚧
 - [react-query](https://tanstack.com/query)
 - [axios](https://github.com/axios/axios)
 - [React Router](https://reactrouter.com)
-- [React Testing Library](https://testing-library.com/)
 
 ### Installation
 
@@ -50,8 +49,8 @@ yarn test
 yarn coverage
 ```
 
-### Running snapshot tests
+### Running and update snapshot tests
 
 ```bash
-yarn coverage
+yarn snapshot
 ```

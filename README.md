@@ -12,6 +12,15 @@ practice using flash cards. Details about the application can be found in the
 
 The main application source is found inside the [cardsnap](cardsnap) directory/
 
+## Documentation
+
+[Release 1](docs/release1/README.md)
+[Release 2](docs/release2/README.md)
+[Release 3](docs/release3/README.md)
+
+[About](cardsnap/README.md)
+[Frontend](cardsnap/ui/README.md)
+
 ### Building the project
 
 The project uses [Apache Maven](https://maven.apache.org/) to build and manage
@@ -21,8 +30,6 @@ application.
 
 To build the application, follow these steps:
 
-#### Backend
-
 ```shell
 # Clone the application code
 git clone https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2217/gr2217
@@ -31,49 +38,79 @@ cd gr2217/cardsnap
 # Build the backend application
 mvn clean install
 
-# Run tests and generate Jacoco, Spotbugs, and Checkstyle reports for the backend
-mvn verify site
+# Install dependencies for the frontend application
+cd ui && yarn install
 
-# Run REST API
-mvn -f rest/pom.xml spring-boot:run
-cd ui && yarn start
+# If you plan on running e2e tests, install playwright browsers
+# without this, the e2e test cannot run
+npx playwright install
+```
+
+### Running the server and client applications
+
+Because the application consists of a client and a server, there are two
+processes required to run the entire system, one for the frontend, and one for
+the backend. This can easily be done by having two terminal windows open at 
+once.
+
+```
+# Run the backend application
+#
 # Pro tip: after running backend app, visit
 # http://localhost:8080/swagger-ui/index.html#/ for api docs!
+mvn -f rest/pom.xml spring-boot:run
+
+# Run the frontend application
+cd ui && yarn start
 ```
 
-#### Frontend
+The backend is now available on port `8080`, and the frontend application on
+port `3000`.
+
+### Running CardSnap test suite
+
+The CardSnap test suite consists of three different test types, split across
+three different test runners.
+
+- Backend unit tests (with JUnit)
+- Backend integration tests (with JUnit)
+- Frontend unit tests (with Vitest)
+- Frontend end-to-end tests (with Playwright)
+
+Coverage of tests (apart from end-to-end tests) is collected with the following
+tools:
+
+- Jacoco: Java code coverage reported that runs when running test suite
+- C8: Node.js code coverage runner, integrated into Vitest
+
+Additionally, we use a set of linting and code style tools to ensure that the
+code style is consistent across the entire project.
+
+- Prettier: formatting of frontend app
+- ESLint: linting and bug-spotter for frontend app
+- CheckStyle: style checker for backend app
+- SpotBugs: linting and bug-spotter for backend app
+
+Instructions on how to run tests:
 
 ```shell
-# Navigate to frontend directory
-cd cardsnap/ui
+# Run unit and integration tests on backend, ensure checkstyle passes, ensure
+# spotbugs finds no problems, and generate Jacoco coverage report
+mvn verify site
 
-# Install dependencies for the frontend application
-yarn install
+# Run unit and end-to-end tests on frontend, ensure eslint and prettier pass
+#
+# Note: e2e tests require both frontend and backend apps to be running on the
+# :3000 and :8080 ports respectively. Run e2e tests with zero decks in app
+# to ensure everything is inside viewport when expected.
+cd ui && \
+  yarn lint && \
+  yarn test && \
+  yarn e2e
 
-# Run frontend applications
-yarn start # Front-end application runs at port 3000
-
-# Running unit tests
-yarn test
-
-# Running unit tests with coverage
-yarn coverage
-
-# Running snapshot tests
-yarn snapshot
-
-# Linting the application
-yarn lint
+# If you want to run the code coverage for the frontend, simply replace the
+# `yarn test` with `yarn coverage`.
 ```
-
-## Documentation
-
-[Release 1](docs/release1/README.md)
-[Release 2](docs/release2/README.md)
-[Release 3](docs/release3/README.md)
-
-[About](cardsnap/README.md)
-[Frontend](cardsnap/ui/README.md)
 
 ## Authors
 

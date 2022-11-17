@@ -8,6 +8,11 @@ interface CardProps {
   displayAnswer: boolean;
 }
 
+/**
+ * Card that renders the content of a given card.
+ * @param card Card to be shown
+ * @param displayAnswer boolean hide/show the answer
+ */
 export const CardCard: FC<CardProps> = ({ card, displayAnswer }) => (
   <div className={`card ${displayAnswer ? 'flipped' : ''} relative w-full h-64`}>
     <div className="content absolute w-full h-full transition-all duration-300 shadow rounded">

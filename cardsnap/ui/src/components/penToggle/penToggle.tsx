@@ -6,6 +6,11 @@ interface PenToggleProps {
   clickHandler: () => void;
 }
 
+/**
+ * Renders pen icons displayed in edit deck.
+ * @param editToggle boolean for styling if active
+ * @param clickHandler function to be called whenn clicked
+ */
 export const PenToggle: FC<PenToggleProps> = ({ editToggle, clickHandler }) => (
   <button
     onClick={clickHandler}

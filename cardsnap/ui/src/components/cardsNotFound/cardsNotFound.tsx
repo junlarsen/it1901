@@ -6,6 +6,11 @@ interface DeckNotFoundProps {
   id: string | undefined;
 }
 
+/**
+ * Component to render if error occurs when getting cards in a deck.
+ * Text displayed depends on the id, if its undefined or has value.
+ * @param id string og undefined, the id of the deck
+ */
 export const CardsNotFound: FC<DeckNotFoundProps> = ({ id }) => (
   <>
     <Subtitle title="Oops! Something went wrong" />

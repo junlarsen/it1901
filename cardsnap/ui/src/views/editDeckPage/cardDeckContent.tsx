@@ -11,11 +11,26 @@ interface CardDeckContentProps {
   deck: CardDeck;
 }
 
+/**
+ * Displays the cards in a deck and inputs for creating a new card.
+ * @param deck CardDeck to be displayed
+ * @returns
+ */
 export const CardDeckContent: FC<CardDeckContentProps> = ({ deck }) => {
+  /**
+   * Gets the cards belonging to a given deck in a list with a call to the REST API
+   * GET(Localhost:xxxx/{deckid}/cards/)
+   */
   const { isLoading, data, isSuccess, isError, refetch } = useQuery(['cards', deck.id], () =>
     axios.get(`${DECKS_ENDPOINTS}${deck.id}/cards/`).then((res: AxiosResponse<Card[]>) => res.data),
   );
 
+  /**
+   * Renders content based on the success of the api call.
+   * Displays a view for creating new cards.
+   * If sucess, displays all cards.
+   * If error, errormessage is shown.
+   */
   return (
     <>
       <CreateCardContainer deck={deck} refetch={refetch} />

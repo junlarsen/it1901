@@ -14,11 +14,19 @@ interface CardContainerProps {
   ) => Promise<QueryObserverResult<Card[]>>;
 }
 
+/**
+ * Displays a card at the edit-deck page.
+ */
 export const CardContainer: FC<CardContainerProps> = ({ card, refetch }) => {
   const [editToggle, setEditToggle] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [updatedCard, setUpdatedCard] = useState({ question: card.question, answer: card.answer });
 
+  /**
+   * Function to update a card with new values.
+   * PATCH(Localhost:xxxx/api/decks/{deckid}/cards/{cardid})
+   * @return Card that was updated
+   */
   const editCardCall = async () => {
     const res: AxiosResponse<CardDeck> = await axios.patch(
       DECKS_ENDPOINTS + card.owner + '/cards/' + card.id,
@@ -27,6 +35,9 @@ export const CardContainer: FC<CardContainerProps> = ({ card, refetch }) => {
     return res.data;
   };
 
+  /**
+   * Calls the PATCH to API and behaves depending on its result.
+   */
   const { mutate } = useMutation(editCardCall, {
     onSuccess: async () => {
       await refetch();
@@ -37,6 +48,7 @@ export const CardContainer: FC<CardContainerProps> = ({ card, refetch }) => {
     },
   });
 
+  // Renders the container with content from the card
   return (
     <div className="bg-white w-full p-4 shadow-md rounded border-white mt-8 relative">
       {editToggle ? (

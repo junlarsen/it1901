@@ -10,6 +10,11 @@ interface CreateCardContainerProps {
   ) => Promise<QueryObserverResult<Card[]>>;
 }
 
+/**
+ * Renders a container with content for the creating a new card.
+ * @param deck CardDeck to get a new card
+ * @param refetch Function to be called to refetfch the API call to REST API
+ */
 export const CreateCardContainer: FC<CreateCardContainerProps> = ({ deck, refetch }) => (
   <div className="bg-white p-4 shadow-md rounded border-b-4 border-white w-full">
     <h3 className="text-l font-medium">Add new card to {deck.name}</h3>

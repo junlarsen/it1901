@@ -7,6 +7,12 @@ interface NavbarProps {
   navLinks: NavLinkType[];
 }
 
+/**
+ * Renders a navbar based on links in a list.
+ * Creates a nav-element with the title of the page
+ * and renders NavLink components from the list of links.
+ * @param navLinks NavLinkType[] with the links to be displayed
+ */
 export const Navbar: FC<NavbarProps> = ({ navLinks }) => (
   <nav className="bg-white p-4 shadow-sm">
     <div className="max-w-5xl m-auto flex flex-col sm:flex-row">

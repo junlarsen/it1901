@@ -6,7 +6,11 @@ interface NavLinkProps {
   navLink: NavLinkType;
 }
 
-export const NavLink: FC<NavLinkProps> = ({ navLink }: NavLinkProps) => (
+/**
+ * Renders navlink based on NavLinkTypes, with text and url.
+ * @param navLink NavLinkType with text and url
+ */
+export const NavLink: FC<NavLinkProps> = ({ navLink }) => (
   <li>
     <Link
       className={({ isActive }) =>

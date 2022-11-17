@@ -10,24 +10,41 @@ interface DeleteDeckButtonProps {
   deck: CardDeck;
 }
 
+/**
+ * Renders the delete deck button for deletion of a deck.
+ * @param deck CardDeck to be deleted
+ */
 export const DeleteDeckButton: FC<DeleteDeckButtonProps> = ({ deck }) => {
   const [displayConfirmation, setDisplayConfirmation] = useState(false);
   const navigate = useNavigate();
 
+  /**
+   * Makes the API call for deletion of the deck.
+   * DELETE(Localhost:xxxx/api/decks/{deckid})
+   */
   const deleteDeckCall = async () => {
     await axios.delete(DECKS_ENDPOINTS + deck.id);
   };
 
+  /**
+   * Deletes deck and takes user to homepage if success.
+   */
   const { mutate, isError } = useMutation(deleteDeckCall, {
     onSuccess: () => {
       navigate('/');
     },
   });
 
+  /**
+   * Clickhandlers
+   */
   const handleYesClick = () => mutate();
   const handleNoClick = () => setDisplayConfirmation(false);
   const deleteClickHandler = () => setDisplayConfirmation(true);
 
+  /**
+   * Renders delete button or box for confirmation of the deletion
+   */
   return (
     <div className="mt-8">
       {displayConfirmation ? (

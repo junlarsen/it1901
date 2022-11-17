@@ -1,5 +1,5 @@
 import { QueryObserverResult, RefetchOptions, RefetchQueryFilters, useMutation } from '@tanstack/react-query';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { FC, useState } from 'react';
 import { Button } from '../../components/button/button';
 import { DECKS_ENDPOINTS } from '../../helpers/api';
@@ -13,6 +13,11 @@ interface CreateCardForm {
   ) => Promise<QueryObserverResult<Card[]>>;
 }
 
+/**
+ * Form for adding a new card to the deck
+ * @param deck Deck to get new card
+ * @param refetch Function to refetch the API call to the REST API
+ */
 export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
   const [newQuestion, setNewQuestion] = useState('');
   const [newAnswer, setNewAnswer] = useState('');
@@ -20,14 +25,21 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
   const [answerValidity, setAnswerValidity] = useState(true);
   const [feedback, setFeedback] = useState('');
 
+  /**
+   * Adds new card to the deck with a API call to the REST API
+   * POST(Localhost:xxxx/api/decks/{deckid}/cards/)
+   * with question and answer as body in JSON format
+   */
   const createCardCall = async () => {
-    const res: AxiosResponse<Card> = await axios.post(`${DECKS_ENDPOINTS}${deck.id}/cards/`, {
+    await axios.post(`${DECKS_ENDPOINTS}${deck.id}/cards/`, {
       question: newQuestion,
       answer: newAnswer,
     });
-    return res.data;
   };
 
+  /**
+   * Makes the POST call to the API and behaves after how the call went
+   */
   const { mutate } = useMutation(createCardCall, {
     onSuccess: async () => {
       await refetch();
@@ -42,6 +54,9 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
     },
   });
 
+  /**
+   * Function to be called when user is clicking the add card button
+   */
   const handleAddCard = () => {
     if (validateQuestion(newQuestion) && validateAnswer(newAnswer)) {
       mutate();
@@ -52,6 +67,9 @@ export const CreateCardForm: FC<CreateCardForm> = ({ deck, refetch }) => {
     }
   };
 
+  /**
+   * Renders inputfields for question and answer and button for adding the card.
+   */
   return (
     <>
       <input

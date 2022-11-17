@@ -3,6 +3,9 @@ import { Image } from './image';
 import tdog from '../../assets/tdog.png';
 import magg from '../../assets/magg.png';
 
+/**
+ * Renders content for the about page.
+ */
 export const AboutPageContent: FC = () => (
   <div className="flex flex-col lg:flex-row">
     <div className="flex flex-col justify-center gap-4">

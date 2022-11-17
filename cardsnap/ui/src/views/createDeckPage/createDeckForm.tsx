@@ -7,6 +7,12 @@ interface CreateDeckFormProps {
   setNewDeckName: React.Dispatch<React.SetStateAction<string>>;
 }
 
+/**
+ * Renders input conatiner for creating a new deck.
+ * @param newDeckName string name of the deck
+ * @param setNewDeckName SetStateAction<string> for setting value of the new deck
+ * @param handleCreateDeck void that handles the click on the crate button
+ */
 export const CreateDeckForm: FC<CreateDeckFormProps> = ({ newDeckName, setNewDeckName, handleCreateDeck }) => (
   <>
     <span className="text-xl font-medium">Name</span>

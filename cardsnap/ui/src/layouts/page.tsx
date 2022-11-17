@@ -4,6 +4,11 @@ import { Footer } from '../components/footer/footer';
 import { Navbar } from '../components/navbar/navbar';
 import { navLinks } from '../helpers/navLinks';
 
+/**
+ * Default layout of the page.
+ * Renders a navbar on the top, content in an outlet and a
+ * footer at the bottom.
+ */
 export const PageLayout: FC = () => (
   <main className="flex flex-col h-screen justify-between">
     <Navbar navLinks={navLinks} />

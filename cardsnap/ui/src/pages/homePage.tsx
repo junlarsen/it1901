@@ -7,11 +7,20 @@ import { Subtitle } from '../components/subtitle/subtitle';
 import { CardDeck } from '../helpers/mockData';
 import { DECKS_ENDPOINTS } from '../helpers/api';
 
+/**
+ * Homepage of the webapp
+ */
 export const HomePage: FC = () => {
+  /**
+   * API call to get all decks from the REST API
+   */
   const { isLoading, isError, data } = useQuery(['decks'], () =>
     axios.get(DECKS_ENDPOINTS).then((res: AxiosResponse<CardDeck[]>) => res.data),
   );
 
+  /**
+   * Displays errormessage if something went wrong in the API call
+   */
   if (isError) {
     return (
       <>
@@ -21,6 +30,11 @@ export const HomePage: FC = () => {
     );
   }
 
+  /**
+   * Renders content based on have the API call to the REST API went.
+   * If success all decks is displayed.
+   * If no deck exists user is recomended to add a new deck.
+   */
   return (
     <>
       <Subtitle title="Home🏡" />
@@ -28,7 +42,7 @@ export const HomePage: FC = () => {
         <p>Loading...</p>
       ) : (
         <div className="flex gap-8 flex-wrap">
-          {data && data.length > 0 ? (
+          {data.length > 0 ? (
             data.map((cardDeck) => <CardDeckCard key={cardDeck.name} cardDeck={cardDeck} />)
           ) : (
             <div>

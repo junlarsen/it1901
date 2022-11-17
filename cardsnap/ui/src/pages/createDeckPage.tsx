@@ -8,17 +8,27 @@ import { validateDeckName } from '../helpers/validation';
 import { CreateDeckForm } from '../views/createDeckPage/createDeckForm';
 import { FeedbackContainer } from '../views/createDeckPage/feedbackContainer';
 
+/**
+ * Renders the page for creating a new card deck
+ */
 export const CreateDeckPage: FC = () => {
-  const [displayFeedBack, setDisplayFeedback] = useState(false);
-  const [feedbackText, setFeedbackText] = useState('');
-  const [newDeckName, setNewDeckName] = useState('');
-  const [validity, setValidity] = useState(true);
+  const [displayFeedback, setDisplayFeedback] = useState(false); // Sets if feedback-card should be displayed
+  const [feedbackText, setFeedbackText] = useState(''); // The text to be shown in the feedback-card
+  const [newDeckName, setNewDeckName] = useState(''); // The value that is typed in the inputfield
+  const [validity, setValidity] = useState(true); // The validity og the value typed in
 
+  /**
+   * Async function to call POST request to backend for creating a new card.
+   * Uses POST (http:localhost:xxxx/api/decks/) with the name as body in JSON-format
+   */
   const createDeckCall = async () => {
     const res: AxiosResponse<CardDeck> = await axios.post(DECKS_ENDPOINTS, { name: newDeckName });
     return res.data;
   };
 
+  /**
+   * Makes the POST-call to backend and takes action based on the response
+   */
   const { mutate, data } = useMutation(createDeckCall, {
     onSuccess: (data) => {
       setValidity(true);
@@ -31,6 +41,11 @@ export const CreateDeckPage: FC = () => {
     },
   });
 
+  /**
+   * Function to be called when user is clicking "Create deck"
+   * Validates name and makes the POST-request if the name is valid.
+   * Displays feedback depending on the validity of the name
+   */
   const handleCreateDeck = () => {
     if (validateDeckName(newDeckName)) mutate();
     else {
@@ -40,11 +55,15 @@ export const CreateDeckPage: FC = () => {
     setDisplayFeedback(true);
   };
 
+  /**
+   * Renders a container with input-field and a button for creating the deck
+   * Renders feedback if displayFeedBack is true
+   */
   return (
     <>
       <Subtitle title="Create✏️" />
       <CreateDeckForm handleCreateDeck={handleCreateDeck} newDeckName={newDeckName} setNewDeckName={setNewDeckName} />
-      {displayFeedBack && (
+      {displayFeedback && (
         <FeedbackContainer
           setDisplayFeedback={setDisplayFeedback}
           feedbackText={feedbackText}

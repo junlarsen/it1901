@@ -5,6 +5,12 @@ interface IndexIndicatorProps {
   totalCount: number;
 }
 
+/**
+ * Displays index of current card and the size and a
+ * progression bar for better visualization.
+ * @param currentCount number cindex of current card
+ * @param totalCount number size of the deck
+ */
 export const IndexIndicator: FC<IndexIndicatorProps> = ({ currentCount, totalCount }) => (
   <figure>
     <p className="font-thin">

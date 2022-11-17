@@ -6,6 +6,12 @@ interface TextInputProps {
   size?: 'long' | 'short';
 }
 
+/**
+ * Displays a textinput for editing a value.
+ * @param value string Value of the input
+ * @param handleChange function to be called when inputfield changes value
+ * @param size string size of the field short as default
+ */
 export const TextInput: FC<TextInputProps> = ({ value, handleChange, size = 'short' }) => (
   <input
     type="text"

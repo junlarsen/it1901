@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { navLinks } from '../../helpers/navLinks';
 
+/**
+ * Renders a footer with navlinks and content.
+ */
 export const Footer: FC = () => (
   <footer className="bg-white w-full p-8">
     <div className="max-w-5xl m-auto px-4 xl:px-0">

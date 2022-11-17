@@ -20,6 +20,7 @@ The main application source is found inside the [cardsnap](cardsnap) directory/
 
 [About](cardsnap/README.md)
 [Frontend](cardsnap/ui/README.md)
+[Backend](cardsnap/rest/README.md)
 
 ### Building the project
 

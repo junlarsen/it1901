@@ -1,0 +1,555 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "card-controller",
+      "description": "REST API Controller for handling {@link no.ntnu.cardsnap.core.CardDeck no.ntnu.cardsnap.core.CardDeck}\n objects."
+    },
+    {
+      "name": "card-deck-controller",
+      "description": "REST API Controller for handling {@link no.ntnu.cardsnap.core.Card no.ntnu.cardsnap.core.Card} objects."
+    }
+  ],
+  "paths": {
+    "/api/decks/{deck}/cards/": {
+      "get": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "List cards in a deck through pagination.",
+        "description": "List cards in a deck through pagination.",
+        "operationId": "findMany",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to access",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page to view",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Deck not found"
+          },
+          "200": {
+            "description": "Found list of cards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Card"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Create a new card.",
+        "description": "Create a new card.",
+        "operationId": "create",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to create the card in",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The Http body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "404": {
+            "description": "Deck not found"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "201": {
+            "description": "Successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Card"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/api/decks/": {
+      "get": {
+        "tags": [
+          "card-deck-controller"
+        ],
+        "summary": "List decks through pagination.",
+        "description": "List decks through pagination.",
+        "operationId": "findMany_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page to view",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "200": {
+            "description": "Found list of decks",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CardDeck"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "card-deck-controller"
+        ],
+        "summary": "Create a new deck.",
+        "description": "Create a new deck.",
+        "operationId": "create_1",
+        "requestBody": {
+          "description": "The Http body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "201": {
+            "description": "Successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardDeck"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "409": {
+            "description": "Deck with given name already exists"
+          }
+        }
+      }
+    },
+    "/api/decks/{deck}": {
+      "get": {
+        "tags": [
+          "card-deck-controller"
+        ],
+        "summary": "Get a single deck.",
+        "description": "Get a single deck.",
+        "operationId": "find",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to access",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Deck not found"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "200": {
+            "description": "The requested deck",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardDeck"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "card-deck-controller"
+        ],
+        "summary": "Delete an existing deck.",
+        "description": "Delete an existing deck.",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Deck not found"
+          },
+          "200": {
+            "description": "Deck was deleted"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "card-deck-controller"
+        ],
+        "summary": "Update an existing deck.",
+        "description": "Update an existing deck.",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to edit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The Http body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "404": {
+            "description": "Deck not found"
+          },
+          "200": {
+            "description": "Deck was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardDeck"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/api/decks/{deck}/cards/{card}": {
+      "get": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Get a single card.",
+        "description": "Get a single card.",
+        "operationId": "find_1",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to access",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "card",
+            "in": "path",
+            "description": "The card to access",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested card",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Card"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Card or deck not found"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Delete an existing card.",
+        "description": "Delete an existing card.",
+        "operationId": "delete_1",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to access",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "card",
+            "in": "path",
+            "description": "The card to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Card was deleted"
+          },
+          "404": {
+            "description": "Card or deck not found"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "card-controller"
+        ],
+        "summary": "Update an existing card.",
+        "description": "Update an existing card.",
+        "operationId": "update_1",
+        "parameters": [
+          {
+            "name": "deck",
+            "in": "path",
+            "description": "The deck to access",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "card",
+            "in": "path",
+            "description": "The card to edit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The Http body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "404": {
+            "description": "Card or deck not found"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "500": {
+            "description": "Internal error"
+          },
+          "200": {
+            "description": "Card was updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Card"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Card": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "description": "A card, which models a simple flashcard with a question and an answer.\n\n <p>It also has reference to the card deck it belongs into through\n {@link Card#getOwner Card#getOwner()}."
+      },
+      "CardDeck": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "description": "A card deck, which holds onto a collection of {@link Card Card} entities.\n\n <p>While it might seem obvious to have a {@link java.util.List java.util.List} or a\n {@link java.util.Set java.util.Set} holding onto some {@link Card Card} items on this class,\n we've decided to model the relation the other way around. That is why there\n exists a {@link Card#getOwner Card#getOwner()} property which will return the corresponding\n {@link CardDeck#getId CardDeck#getId()} the card belongs to."
+      }
+    }
+  }
+}

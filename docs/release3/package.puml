@@ -20,17 +20,25 @@ component Client {
 }
 
 component SpringBoot
+component SpringDoc
+component SwaggerAnnotations
 component GoogleGson
 component React
 component ReactQuery
+component ReactRouterDOM
+component Axios
 
 WebApp ..> Server
 WebApp ..> React
 WebApp ..> ReactQuery
+WebApp ..> ReactRouterDOM
+WebApp ..> Axios
 Persistence ..> GoogleGson
 Core ..> Persistence
 Rest ..> Persistence
 Rest ..> Core
 Rest ..> SpringBoot
+Rest ..> SpringDoc
+Rest ..> SwaggerAnnotations
 
 @enduml

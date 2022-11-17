@@ -24,13 +24,17 @@ export const Button: FC<ButtonProps> = ({ clickHandler = () => null, label, type
 
   if (type === 'edit') {
     return (
-      <button onClick={clickHandler} className="bg-sky-500 p-2 rounded-full hover:bg-sky-600">
+      <button onClick={clickHandler} className="bg-sky-500 p-2 rounded-full hover:bg-sky-600" data-testid="button-edit">
         <EditIcon />
       </button>
     );
   } else if (type === 'delete') {
     return (
-      <button onClick={clickHandler} className="bg-red-500 p-2 rounded-full hover:bg-red-600">
+      <button
+        onClick={clickHandler}
+        className="bg-red-500 p-2 rounded-full hover:bg-red-600"
+        data-testid="button-delete"
+      >
         <TrashIcon />
       </button>
     );

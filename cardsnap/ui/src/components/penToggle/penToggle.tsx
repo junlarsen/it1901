@@ -7,7 +7,11 @@ interface PenToggleProps {
 }
 
 export const PenToggle: FC<PenToggleProps> = ({ editToggle, clickHandler }) => (
-  <button onClick={clickHandler} className={`${editToggle ? 'bg-blue-200' : 'hover:bg-blue-100'} p-2 rounded-full`}>
+  <button
+    onClick={clickHandler}
+    className={`${editToggle ? 'bg-blue-200' : 'hover:bg-blue-100'} p-2 rounded-full`}
+    data-testid="card-edit-toggle"
+  >
     <PenIcon />
   </button>
 );

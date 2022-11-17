@@ -11,7 +11,9 @@
     "coverage": "tsc --noEmit && vitest run --coverage",
     "snapshot": "tsc --noEmit && vitest -u",
     "format": "prettier . --write",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "e2e": "playwright test --workers=1",
+    "e2e-report": "playwright show-report"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.14.5",
@@ -21,6 +23,7 @@
     "react-router-dom": "^6.4.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.27.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/eslint": "^8.4.7",

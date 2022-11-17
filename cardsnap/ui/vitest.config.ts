@@ -8,6 +8,7 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'jsdom',
+      exclude: ['e2e/**/*', 'node_modules/**/*'],
     },
   }),
 );

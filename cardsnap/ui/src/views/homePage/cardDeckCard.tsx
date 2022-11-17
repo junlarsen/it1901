@@ -15,7 +15,7 @@ export const CardDeckCard: FC<CardDeckCardProps> = ({ cardDeck }) => {
   );
 
   return (
-    <Link to={`/deck/${cardDeck.id}`}>
+    <Link to={`/deck/${cardDeck.id}`} data-testid={`link-${cardDeck.name}`}>
       <div className="relative bg-white p-4 w-64 shadow-md rounded pb-16 border-b-4 border-white hover:border-blue-600 cursor-pointer transition-all">
         <h3 className="text-xl font-medium">{cardDeck.name}</h3>
         <p className="text-gray-700">

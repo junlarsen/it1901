@@ -24,3 +24,6 @@ vitest.config.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+playwright.config.ts
+playwright-report/index.html

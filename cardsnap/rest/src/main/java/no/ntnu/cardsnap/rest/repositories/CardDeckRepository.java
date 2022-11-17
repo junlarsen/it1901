@@ -9,17 +9,16 @@ import java.util.stream.Collectors;
 import no.ntnu.cardsnap.core.Card;
 import no.ntnu.cardsnap.core.CardDeck;
 import no.ntnu.cardsnap.persistence.JsonDatabase;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 /**
- * Concrete implementation of something that can handle read/write operations on
- * a {@link CardDeck} value.
- *
- * <p>Current implementation writes to disk, in the future it might be interesting
- * to store in a relational database.
+ * Implementation of {@link AbstractCardDeckRepository} backed by a
+ * {@link JsonDatabase}.
  */
+@Primary
 @Repository
-public class CardDeckRepository {
+public class CardDeckRepository implements AbstractCardDeckRepository {
   private final JsonDatabase database;
 
   /**
@@ -31,14 +30,7 @@ public class CardDeckRepository {
     this.database = jsonDatabase;
   }
 
-  /**
-   * Create a new card deck with the given name.
-   *
-   * @param id   The UUID to assign to the deck
-   * @param name The name to give
-   * @return The newly created card deck
-   * @throws IOException If an I/O error occurred during creation.
-   */
+  @Override
   public CardDeck create(UUID id, String name) throws IOException {
     return database.mutation((jsonModel -> {
       CardDeck deck = new CardDeck(id, name);
@@ -47,14 +39,7 @@ public class CardDeckRepository {
     }));
   }
 
-  /**
-   * Update the name of a card deck.
-   *
-   * @param id      The UUID of the card deck to update
-   * @param newName The new name for the card deck
-   * @return The updated card deck
-   * @throws IOException If an I/O error occurred during creation.
-   */
+  @Override
   public Optional<CardDeck> update(UUID id, String newName) throws IOException {
     Optional<CardDeck> match = find(id);
     if (match.isEmpty()) {
@@ -64,23 +49,12 @@ public class CardDeckRepository {
     return Optional.of(create(id, newName));
   }
 
-  /**
-   * Get all the card decks.
-   *
-   * @return All the decks
-   * @throws IOException If an I/O error occurred during creation.
-   */
+  @Override
   public Set<CardDeck> all() throws IOException {
     return database.query((jsonModel -> new HashSet<>(jsonModel.getDecks())));
   }
 
-  /**
-   * Find a card deck by a given id.
-   *
-   * @param id The UUID of the card deck to find
-   * @return The card deck, if it exists
-   * @throws IOException If an I/O error occurred during creation.
-   */
+  @Override
   public Optional<CardDeck> find(UUID id) throws IOException {
     return database.query((jsonModel -> jsonModel
         .getDecks()
@@ -90,15 +64,7 @@ public class CardDeckRepository {
     ));
   }
 
-  /**
-   * Delete a card deck with a given id.
-   *
-   * <p>If the deck does not exist, nothing happens.
-   *
-   * @param id      The UUID of the card deck to delete
-   * @param cascade Whether it should cascade delete cards
-   * @throws IOException If an I/O error occurred during creation.
-   */
+  @Override
   public void delete(UUID id, boolean cascade) throws IOException {
     Optional<CardDeck> deck = find(id);
     if (deck.isEmpty()) {

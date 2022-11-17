@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import no.ntnu.cardsnap.core.CardDeck;
-import no.ntnu.cardsnap.rest.services.CardDeckService;
+import no.ntnu.cardsnap.rest.services.AbstractCardDeckService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,9 +31,9 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController()
 @RequestMapping(path = "/api/decks")
 public class CardDeckController {
-  private final CardDeckService cardDeckService;
+  private final AbstractCardDeckService cardDeckService;
 
-  private CardDeckController(CardDeckService cardDeckService) {
+  private CardDeckController(AbstractCardDeckService cardDeckService) {
     this.cardDeckService = cardDeckService;
   }
 

@@ -10,8 +10,10 @@
 
     <modules>
         <module>core</module>
+        <module>fx</module>
         <module>persistence</module>
         <module>rest</module>
+        <module>types</module>
     </modules>
     <build>
         <plugins>

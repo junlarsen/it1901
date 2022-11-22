@@ -1,0 +1,47 @@
+.myButton {
+    -fx-background-color: #88b4d5;
+    -fx-text-fill: #fdf6e3;
+    -fx-font-family: "Inter";
+    -fx-background-radius: 0px;
+    -fx-cursor: hand;
+}
+
+.playButton {
+    -fx-background-color: #88b4d5;
+    -fx-text-fill: #fdf6e3;
+    -fx-font-family: "Inter";
+    -fx-pref-width: 50px;
+    -fx-background-radius: 0px;
+}
+
+.addCardButton {
+    -fx-background-color: #88b4d5;
+    -fx-text-fill: #fdf6e3;
+    -fx-font-family: "Inter";
+    -fx-pref-width: 30px;
+    -fx-background-radius: 0px;
+}
+
+.myButton:hover {
+    -fx-text-size: 30px;
+}
+
+.createCardButtons {
+    -fx-background-color: #88b4d5;
+    -fx-text-fill: #fdf6e3;
+    -fx-font-family: "Inter";
+    -fx-min-width: 120;
+    -fx-background-radius: 0px;
+}
+
+.pressButton:hover {
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 0, 0, 10, 10);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.15), 100, 100, 0, 0);
+}
+
+.inputTextField {
+    -fx-min-width: 120px;
+    -fx-pref-width: 120px;
+    -fx-background-radius: 0px;
+}

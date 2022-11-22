@@ -1,44 +1,53 @@
 @startuml
 
-component Server {
-    component Rest {
-        package no.ntnu.cardsnap.rest
-        package no.ntnu.cardsnap.rest.services
-        package no.ntnu.cardsnap.rest.repositories
-        package no.ntnu.cardsnap.rest.controllers
-    }
-    component Core {
-        package no.ntnu.cardsnap.core
-    }
-    component Persistence {
-        package no.ntnu.cardsnap.persistence
-    }
+component no.ntnu.cardsnap.types
+component no.ntnu.cardsnap.core
+component no.ntnu.cardsnap.persistence
+
+component RESTServer {
+    package no.ntnu.cardsnap.rest
 }
 
-component Client {
-    component WebApp
+component WebClient {
+    component "React App"
 }
 
-component SpringBoot
-component SpringDoc
-component SwaggerAnnotations
-component GoogleGson
-component React
-component ReactQuery
-component ReactRouterDOM
-component Axios
+component FXClient {
+    package no.ntnu.cardsnap.fx
+}
 
-WebApp ..> Server
-WebApp ..> React
-WebApp ..> ReactQuery
-WebApp ..> ReactRouterDOM
-WebApp ..> Axios
-Persistence ..> GoogleGson
-Core ..> Persistence
-Rest ..> Persistence
-Rest ..> Core
-Rest ..> SpringBoot
-Rest ..> SpringDoc
-Rest ..> SwaggerAnnotations
+component deps.SpringBoot
+component deps.SpringDoc
+component deps.SwaggerAnnotations
+component deps.GoogleGson
+component deps.JavaFX
+component deps.React
+component deps.ReactQuery
+component deps.ReactRouterDOM
+component deps.Axios
+
+no.ntnu.cardsnap.core ..> no.ntnu.cardsnap.persistence
+no.ntnu.cardsnap.core ..> no.ntnu.cardsnap.types
+
+no.ntnu.cardsnap.persistence ..> no.ntnu.cardsnap.types
+no.ntnu.cardsnap.persistence ..> deps.GoogleGson
+
+RESTServer ..> no.ntnu.cardsnap.core
+RESTServer ..> no.ntnu.cardsnap.persistence
+RESTServer ..> no.ntnu.cardsnap.types
+RESTServer ..> deps.SpringBoot
+RESTServer ..> deps.SpringDoc
+RESTServer ..> deps.SwaggerAnnotations
+
+FXClient ..> no.ntnu.cardsnap.core
+FXClient ..> no.ntnu.cardsnap.persistence
+FXClient ..> no.ntnu.cardsnap.types
+FXClient ..> deps.JavaFX
+
+WebClient ..> RESTServer
+WebClient ..> deps.React
+WebClient ..> deps.ReactRouterDOM
+WebClient ..> deps.Axios
+WebClient ..> deps.ReactQuery
 
 @enduml

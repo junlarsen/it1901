@@ -1,7 +1,7 @@
 package no.ntnu.cardsnap.persistence;
 
-import no.ntnu.cardsnap.core.Card;
-import no.ntnu.cardsnap.core.CardDeck;
+import no.ntnu.cardsnap.types.Card;
+import no.ntnu.cardsnap.types.CardDeck;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

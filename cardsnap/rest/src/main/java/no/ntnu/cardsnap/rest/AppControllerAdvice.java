@@ -1,8 +1,8 @@
 package no.ntnu.cardsnap.rest;
 
 import java.io.IOException;
-import no.ntnu.cardsnap.rest.exceptions.EntityAlreadyExistsException;
-import no.ntnu.cardsnap.rest.exceptions.EntityNotFoundException;
+import no.ntnu.cardsnap.core.EntityAlreadyExistsException;
+import no.ntnu.cardsnap.core.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

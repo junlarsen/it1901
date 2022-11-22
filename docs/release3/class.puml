@@ -1,6 +1,6 @@
 @startuml
 
-class core.Card {
+class types.Card {
   - Card()
   + Card(UUID, String, String, UUID)
   - question: String
@@ -13,7 +13,7 @@ class core.Card {
   + getOwner(): UUID
 }
 
-class core.CardDeck {
+class types.CardDeck {
   - CardDeck()
   + CardDeck(UUID, String)
   - id: UUID
@@ -22,7 +22,7 @@ class core.CardDeck {
   + getName(): String
 }
 
-interface rest.AbstractCardDeckRepository {
+interface core.AbstractCardDeckRepository {
   + create(UUID, String): CardDeck
   + find(UUID): Optional<CardDeck>
   + delete(UUID, boolean): void
@@ -30,7 +30,7 @@ interface rest.AbstractCardDeckRepository {
   + all(): Set<CardDeck>
 }
 
-interface rest.AbstractCardDeckService {
+interface core.AbstractCardDeckService {
   + find(UUID): CardDeck
   + delete(UUID): void
   + list(int): List<CardDeck>
@@ -38,7 +38,7 @@ interface rest.AbstractCardDeckService {
   + create(String): CardDeck
 }
 
-interface rest.AbstractCardRepository {
+interface core.AbstractCardRepository {
   + create(UUID, String, String, UUID): Card
   + update(UUID, String, String, UUID): Optional<Card>
   + find(UUID, UUID): Optional<Card>
@@ -46,7 +46,7 @@ interface rest.AbstractCardRepository {
   + all(UUID): Set<Card>
 }
 
-interface rest.AbstractCardService {
+interface core.AbstractCardService {
   + create(String, String, UUID): Card
   + delete(UUID, UUID): void
   + update(UUID, String, String, UUID): Card
@@ -54,7 +54,7 @@ interface rest.AbstractCardService {
   + list(int, UUID): List<Card>
 }
 
-class rest.CardDeckRepository {
+class core.CardDeckRepository {
   + CardDeckRepository(JsonDatabase)
   - database: JsonDatabase
   + find(UUID): Optional<CardDeck>
@@ -64,7 +64,7 @@ class rest.CardDeckRepository {
   + all(): Set<CardDeck>
 }
 
-class rest.CardDeckService {
+class core.CardDeckService {
   + CardDeckService(AbstractCardDeckRepository)
   - repository: AbstractCardDeckRepository
   + find(UUID): CardDeck
@@ -74,7 +74,7 @@ class rest.CardDeckService {
   + delete(UUID): void
 }
 
-class rest.CardRepository {
+class core.CardRepository {
   + CardRepository(JsonDatabase)
   - database: JsonDatabase
   + create(UUID, String, String, UUID): Card
@@ -84,7 +84,7 @@ class rest.CardRepository {
   + delete(UUID, UUID): void
 }
 
-class rest.CardService {
+class core.CardService {
   + CardService(AbstractCardRepository)
   - repository: AbstractCardRepository
   + create(String, String, UUID): Card
@@ -101,9 +101,9 @@ class persistence.JsonDatabase {
   + query(Function<JsonModel, T>): T
 }
 
-rest.CardDeckRepository            -[dashed]-^  rest.AbstractCardDeckRepository
-rest.CardDeckService               -[dashed]-^  rest.AbstractCardDeckService
-rest.CardRepository                -[dashed]-^  rest.AbstractCardRepository
-rest.CardService                   -[dashed]-^  rest.AbstractCardService
+core.CardDeckRepository            -[dashed]-^  core.AbstractCardDeckRepository
+core.CardDeckService               -[dashed]-^  core.AbstractCardDeckService
+core.CardRepository                -[dashed]-^  core.AbstractCardRepository
+core.CardService                   -[dashed]-^  core.AbstractCardService
 
 @enduml

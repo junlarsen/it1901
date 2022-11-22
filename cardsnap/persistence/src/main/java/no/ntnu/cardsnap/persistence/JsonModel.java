@@ -2,8 +2,8 @@ package no.ntnu.cardsnap.persistence;
 
 import java.util.HashSet;
 import java.util.Set;
-import no.ntnu.cardsnap.core.Card;
-import no.ntnu.cardsnap.core.CardDeck;
+import no.ntnu.cardsnap.types.Card;
+import no.ntnu.cardsnap.types.CardDeck;
 
 /**
  * Model type which models something similar to database tables in a typical

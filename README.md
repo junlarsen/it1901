@@ -19,6 +19,7 @@ The main application source is found inside the [cardsnap](cardsnap) directory/
 [Release 3](docs/release3/README.md)
 
 [About](cardsnap/README.md)
+[JavaFX](cardsnap/fx/README.md)
 [Frontend](cardsnap/ui/README.md)
 [Backend](cardsnap/rest/README.md)
 
@@ -45,6 +46,9 @@ cd ui && yarn install
 # If you plan on running e2e tests, install playwright browsers
 # without this, the e2e test cannot run
 npx playwright install
+
+# Build a distributable with JPackage
+mvn -f fx/pom.xml javafx:jlink jpackage:jpackage
 ```
 
 ### Running the server and client applications
@@ -63,6 +67,9 @@ mvn -f rest/pom.xml spring-boot:run
 
 # Run the frontend application
 cd ui && yarn start
+
+# Run the JavaFX app
+mvn -f fx/pom.xml javafx:run
 ```
 
 The backend is now available on port `8080`, and the frontend application on
@@ -77,6 +84,7 @@ three different test runners.
 - Backend integration tests (with JUnit)
 - Frontend unit tests (with Vitest)
 - Frontend end-to-end tests (with Playwright)
+- JavaFX end-to-end tests (with JUnit & TestFX)
 
 Coverage of tests (apart from end-to-end tests) is collected with the following
 tools:

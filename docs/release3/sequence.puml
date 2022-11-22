@@ -3,20 +3,22 @@
 actor       User        as user
 participant Frontend    as frontend
 database    Rest        as rest
-participant Persistence as persistence
 participant Core        as core
+participant Persistence as persistence
+participant Types       as types
 
 alt Add card
 user -> frontend ++ : Create new Card 
 frontend -> rest ++ : POST(Localhost:8080/api/decks/{deckID}/cards/)
-rest -> rest : CardService.create("Question", "Answer", "deckID")
-rest -> rest : CardRepository.create("CardID","Question", "Answer", "Owner")
+rest -> core ++ : CardService.create("Question", "Answer", "deckID")
+rest -> core ++ : CardRepository.create("CardID","Question", "Answer", "Owner")
+core -> persistence ++ : JsonDatabase.mutation(new Card("CardID","Q","A","Owner"))
+persistence -> types ++ : new Card("CardID","Q","A","Owner")
 
-rest -> persistence ++ : JsonDatabase.mutation(new Card("CardID","Q","A","Owner"))
-persistence -> core ++ : new Card("CardID","Q","A","Owner")
-core -> persistence -- : Card
+types -> persistence -- : Card
 persistence -> persistence : JsonModel.add(Card)
-persistence -> rest  -- : Card
+persistence -> core  -- : Card
+core -> rest -- : Card
 rest -> frontend -- : 201 Created (Card)
 frontend -> user --: New card displayed
 end

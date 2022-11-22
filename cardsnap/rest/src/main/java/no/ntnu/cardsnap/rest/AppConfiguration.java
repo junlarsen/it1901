@@ -3,6 +3,7 @@ package no.ntnu.cardsnap.rest;
 import no.ntnu.cardsnap.persistence.DiskJsonModelStorage;
 import no.ntnu.cardsnap.persistence.JsonDatabase;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * components.
  */
 @Configuration(proxyBeanMethods = false)
+@ComponentScan(basePackages = "no.ntnu.cardsnap.rest")
 public class AppConfiguration {
   /**
    * Provide a bean producer for {@link JsonDatabase}

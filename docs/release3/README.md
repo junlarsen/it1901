@@ -13,6 +13,11 @@ We have also created a REST API with Java, based on our previous backend.
 The backend has got more functionality compared to the backend in
 our previous release.
 
+This means the JavaFX application has not received any new features, but the
+internals have been changed to use the same service layer as the REST API
+server application. Thus, the JavaFX application will not be as throughly 
+described in this document, because it was documented in the previous releases.
+
 The main motivator for moving to a React-based frontend is in an attempt to 
 learn as much as possible from the course. We already felt like we had a 
 fair understanding of how JavaFX works, and what we are able to do with it. 
@@ -33,7 +38,7 @@ The application now has a complete client-server architecture communicating over
 the HTTP protocol, using the representational state transfer (REST) server
 paradigm.
 
-### Frontend
+### Web Frontend
 
 The frontend is responsible for all user interaction within CardSnap, and it is
 thus important that it's quick to respond and easy to understand.
@@ -147,6 +152,47 @@ view of our frontend directory structure:
     └── routes.tsx  - Our React Router configuration which defines the routes for each page.
 ```
 
+## JavaFX Client
+
+This is the old JavaFX client we built for Release 2 during the second 
+sprint. It has not received any new features since, meaning its 
+functionality is limited to creating new card decks and cards.
+
+It has, however, received an internal change, making it communicate to the 
+shared use-case layer that the REST server talks to inside the `core` Maven 
+module.
+
+Because we were not able to complete TestFX integration tests for the second 
+release, these have now been added!
+
+#### Built with
+
+- [Java](https://www.java.com/en/)
+    - Modern Java, using Java 19
+- [JavaFX](https://openjfx.io/)
+    - A client application library for Java
+
+#### Dependencies
+
+- [JavaFX](https://openjfx.io/)
+- [Gson](https://github.com/google/gson)
+
+Apart from internal packages, there is only one dependency, being JavaFX. 
+Additionally, the JavaFX app transitively depends on the Gson library 
+because the persistence layer depends on it.
+
+#### Structure
+
+This is the file structure we ended up with for the REST API. It's
+relatively small and self-explanatory and it works great for applications of
+this size.
+
+```
+└── /fx
+    ├── /src/main/java/no/ntnu/cardsnap/fx - The App, Controller and utility to run the FX App
+    ├── /src/main/resources/no/ntnu/cardsnap/fx - FXML and CSS styling for the app
+```
+
 ## Backend
 
 The backend application is a refactor of the previous core layer in the JavaFX
@@ -172,15 +218,17 @@ displayed in rough terms in the following diagram:
 The four layers represented in Clean Architecture are implemented in our 
 application by:
 
-1. Entities: are defined in the `core` Maven module, a module containing 
+1. Entities: are defined in the `types` Maven module, a module containing 
    only domain types. These types have also been made immutable to reduce 
    bugs by altering types in-memory without storing them back to the 
    persistence layer.
 2. Use cases: are defined through actions in the service layer. These define 
    the actions the client or use have at their availability. The service 
    layer will also call into the repository layer which will interact with 
-   the `persistence` Maven module.
-3. Gateway: the gateway layer is implemented through the Spring Controllers.
+   the `persistence` Maven module. The use case layer is built in the `core` 
+   Maven module.
+3. Gateway: the gateway layer is implemented through the Spring Controllers 
+   in the `rest` Maven module
 4. External interfaces: are the consumers of the gateway level, in our case, 
    the frontend application.
 
@@ -244,14 +292,13 @@ this size.
 
 ```
 └── /core
-    ├── /src/main/java/no/ntnu/cardsnap/core - Contains domain entity types. 
+    ├── /src/main/java/no/ntnu/cardsnap/core - Contains domain use-cases 
 └── /persistence
     ├── /src/main/java/no/ntnu/cardsnap/persistence - Contains logic for persisting our domain types, as well as a database abstraction. 
 └── /rest
-    ├── /src/main/java/no/ntnu/cardsnap/rest - Contains main Spring app, configuration and controller advices.
-    ├── /src/main/java/no/ntnu/cardsnap/rest/controllers - Contains Spring Controllers
-    ├── /src/main/java/no/ntnu/cardsnap/rest/services - Contains abstract definitions of services with Spring component implementation
-    ├── /src/main/java/no/ntnu/cardsnap/rest/repositories - Contains abstract definitions of repositories with Spring component implementation
+    ├── /src/main/java/no/ntnu/cardsnap/rest - Contains main Spring app, configuration and controllers
+└── /types
+    ├── /src/main/java/no/ntnu/cardsnap/types - Contains domain entity types 
 ```
 
 ## Testing & Tooling
@@ -269,6 +316,8 @@ following types of tests and test suites:
    React components (with Vitest Snapshot tests)
 4. Frontend end-to-end tests: complete end-to-end automated browser tests, 
    testing the entire system using Playwright (alternative to Cypress).
+5. JavaFX end-to-end tests: complete end-to-end automated tests, testing the 
+   (limited) functionality of the JavaFX app using TestFX.
 
 The unit tests are written to cover most common use cases. Due to time 
 limitations we have not been able to cover all edge cases in the system, but 
